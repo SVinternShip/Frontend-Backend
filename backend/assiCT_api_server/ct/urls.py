@@ -1,5 +1,6 @@
 from django.urls import path
+from . import views
 
 urlpatterns = [
-    #    path('', ),
+    path('fileUpload', views.dicom_file_upload),
 ]

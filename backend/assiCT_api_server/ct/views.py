@@ -1,3 +1,32 @@
-from django.shortcuts import render
+from rest_framework.decorators import api_view
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse, JsonResponse
+import requests
 
-# Create your views here.
+def make_dicom_request(files):
+    url = ''
+    payload = {}
+    response_files_list = []
+    print("===="*10)
+    for idx, file in enumerate(files):
+        #file = request.FILES.getlist("file")[idx]
+        print(file)
+        filename = file._name
+        print(filename)
+        #response_files_list.append(
+        #    ('file', (filename, open('/Users/joonhyoungjeon/Downloads/ver_2.png', 'rb'), 'image/png')),
+        #)
+    #response = requests.request("POST", url, data=payload, files=files)
+    response = "good"
+
+@api_view(['POST'])
+@csrf_exempt
+def dicom_file_upload(request):
+  pw = request.data
+  if request.method == 'POST':
+      print(pw)
+      print(request.META['CONTENT_TYPE'])
+      print(request.FILES)
+      response = make_dicom_request(request.FILES.getlist("file"))
+  return HttpResponse("response")
+
