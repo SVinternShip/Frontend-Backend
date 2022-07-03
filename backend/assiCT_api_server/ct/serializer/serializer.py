@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from backend.assiCT_api_server.ct.models.patientResult import PatientResult
-from backend.assiCT_api_server.ct.models.ctResult import CtResult
+from ..models.patientResult import PatientResult
+from ..models.ctResult import CtResult
 
 
 class CtResultSerializer(serializers.ModelSerializer):
@@ -10,7 +10,7 @@ class CtResultSerializer(serializers.ModelSerializer):
 
 
 class PatientResultSerializer(serializers.ModelSerializer):
-    sub_images = CtResultSerializer(many=True)
+    sub_images = CtResultSerializer(many=True, required=False)
 
     class Meta:
         model = PatientResult

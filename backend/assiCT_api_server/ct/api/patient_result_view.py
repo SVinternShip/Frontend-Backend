@@ -1,36 +1,49 @@
 from django.views import View
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
+from django.http import Http404
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 from ..models.patientResult import PatientResult
+from ..serializer.serializer import PatientResultSerializer
 
 
-class PatientResultBaseView(View):
-    model = PatientResult
-    fields = '__all__'
-    success_url = reverse_lazy('films:all')
+class PatientResultList(APIView):
+
+    def get(self, request):
+        patient_result_list = PatientResult.objects.all()
+        serializer = PatientResultSerializer(patient_result_list, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = PatientResultSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class FilmListView(PatientResultBaseView, ListView):
-    """View to list all films.
-    Use the 'film_list' variable in the template
-    to access all Film objects"""
+class PatientResultDetail(APIView):
 
+    def get_object(self, id):
+        try:
+            return PatientResult.objects.get(pk=id)
+        except PatientResult.DoesNotExist:
+            raise Http404
 
-class FilmDetailView(PatientResultBaseView, DetailView):
-    """View to list the details from one film.
-    Use the 'film' variable in the template to access
-    the specific film here and in the Views below"""
+    def get(self, request, id):
+        patient_result = self.get_object(id)
+        serializer = PatientResultSerializer(patient_result)
+        return Response(serializer.data)
 
+    def put(self, request, id):
+        patient_result = self.get_object(id)
+        serializer = PatientResultSerializer(patient_result, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class FilmCreateView(PatientResultBaseView, CreateView):
-    """View to create a new film"""
-
-
-class FilmUpdateView(PatientResultBaseView, UpdateView):
-    """View to update a film"""
-
-
-class FilmDeleteView(PatientResultBaseView, DeleteView):
-    """View to delete a film"""
+    def delete(self, request, id):
+        patient_result = self.get_object(id)
+        patient_result.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
