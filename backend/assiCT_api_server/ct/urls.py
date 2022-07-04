@@ -1,9 +1,12 @@
 from django.urls import path
-from .api import file_upload
+from .api import file
 from .api import patient_result_view
+from .api import ct_result_view
 
 urlpatterns = [
-    path('fileUpload', file_upload.dicom_file_upload),
+    path('fileUpload', file.dicom_file_upload),
     path('patientResult', patient_result_view.PatientResultList.as_view()),
     path('patientResult/<int:id>', patient_result_view.PatientResultDetail.as_view()),
+    path('ctResult', ct_result_view.CTResultList.as_view()),
+    path('ctResult/<int:id>', ct_result_view.CTResultDetail.as_view()),
 ]

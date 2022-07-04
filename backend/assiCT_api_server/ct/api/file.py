@@ -26,3 +26,11 @@ def dicom_file_upload(request):
       response = make_dicom_request(request.FILES.getlist("file"))
   return HttpResponse("response")
 
+
+@api_view(['GET'])
+@csrf_exempt
+def dicom_file_upload(request):
+  if request.method == 'POST':
+      response = make_dicom_request(request.FILES.getlist("file"))
+  return HttpResponse("response")
+

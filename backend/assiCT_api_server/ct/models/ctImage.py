@@ -1,12 +1,8 @@
 from django.db import models
-from . import CtResult
 
 
-class OriginalImage(models.Model):
-    imgUrl = models.CharField(max_length=128)
-    ct_result = models.OneToOneField(CtResult, on_delete=models.CASCADE)
+class CtImage(models.Model):
+    original_imgUrl = models.CharField(max_length=128)
+    lime_imgUrl = models.CharField(max_length=128)
 
 
-class LimeImage(models.Model):
-    imgUrl = models.CharField(max_length=128)
-    ct_result = models.OneToOneField(CtResult, on_delete=models.CASCADE)
