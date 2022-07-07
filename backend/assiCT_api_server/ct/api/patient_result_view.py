@@ -30,20 +30,20 @@ class PatientResultDetail(APIView):
         except PatientResult.DoesNotExist:
             raise Http404
 
-    def get(self, request, id):
-        patient_result = self.get_object(id)
+    def get(self, request, patient_result_id):
+        patient_result = self.get_object(patient_result_id)
         serializer = PatientResultSerializer(patient_result)
         return Response(serializer.data)
 
-    def put(self, request, id):
-        patient_result = self.get_object(id)
+    def put(self, request, patient_result_id):
+        patient_result = self.get_object(patient_result_id)
         serializer = PatientResultSerializer(patient_result, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, id):
-        patient_result = self.get_object(id)
+    def delete(self, request, patient_result_id):
+        patient_result = self.get_object(patient_result_id)
         patient_result.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
