@@ -5,3 +5,5 @@ db.sqlite3
 .env
 .env_local
 gc_connect.json
+.env*
+gc_connect.json

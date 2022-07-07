@@ -12,9 +12,6 @@ from ..models.ctResult import CtResult
 from ..models.patientResult import PatientResult
 from ..serializer.serializer import CtResultSerializer
 
-os.environ[
-    "GOOGLE_APPLICATION_CREDENTIALS"] = '/Users/USER/Downloads/t-decoder-355305-138dc6c2ed2f.json'
-
 bucket_name = 'sv_internship_image'  # 서비스 계정 생성한 bucket 이름 입력
 storage_client = storage.Client()
 bucket = storage_client.bucket(bucket_name)
@@ -31,7 +28,7 @@ def get_original_result_image(request, id):
         blob.download_to_file(fp)
         fp.seek(0)
         original_file_name = original_file_name.split('_')[2:]
-        fileResponse = FileResponse(fp, filename=original_file_name)
+        fileResponse = FileResponse(fp, filename=original_file_name[0])
         return fileResponse
 
 
@@ -46,7 +43,7 @@ def get_lime_result_image(request, id):
         blob.download_to_file(fp)
         fp.seek(0)
         lime_file_name = lime_file_name.split('_')[2:]
-        fileResponse = FileResponse(fp, filename=lime_file_name)
+        fileResponse = FileResponse(fp, filename=lime_file_name[0])
         return fileResponse
 
 
@@ -69,12 +66,12 @@ class PredictResult(APIView):
         lime_img = request.FILES['lime_image']
 
         # GCP에 업로드할 파일 절대경로
-        original_img_name = str(date.today()) + 'original_' + str(original_img.name)  # 업로드할 파일을 GCP에 저장할 때의 이름
+        original_img_name = str(date.today()) + '_original_' + str(original_img.name)  # 업로드할 파일을 GCP에 저장할 때의 이름
 
         blob = bucket.blob(original_img_name)
         blob.upload_from_file(original_img.file)
 
-        lime_img_name = str(date.today()) + 'lime_' + str(lime_img.name)  # 업로드할 파일을 GCP에 저장할 때의 이름
+        lime_img_name = str(date.today()) + '_lime_' + str(lime_img.name)  # 업로드할 파일을 GCP에 저장할 때의 이름
 
         blob = bucket.blob(lime_img_name)
         blob.upload_from_file(lime_img.file)
