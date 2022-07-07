@@ -77,7 +77,7 @@ function SignIn() {
               color={textColor}
               fontWeight='bold'
               fontSize='14px'>
-              Enter your email and password to sign in
+              Enter your ID and password to sign in
             </Text>
             <FormControl>
               <FormLabel
@@ -85,7 +85,7 @@ function SignIn() {
                 fontSize='sm'
                 fontWeight='normal'
                 color='white'>
-                Email
+                User ID
               </FormLabel>
               <GradientBorder
                 mb='24px'
@@ -101,7 +101,7 @@ function SignIn() {
                   w={{ base: "100%", md: "346px" }}
                   maxW='100%'
                   h='46px'
-                  placeholder='Your email adress'
+                  placeholder='Your user ID'
                 />
               </GradientBorder>
             </FormControl>
@@ -203,7 +203,7 @@ function SignIn() {
               fontWeight='bold'
               bgClip='text !important'
               bg='linear-gradient(94.56deg, #FFFFFF 79.99%, #21242F 102.65%)'>
-              THE VISION UI DASHBOARD
+              AssiCT
             </Text>
           </Box>
         </Box>
