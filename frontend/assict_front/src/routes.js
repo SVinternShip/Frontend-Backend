@@ -17,7 +17,7 @@
 */
 
 // import
-//import Tables from "views/Dashboard/Tables.js";
+import Tables from "./views/Dashboard/Tables.js";
 //import Profile from "views/Dashboard/Profile.js";
 import SignIn from "./components/Sign/SignIn.js";
 import SignUp from "./components/Sign/SignUp.js";
@@ -31,6 +31,15 @@ import {
 } from "./components/Icons/Icons";
 
 var dashRoutes = [
+    {
+    path: "/tables",
+    name: "Tables",
+    rtlName: "لوحة القيادة",
+    icon: <StatsIcon color='inherit' />,
+    component: Tables,
+    layout: "/home",
+  },
+
   {
     name: "ACCOUNT PAGES",
     category: "account",
@@ -43,7 +52,7 @@ var dashRoutes = [
         rtlName: "لوحة القيادة",
         icon: <DocumentIcon color='inherit' />,
         component: SignIn,
-        layout: "/auth",
+        layout: "/home",
       },
       {
         path: "/signup",
@@ -52,7 +61,7 @@ var dashRoutes = [
         icon: <RocketIcon color='inherit' />,
         secondaryNavbar: true,
         component: SignUp,
-        layout: "/auth",
+        layout: "/home",
       },
     ],
   },
