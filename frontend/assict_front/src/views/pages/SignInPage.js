@@ -10,12 +10,6 @@ function SignInPage(){
     return(
         <ChakraProvider theme={theme} resetCss={false} w='100%'>
             <Box ref={navRef} w='100%'>
-                <Portal containerRef={navRef}>
-                    <AuthNavbar
-                        secondary={false}
-                        logoText='VISION UI FREE'
-                    />
-                </Portal>
                 <Box w='100%'>
                     <Box ref={wrapper} w='100%'>
                         <SignIn/>
