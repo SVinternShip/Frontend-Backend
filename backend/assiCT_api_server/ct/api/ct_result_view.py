@@ -13,7 +13,7 @@ from ..models.patientResult import PatientResult
 from ..serializer.serializer import CtResultSerializer
 
 os.environ[
-    "GOOGLE_APPLICATION_CREDENTIALS"] = '/Users/joonhyoungjeon/Documents/GitHub/Frontend-Backend/backend/assiCT_api_server/ct/api/t-decoder-355305-138dc6c2ed2f.json'
+    "GOOGLE_APPLICATION_CREDENTIALS"] = '/Users/USER/Downloads/t-decoder-355305-138dc6c2ed2f.json'
 
 bucket_name = 'sv_internship_image'  # 서비스 계정 생성한 bucket 이름 입력
 storage_client = storage.Client()
