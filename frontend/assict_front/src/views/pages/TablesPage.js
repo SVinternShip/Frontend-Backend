@@ -11,7 +11,6 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import routes from "../../routes.js";
 // Custom Chakra theme
 import theme from "../../theme/themeAdmin.js";
-import FixedPlugin from "../../components/FixedPlugin/FixedPlugin";
 // Custom components
 import MainPanel from "../../components/Layout/MainPanel";
 import PanelContainer from "../../components/Layout/PanelContainer";
@@ -60,7 +59,7 @@ function TablesPage(props){
                 </PanelContainer>
               </PanelContent>
             <Footer />
-            
+
             <Configurator
               secondary={false} //
               isOpen={isOpen}
