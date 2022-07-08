@@ -105,14 +105,14 @@ function SignUp() {
 
               <HStack spacing='15px' justify='center' mb='22px'>
               </HStack>
-              
+
               <FormControl>
                 <FormLabel
                   color={titleColor}
                   ms='4px'
                   fontSize='sm'
                   fontWeight='normal'>
-                  Name
+                  Hospital Code
                 </FormLabel>
 
                 <GradientBorder
@@ -133,7 +133,7 @@ function SignUp() {
                     maxW='100%'
                     h='46px'
                     type='text'
-                    placeholder='Your name'
+                    placeholder='Your hospital code'
                   />
                 </GradientBorder>
                 <FormLabel
@@ -141,7 +141,7 @@ function SignUp() {
                   ms='4px'
                   fontSize='sm'
                   fontWeight='normal'>
-                  Email
+                  ID
                 </FormLabel>
                 <GradientBorder
                   mb='24px'
@@ -161,7 +161,7 @@ function SignUp() {
                     maxW='100%'
                     h='46px'
                     type='email'
-                    placeholder='Your email address'
+                    placeholder='Your ID'
                   />
                 </GradientBorder>
                 <FormLabel
@@ -192,19 +192,7 @@ function SignUp() {
                     placeholder='Your password'
                   />
                 </GradientBorder>
-                <FormControl display='flex' alignItems='center' mb='24px'>
-                  <DarkMode>
-                    <Switch id='remember-login' colorScheme='brand' me='10px' />
-                  </DarkMode>
 
-                  <FormLabel
-                    color={titleColor}
-                    htmlFor='remember-login'
-                    mb='0'
-                    fontWeight='normal'>
-                    Remember me
-                  </FormLabel>
-                </FormControl>
                 <Button
                   variant='brand'
                   fontSize='10px'
@@ -271,7 +259,7 @@ function SignUp() {
               letterSpacing='8px'
               fontSize='20px'
               fontWeight='500'>
-              INSPIRED BY THE FUTURE:
+              YOUR PERSONAL ASSISTANT
             </Text>
             <Text
               textAlign='center'
@@ -281,7 +269,7 @@ function SignUp() {
               fontWeight='bold'
               bgClip='text !important'
               bg='linear-gradient(94.56deg, #FFFFFF 79.99%, #21242F 102.65%)'>
-              THE VISION UI DASHBOARD
+              AssiCT
             </Text>
           </Box>
         </Box>
