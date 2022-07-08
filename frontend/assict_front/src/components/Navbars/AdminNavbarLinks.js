@@ -58,10 +58,10 @@ export default function HeaderLinks(props) {
           md: "200px",
         }}
         me={{ sm: "auto", md: "20px" }}>
-        
+
 
       </InputGroup>
-      <NavLink to='/auth/signin'>
+      <NavLink to='/home/signin'>
         <Button
           ms='0px'
           px='0px'
@@ -82,7 +82,7 @@ export default function HeaderLinks(props) {
               ""
             )
           }>
-          <Text display={{ sm: "none", md: "flex" }}>Sign In</Text>
+          <Text display={{ sm: "none", md: "flex" }}>Sign Out</Text>
         </Button>
       </NavLink>
       <SidebarResponsive
