@@ -53,11 +53,13 @@ def get_ct_result_object(id):
     except CtResult.DoesNotExist:
         raise Http404
 
+
 def get_patient_result_object(id):
     try:
         return PatientResult.objects.get(pk=id)
     except PatientResult.DoesNotExist:
         raise Http404
+
 
 class PredictResult(APIView):
 

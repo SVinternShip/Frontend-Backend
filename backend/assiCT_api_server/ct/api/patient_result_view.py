@@ -1,12 +1,14 @@
 from django.views import View
 from django.http import Http404
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from ..models.patientResult import PatientResult
 from ..serializer.serializer import PatientResultSerializer
 
-
+@permission_classes([IsAuthenticated])
 class PatientResultList(APIView):
 
     def get(self, request):
@@ -22,6 +24,7 @@ class PatientResultList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@permission_classes([IsAuthenticated])
 class PatientResultDetail(APIView):
 
     def get_object(self, id):
