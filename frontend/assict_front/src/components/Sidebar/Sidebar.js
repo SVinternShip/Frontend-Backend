@@ -242,7 +242,7 @@ function Sidebar(props) {
           <Stack direction='column' mb='40px'>
             <Box>{links}</Box>
           </Stack>
-          <SidebarHelp></SidebarHelp>
+          
         </Box>
       </Box>
     </Box>

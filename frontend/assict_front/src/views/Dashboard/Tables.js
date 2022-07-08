@@ -48,11 +48,11 @@ import { AiFillCheckCircle } from "react-icons/ai";
 function Tables() {
   return (
     <Flex direction='column' pt={{ base: "120px", md: "75px" }}>
-      {/* Authors Table */}
+      {/* Previous Results Table */}
       <Card overflowX={{ sm: "scroll", xl: "hidden" }} pb='0px'>
         <CardHeader p='6px 0px 22px 0px'>
           <Text fontSize='lg' color='#fff' fontWeight='bold'>
-            Authors Table
+            Previous Results
           </Text>
         </CardHeader>
         <CardBody>
@@ -64,13 +64,13 @@ function Tables() {
                   color='gray.400'
                   fontFamily='Plus Jakarta Display'
                   borderBottomColor='#56577A'>
-                  Author
+                  COL1 - edit
                 </Th>
                 <Th
                   color='gray.400'
                   fontFamily='Plus Jakarta Display'
                   borderBottomColor='#56577A'>
-                  Function
+                  COL2 - edit
                 </Th>
                 <Th
                   color='gray.400'
@@ -82,7 +82,7 @@ function Tables() {
                   color='gray.400'
                   fontFamily='Plus Jakarta Display'
                   borderBottomColor='#56577A'>
-                  Employed
+                  COL4 - edit
                 </Th>
                 <Th borderBottomColor='#56577A'></Th>
               </Tr>
@@ -111,22 +111,10 @@ function Tables() {
         <CardHeader p='6px 0px 22px 0px'>
           <Flex direction='column'>
             <Text fontSize='lg' color='#fff' fontWeight='bold' mb='.5rem'>
-              Projects Table
+              CT Result
             </Text>
             <Flex align='center'>
-              <Icon
-                as={AiFillCheckCircle}
-                color='green.500'
-                w='15px'
-                h='15px'
-                me='5px'
-              />
-              <Text fontSize='sm' color='gray.400' fontWeight='normal'>
-                <Text fontWeight='bold' as='span' color='gray.400'>
-                  +30%
-                </Text>{" "}
-                this month
-              </Text>
+
             </Flex>
           </Flex>
         </CardHeader>
@@ -139,13 +127,13 @@ function Tables() {
                   color='gray.400'
                   fontFamily='Plus Jakarta Display'
                   borderBottomColor='#56577A'>
-                  Companies
+                  COL1 - edit
                 </Th>
                 <Th
                   color='gray.400'
                   fontFamily='Plus Jakarta Display'
                   borderBottomColor='#56577A'>
-                  Budget
+                  COL2 - edit
                 </Th>
                 <Th
                   color='gray.400'
@@ -157,7 +145,7 @@ function Tables() {
                   color='gray.400'
                   fontFamily='Plus Jakarta Display'
                   borderBottomColor='#56577A'>
-                  Completion
+                  cerebral hemorrhage
                 </Th>
                 <Th borderBottomColor='#56577A'></Th>
               </Tr>

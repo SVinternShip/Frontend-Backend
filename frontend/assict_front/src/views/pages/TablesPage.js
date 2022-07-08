@@ -33,7 +33,7 @@ function TablesPage(props){
         <ChakraProvider theme={theme} resetCss={false}>
           <Sidebar
               routes={dashRoutes}
-              logoText={"VISION UI FREE"}
+              logoText={"YOUR PERSONAL ASSISTANT"}
               display='none'
               sidebarVariant={sidebarVariant}
               {...rest}
@@ -47,8 +47,8 @@ function TablesPage(props){
             <Portal>
               <AdminNavbar
                 onOpen={onOpen}
-                logoText={"VISION UI FREE"}
-                brandText={''} //제목 들어갈 부분
+                logoText={"YOUR PERSONAL ASSISTANT"}
+                brandText={'AssiCT'} //제목 들어갈 부분
                 secondary={false}
                 fixed={fixed}
                 {...rest}

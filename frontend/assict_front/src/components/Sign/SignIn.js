@@ -193,7 +193,7 @@ function SignIn() {
               letterSpacing='8px'
               fontSize='20px'
               fontWeight='500'>
-              INSPIRED BY THE FUTURE:
+              YOUR PERSONAL ASSISTANT:
             </Text>
             <Text
               textAlign='center'

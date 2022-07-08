@@ -58,20 +58,6 @@ export const dashboardTableData = [
     budget: "$32,000",
     progression: 100,
   },
-  {
-    logo: JiraLogo,
-    name: "Add the New Pricing Page",
-    members: [avatar10, avatar3, avatar7, avatar2, avatar8],
-    budget: "$400",
-    progression: 25,
-  },
-  {
-    logo: InvisionLogo,
-    name: "Redesign New Online Shop",
-    members: [avatar9, avatar3, avatar2],
-    budget: "$7,600",
-    progression: 40,
-  },
 ];
 
 export const timelineData = [
@@ -92,18 +78,6 @@ export const timelineData = [
     title: "Server Payments for April",
     date: "21 DEC 9:28 PM",
     color: "blue.400",
-  },
-  {
-    logo: FaCreditCard,
-    title: "New card added for order #3210145",
-    date: "20 DEC 3:52 PM",
-    color: "orange.300",
-  },
-  {
-    logo: SiDropbox,
-    title: "Unlock packages for Development",
-    date: "19 DEC 11:35 PM",
-    color: "purple",
   },
   {
     logo: AdobexdLogo,
@@ -134,20 +108,6 @@ export const rtlDashboardTableData = [
     progression: 100,
   },
   {
-    logo: SpotifyLogo,
-    name: "إطلاق تطبيق الهاتف المحمول الخاص بنا",
-    members: [avatar2, avatar3, avatar7, avatar8],
-    budget: "$32,000",
-    progression: 100,
-  },
-  {
-    logo: JiraLogo,
-    name: "أضف صفحة التسعير الجديدة",
-    members: [avatar10, avatar3, avatar7, avatar2, avatar8],
-    budget: "$400",
-    progression: 25,
-  },
-  {
     logo: InvisionLogo,
     name: "إعادة تصميم متجر جديد على الإنترنت",
     members: [avatar9, avatar3, avatar2],
@@ -174,18 +134,6 @@ export const rtlTimelineData = [
     title: "مدفوعات الخادم لشهر أبريل",
     date: "21 DEC 9:28 PM",
     color: "blue.400",
-  },
-  {
-    logo: FaCreditCard,
-    title: "تمت إضافة بطاقة جديدة للطلب #3210145",
-    date: "20 DEC 3:52 PM",
-    color: "orange.300",
-  },
-  {
-    logo: SiDropbox,
-    title: "فتح الحزم من أجل التنمية",
-    date: "19 DEC 11:35 PM",
-    color: "purple",
   },
   {
     logo: AdobexdLogo,
@@ -230,24 +178,6 @@ export const tablesTableData = [
     domain: "Organization",
     status: "Online",
     date: "14/11/21",
-  },
-  {
-    logo: avatar5,
-    name: "Daniel Thomas",
-    email: "daniel@simmmple.com",
-    subdomain: "Programmer",
-    domain: "Developer",
-    status: "Offline",
-    date: "21/01/21",
-  },
-  {
-    logo: avatar7,
-    name: "Mark Wilson",
-    email: "mark@simmmple.com",
-    subdomain: "Designer",
-    domain: "UI/UX Design",
-    status: "Offline",
-    date: "04/09/20",
   },
 ];
 
