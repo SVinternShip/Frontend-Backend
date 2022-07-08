@@ -10,7 +10,6 @@ function SignUpPage(){
     return(
         <ChakraProvider theme={theme} resetCss={false} w='100%'>
             <Box ref={navRef} w='100%'>
-                
                 <Box w='100%'>
                     <Box ref={wrapper} w='100%'>
                         <SignUp/>
