@@ -60,13 +60,7 @@ function TablesPage(props){
                 </PanelContainer>
               </PanelContent>
             <Footer />
-            <Portal>
-              <FixedPlugin
-                secondary={false} //
-                fixed={fixed}
-                onOpen={onOpen}
-              />
-            </Portal>
+            
             <Configurator
               secondary={false} //
               isOpen={isOpen}

@@ -35,7 +35,7 @@ export default function FixedPlugin(props) {
   const settingsRef = React.useRef();
   return (
     <>
-      
+
     </>
   );
 }
