@@ -17,19 +17,19 @@ import datetime
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+env = environ.Env()
+environ.Env.read_env(BASE_DIR / '.env_local')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# ToDo: .env로 따로 빼기
-SECRET_KEY = 'django-insecure-3-wy+_0xk-fw3&*z_(lc@yiiopjld17ngl)m=w=)xfmc&50aca'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# ToDo: .env로 따로 빼기
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [env('ALLOWED_HOSTS')]
 
 # Application definition
 
@@ -92,10 +92,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-env = environ.Env()
-environ.Env.read_env(BASE_DIR / '.env_local')
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = f'{BASE_DIR}/gc_connect.json'
 
 DATABASES = {
     'default': {
