@@ -1,6 +1,7 @@
 from django.http import Http404, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 from ..models import PatientResult
 
@@ -29,7 +30,7 @@ def get_object(id):
 
 
 @api_view(['POST'])
-@csrf_exempt
+@permission_classes([IsAuthenticated])
 def dicom_file_upload(request, patient_result_id):
     if request.method == 'POST':
         patient_result = get_object(patient_result_id)
