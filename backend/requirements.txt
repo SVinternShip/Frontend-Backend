@@ -4,8 +4,7 @@ djangorestframework==3.13.1
 django-environ
 google-cloud-storage
 django-cors-headers
-
-djangorestframework-simplejwt
+djangorestframework-jwt
 django-rest-authtoken
 django-rest-auth
 django-allauth
