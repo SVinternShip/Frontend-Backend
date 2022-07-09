@@ -19,14 +19,13 @@ storage_client = storage.Client()
 bucket = storage_client.bucket(bucket_name)
 
 
-@permission_classes([IsAuthenticated])
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_original_result_image(request, id):
     if request.method == 'GET':
         CtResult = get_ct_result_object(id)
         original_file_name = CtResult.ct_img.original_imgUrl
         blob = bucket.blob(original_file_name)
-        print(blob.exists())
         fp = tempfile.TemporaryFile()
         blob.download_to_file(fp)
         fp.seek(0)
@@ -35,14 +34,13 @@ def get_original_result_image(request, id):
         return fileResponse
 
 
-@permission_classes([IsAuthenticated])
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_lime_result_image(request, id):
     if request.method == 'GET':
         CtResult = get_ct_result_object(id)
         lime_file_name = CtResult.ct_img.lime_imgUrl
         blob = bucket.blob(lime_file_name)
-        print(blob.exists())
         fp = tempfile.TemporaryFile()
         blob.download_to_file(fp)
         fp.seek(0)
