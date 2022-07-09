@@ -1,4 +1,4 @@
-from django.http import HttpResponse, Http404
+from django.http import Http404, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 
@@ -35,4 +35,6 @@ def dicom_file_upload(request, patient_result_id):
         patient_result = get_object(patient_result_id)
         patient_result.increase_total_dcm()
         response = make_dicom_request(request.FILES.getlist("file"))
-    return HttpResponse("response")
+    return JsonResponse({
+        'task_id':'task_id'
+    })

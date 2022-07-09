@@ -1,6 +1,5 @@
 import os
 import tempfile
-
 from django.http import Http404, FileResponse
 from google.cloud import storage
 from rest_framework import status
@@ -11,12 +10,15 @@ from datetime import date
 from ..models.ctResult import CtResult
 from ..models.patientResult import PatientResult
 from ..serializer.serializer import CtResultSerializer
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 bucket_name = 'sv_internship_image'  # 서비스 계정 생성한 bucket 이름 입력
 storage_client = storage.Client()
 bucket = storage_client.bucket(bucket_name)
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def get_original_result_image(request, id):
     if request.method == 'GET':
@@ -32,6 +34,7 @@ def get_original_result_image(request, id):
         return fileResponse
 
 
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def get_lime_result_image(request, id):
     if request.method == 'GET':
@@ -92,11 +95,13 @@ class PredictResult(APIView):
 
 class CTResultDetail(APIView):
 
+    @permission_classes([IsAuthenticated])
     def get(self, request, id):
         ct_result = get_ct_result_object(id)
         serializer = CtResultSerializer(ct_result)
         return Response(serializer.data)
 
+    @permission_classes([IsAuthenticated])
     def put(self, request, id):
         ct_result = get_ct_result_object(id)
         serializer = CtResultSerializer(ct_result, data=request.data)
@@ -105,6 +110,7 @@ class CTResultDetail(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @permission_classes([IsAuthenticated])
     def delete(self, request, id):
         ct_result = get_ct_result_object(id)
         ct_result.delete()
