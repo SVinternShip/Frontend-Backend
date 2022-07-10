@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 // Chakra imports
 import {
@@ -13,6 +13,8 @@ import {
   Tr,
   Spacer,
   SimpleGrid,
+  ChakraProvider,
+    Portal,
 } from "@chakra-ui/react";
 
 import medusa from "../../assets/img/cardimgfree.png";
@@ -20,59 +22,66 @@ import medusa from "../../assets/img/cardimgfree.png";
 import Card from "../../components/Card/Card.js";
 import CardHeader from "../../components/Card/CardHeader.js";
 import CardBody from "../../components/Card/CardBody.js";
+import Sidebar from "../../components/Sidebar/Sidebar.js";
+import MainPanel from "../../components/Layout/MainPanel";
+import PanelContainer from "../../components/Layout/PanelContainer";
+import PanelContent from "../../components/Layout/PanelContent";
 
-// Table Components
-import TablesProjectRow from "../../components/Tables/TablesProjectRow";
-import TablesTableRow from "../../components/Tables/TablesTableRow";
-import {tablesProjectData, tablesTableData} from "../../variables/general";
+import theme from "../../theme/themeAdmin";
 
-function FileUpload() {
+import dashRoutes from "../../routes";
+import Configurator from "../Configurator/Configurator";
+import AdminNavbar from "../Navbars/AdminNavbar";
+
+function FileUpload(props) {
+  const [sidebarVariant, setSidebarVariant] = useState("transparent");
+  const [fixed, setFixed] = useState(false);
+  const { logoText, routes, variant, children, secondary, brandText, onOpen, isOpen, onClose, ...rest} = props;
+  const mainPanel = React.useRef();
   return (
-    <Flex minH='100vh'
-        h={{ base: "100vh", lg: "fit-content" }}
-        w='100%'
-        maxW='1044px'
-        mx='auto'
-        pt={{ sm: "100px", md: "0px" }}
-        flexDirection='column'
-        me={{ base: "auto", lg: "50px", xl: "auto" }}>
-        <Card
+    <ChakraProvider theme={theme} resetCss={false}>
+        <Sidebar
+            routes={dashRoutes}
+            logoText={"YOUR PERSONAL ASSISTANT"}
+            display='none'
+            sidebarVariant={sidebarVariant}
+            {...rest}
+        />
+        <MainPanel ref={mainPanel}
+                   w={{
+                       base: "100%",
+                       xl: "calc(100% - 275px)",
+                   }}>
+            <Portal>
+              <AdminNavbar
+                onOpen={onOpen}
+                logoText={"YOUR PERSONAL ASSISTANT"}
+                brandText={'AssiCT'} //제목 들어갈 부분
+                secondary={false}
+                fixed={fixed}
+                {...rest}
+              />
+            </Portal>
 
-          p='0px'
-          gridArea={{ md: "1 / 1 / 2 / 3", "2xl": "auto" }}
-          bgImage={medusa}
-          bgSize='cover'
-          bgPosition='100%'
-      >
-
-          <CardBody >
-
-              <Flex
-                flexDirection='column'
-
-                p='22px'
-                minW='60%'
-                lineHeight='1.6'>
-                <Text fontSize='sm' color='gray.400' fontWeight='bold'>
-
-                </Text>
-                <Text fontSize='28px' color='#fff' fontWeight='bold' mb='18px'>
-                  Upload Files
-                </Text>
-                <Text
-                  fontSize='md'
-                  color='gray.400'
-                  fontWeight='normal'
-                  mb='auto'>
-                  Drag files inside here
-                </Text>
-              </Flex>
-
-          </CardBody>
-        </Card>
+            <PanelContent>
+                <PanelContainer>
 
 
-    </Flex>
+                </PanelContainer>
+            </PanelContent>
+            <Configurator
+                secondary={false} //
+                isOpen={isOpen}
+                onClose={onClose}
+                isChecked={fixed}
+                onSwitch={(value) => {
+                    setFixed(value);
+                }}
+                onOpaque={() => setSidebarVariant("opaque")}
+                onTransparent={() => setSidebarVariant("transparent")}
+            />
+            </MainPanel>
+    </ChakraProvider>
   );
 }
 
