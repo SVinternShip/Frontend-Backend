@@ -9,7 +9,7 @@ services:
       - "8000:8000"
   frontend:
     build:
-      context: frontend
+      context: frontend/assict_front
     volumes:
       - build_folder:/frontend/build
   nginx:
