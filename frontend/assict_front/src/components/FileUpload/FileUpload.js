@@ -26,6 +26,7 @@ import Sidebar from "../../components/Sidebar/Sidebar.js";
 import MainPanel from "../../components/Layout/MainPanel";
 import PanelContainer from "../../components/Layout/PanelContainer";
 import PanelContent from "../../components/Layout/PanelContent";
+import SelectFile from "./SelectFiles"
 
 import theme from "../../theme/themeAdmin";
 
@@ -65,7 +66,7 @@ function FileUpload(props) {
 
             <PanelContent>
                 <PanelContainer>
-
+                    <SelectFile/>
 
                 </PanelContainer>
             </PanelContent>
