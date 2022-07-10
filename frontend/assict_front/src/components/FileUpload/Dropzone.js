@@ -19,7 +19,7 @@ function Dropzone(props) {
       <div {...getRootProps({className: 'dropzone'})}>
         <input {...getInputProps()} />
         <p>Drag 'n' drop some files here</p>
-        <button type="button" onClick={open}>
+        <button type="button" onClick={open} color='white'>
           Open File Dialog
         </button>
       </div>
