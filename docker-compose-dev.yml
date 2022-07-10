@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  backend:
+    container_name: assict_backend
+    build:
+      context: backend/assiCT_api_server
+    ports:
+      - "8000:8000"
