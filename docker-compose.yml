@@ -1,0 +1,80 @@
+version: '3'
+
+services:
+  backend:
+    container_name: assict_backend
+    build:
+      context: backend/assiCT_api_server
+    ports:
+      - "8000:8000"
+  frontend:
+    build:
+      context: frontend/assict_front
+    volumes:
+      - build_folder:/frontend/build
+  nginx:
+    container_name: assict_nginx
+    build: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - build_folder:/var/www/frontend
+    depends_on:
+      - backend
+      - frontend
+  prometheus:
+    container_name: assict_prometheus
+    image: prom/prometheus
+    restart: always
+    volumes:
+      - prometheus_data:/prometheus
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+  grafana:
+    build:
+      context: grafana
+    env_file:
+      - grafana/config.grafana
+    restart: always
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
+    ports:
+      - 3000:3000
+    depends_on:
+      - prometheus
+  cadvisor:
+    image: google/cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    ports:
+      - 8080:8080
+    restart: always
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+  node-exporter:
+    image: prom/node-exporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - --collector.filesystem.ignored-mount-points
+      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+    ports:
+      - 9100:9100
+    restart: always
+    deploy:
+      mode: global
+volumes:
+  build_folder: null
+  prometheus_data: { }
+  grafana-storage: { }
