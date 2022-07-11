@@ -1,5 +1,11 @@
 import React from 'react';
 import {useDropzone} from 'react-dropzone';
+import {Text} from "@chakra-ui/react";
+import Card from "../Card/Card";
+import CardBody from "../Card/CardBody";
+import MainPanel from "../Layout/MainPanel";
+import {Separator} from "../Separator/Separator";
+import axios from 'axios'
 
 function Dropzone(props) {
   const {getRootProps, getInputProps, open, acceptedFiles} = useDropzone({
@@ -16,17 +22,27 @@ function Dropzone(props) {
 
   return (
     <div className="container">
-      <div {...getRootProps({className: 'dropzone'})}>
+
+      <div {...getRootProps({className: 'dropzone'})} >
         <input {...getInputProps()} />
-        <p>Drag 'n' drop some files here</p>
-        <button type="button" onClick={open} color='white'>
-          Open File Dialog
+        <Card overflowX={{ xl: "hidden" }} my='22px' pb='100px' placeholder="Drag and drop files here">
+          Drag and drop files here
+
+        </Card>
+        <button type="button" onClick={open}>
+
+            Open File Dialog
+
+
         </button>
       </div>
-      <aside>
+
+
+
         <h4>Files</h4>
+          <Separator/>
         <ul>{files}</ul>
-      </aside>
+
     </div>
   );
 }

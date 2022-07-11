@@ -10,16 +10,16 @@ import Dropzone from "./Dropzone";
 
 function SelectFiles() {
   return (
-    <Flex direction='column' pt={{ base: "120px", md: "75px" }}>
+    <Flex direction='column' pt={{ base: "100px", md: "100px" }}>
       {/* Previous Results Table */}
-      <Card overflowX={{ sm: "scroll", xl: "hidden" }} pb='0px'>
+      <Card overflowX={{ xl: "hidden" }} pb='0px'>
         <CardHeader p='6px 0px 22px 0px'>
             <Text fontSize='lg' color='#fff' fontWeight='bold'>Upload Files</Text>
         </CardHeader>
       <CardBody>
-        <PanelContent>
+        <PanelContent color='#fff'>
             <PanelContainer>
-                <Dropzone/>
+                <Dropzone />
 
             </PanelContainer>
         </PanelContent>
