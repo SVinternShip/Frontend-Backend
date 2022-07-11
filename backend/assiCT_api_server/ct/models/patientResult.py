@@ -1,11 +1,11 @@
 from django.db import models
-from user.models.user import User
+from django.conf import settings
 
 
 # Create your models here.
 
 class PatientResult(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="patient_results")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="patient_results")
     createdDate = models.DateTimeField(auto_now_add=True)
     patientName = models.CharField(max_length=10, blank=True)
     studyDate = models.DateTimeField(auto_now_add=True, blank=True)

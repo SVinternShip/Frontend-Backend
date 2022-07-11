@@ -18,7 +18,7 @@ import datetime
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
-environ.Env.read_env(BASE_DIR / '.env_server')
+environ.Env.read_env(BASE_DIR / '.env_local')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -32,10 +32,11 @@ DEBUG = env('DEBUG')
 ALLOWED_HOSTS = [env('ALLOWED_HOSTS')]
 
 # Application definition
+AUTH_USER_MODEL = 'doctor.Doctor'
 
 INSTALLED_APPS = [
-    'ct.apps.CtConfig',
-    'user.apps.UserConfig',
+    'doctor',
+    'ct',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,7 +55,7 @@ INSTALLED_APPS = [
     'django_prometheus',
     ]
 
-AUTH_USER_MODEL = 'user.User'
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',

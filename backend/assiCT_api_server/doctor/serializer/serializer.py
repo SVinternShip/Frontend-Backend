@@ -1,4 +1,4 @@
-from ..models.user import User
+from ..models.doctor import Doctor
 
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
@@ -32,7 +32,7 @@ class UserLoginSerializer(serializers.Serializer):
             jwt_token = JWT_ENCODE_HANDLER(payload)  # jwt token 생성
             update_last_login(None, user)
 
-        except User.DoesNotExist:
+        except Doctor.DoesNotExist:
             raise serializers.ValidationError(
                 'User with given username and password does not exist'
             )

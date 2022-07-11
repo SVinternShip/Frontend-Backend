@@ -7,9 +7,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from ..models.patientResult import PatientResult
 from ..serializer.serializer import PatientResultSerializer
-from user.models.user import User
+from django.contrib.auth import get_user_model
 
 
+Doctor = get_user_model()
 @permission_classes([IsAuthenticated])
 class PatientResultList(APIView):
 
@@ -23,12 +24,12 @@ class PatientResultList(APIView):
 
     def post(self, request):
         try:
-            user = User.objects.get(id=request.user.id)
+            user = Doctor.objects.get(id=request.user.id)
             patientResult = PatientResult(user=user)
             patientResult.save()
             serializer = PatientResultSerializer(patientResult)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        except User.DoesNotExist:
+        except Doctor.DoesNotExist:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
