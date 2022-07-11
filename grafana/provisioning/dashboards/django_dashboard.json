@@ -278,9 +278,9 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "editorMode": "builder",
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "floor(increase(django_http_requests_total_by_transport_total[10m]))",
+          "expr": "sum(increase(django_http_requests_total_by_view_transport_method_total{view!~\"prometheus-django-metrics\"}[24h]))",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 1,
@@ -331,88 +331,8 @@
       },
       "gridPos": {
         "h": 2,
-        "w": 4,
+        "w": 6,
         "x": 12,
-        "y": 8
-      },
-      "id": 15,
-      "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.0.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "builder",
-          "expr": "ceil(increase(django_http_responses_total_by_status_total{status=~\"2.+\"}[10m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "2XX Responses",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 2,
-        "w": 4,
-        "x": 16,
         "y": 8
       },
       "id": 16,
@@ -439,8 +359,8 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "editorMode": "builder",
-          "expr": "ceil(increase(django_http_responses_total_by_status_total{status=~\"4.+\"}[10m]))",
+          "editorMode": "code",
+          "expr": "sum(increase(django_http_responses_total_by_status_total{status=~\"4.+\"}[24h]))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -491,8 +411,8 @@
       },
       "gridPos": {
         "h": 2,
-        "w": 4,
-        "x": 20,
+        "w": 6,
+        "x": 18,
         "y": 8
       },
       "id": 17,
@@ -519,8 +439,8 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "editorMode": "builder",
-          "expr": "ceil(increase(django_http_responses_total_by_status_total{status=~\"5.+\"}[10m]))",
+          "editorMode": "code",
+          "expr": "sum(increase(django_http_responses_total_by_status_total{status=~\"5.+\"}[24h]))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
