@@ -5,6 +5,7 @@ import Card from "../Card/Card";
 import CardBody from "../Card/CardBody";
 import MainPanel from "../Layout/MainPanel";
 import {Separator} from "../Separator/Separator";
+import axios from 'axios'
 
 function Dropzone(props) {
   const {getRootProps, getInputProps, open, acceptedFiles} = useDropzone({
@@ -24,7 +25,7 @@ function Dropzone(props) {
 
       <div {...getRootProps({className: 'dropzone'})} >
         <input {...getInputProps()} />
-        <Card overflowX={{ xl: "hidden" }} my='22px' pb='100px'>
+        <Card overflowX={{ xl: "hidden" }} my='22px' pb='100px' placeholder="Drag and drop files here">
           Drag and drop files here
 
         </Card>
