@@ -28,6 +28,7 @@ import {
   HStack,
   Input,
   Link,
+  Link as ReachLink,
   Switch,
   Text,
   Icon,
@@ -218,7 +219,8 @@ function SignUp() {
                     color={titleColor}
                     as='span'
                     ms='5px'
-                    href='#'
+                    as={ReachLink}
+                    href='/home/signin'
                     fontWeight='bold'>
                     Sign In
                   </Link>

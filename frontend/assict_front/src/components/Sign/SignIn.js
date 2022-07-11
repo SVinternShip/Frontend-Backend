@@ -27,6 +27,7 @@ import {
   Heading,
   Input,
   Link,
+  Link as ReachLink,
   Switch,
   Text,
   DarkMode,
@@ -152,7 +153,7 @@ function SignIn() {
               mt='0px'>
               <Text color={textColor} fontWeight='medium'>
                 Don't have an account?
-                <Link color={titleColor} as='span' ms='5px' fontWeight='bold'>
+                <Link color={titleColor} as='span' ms='5px' fontWeight='bold' as={ReachLink} href='/home/signup'>
                   Sign Up
                 </Link>
               </Text>
