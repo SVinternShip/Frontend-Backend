@@ -58,7 +58,7 @@ function TablesPage(props){
                     <Tables/>
                 </PanelContainer>
               </PanelContent>
-            <Footer />
+            {/*<Footer />*/}
 
             <Configurator
               secondary={false} //

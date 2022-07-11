@@ -44,6 +44,8 @@ import GradientBorder from "../GradientBorder/GradientBorder";
 // Assets
 import signUpImage from "../../assets/img/signUpImage.png";
 
+import signUp from "../../api/signUp";
+
 function SignUp() {
   const titleColor = "white";
   const textColor = "gray.400";
@@ -195,7 +197,7 @@ function SignUp() {
                   />
                 </GradientBorder>
 
-                <Button
+                <Button onClick={signUp}
                   variant='brand'
                   fontSize='10px'
                   type='submit'

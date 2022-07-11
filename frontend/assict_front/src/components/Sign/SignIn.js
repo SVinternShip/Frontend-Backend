@@ -40,6 +40,8 @@ import signInImage from "../../assets/img/signInImage.png";
 import AuthFooter from "../Footer/AuthFooter";
 import GradientBorder from "../GradientBorder/GradientBorder";
 
+import signIn from "../../api/signIn";
+
 function SignIn() {
   const titleColor = "white";
   const textColor = "gray.400";
@@ -133,7 +135,7 @@ function SignIn() {
               </GradientBorder>
             </FormControl>
 
-            <Button
+            <Button onClick={signIn}
               variant='brand'
               fontSize='10px'
               type='submit'

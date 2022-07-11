@@ -5,7 +5,7 @@ import Card from "../Card/Card";
 import CardBody from "../Card/CardBody";
 import MainPanel from "../Layout/MainPanel";
 import {Separator} from "../Separator/Separator";
-import axios from 'axios'
+import axios from 'axios';
 
 function Dropzone(props) {
   const {getRootProps, getInputProps, open, acceptedFiles} = useDropzone({
