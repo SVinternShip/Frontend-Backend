@@ -12,7 +12,7 @@ export const buttonStyles = {
           fontWeight: "bold",
           borderRadius: "inherit",
           cursor: "pointer",
-          _hover: "none",
+
           _active: {
             bg: "transparent",
             transform: "none",
@@ -56,7 +56,7 @@ export const buttonStyles = {
           boxShadow: "none",
         },
         _active: "none",
-        _focus: "none",
+
       },
     },
   },

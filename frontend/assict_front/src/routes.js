@@ -28,7 +28,9 @@ import {
   DocumentIcon,
   RocketIcon,
   SupportIcon,
+    GlobeIcon,
 } from "./components/Icons/Icons";
+import FileUpload from "./components/FileUpload/FileUpload";
 
 var dashRoutes = [
     {
@@ -50,7 +52,7 @@ var dashRoutes = [
         path: "/signin",
         name: "Sign In",
         rtlName: "لوحة القيادة",
-        icon: <DocumentIcon color='inherit' />,
+        icon: <GlobeIcon color='inherit' />,
         component: SignIn,
         layout: "/home",
       },
@@ -61,6 +63,15 @@ var dashRoutes = [
         icon: <RocketIcon color='inherit' />,
         secondaryNavbar: true,
         component: SignUp,
+        layout: "/home",
+      },
+        {
+        path: "/fileupload",
+        name: "File Upload",
+        rtlName: "لوحة القيادة",
+        icon: <DocumentIcon color='inherit' />,
+        secondaryNavbar: true,
+        component: FileUpload,
         layout: "/home",
       },
     ],

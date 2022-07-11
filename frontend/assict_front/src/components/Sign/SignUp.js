@@ -28,6 +28,7 @@ import {
   HStack,
   Input,
   Link,
+  Link as ReachLink,
   Switch,
   Text,
   Icon,
@@ -50,13 +51,13 @@ function SignUp() {
   return (
     <Flex position='relative' overflow={{ lg: "hidden" }}>
       <Flex
-        flexDirection='column'
-        h={{ sm: "initial", md: "unset" }}
-        w={{ base: "90%" }}
+        minH='100vh'
+        h={{ base: "120vh", lg: "fit-content" }}
+        w='100%'
         maxW='1044px'
         mx='auto'
-        justifyContent='space-between'
         pt={{ sm: "100px", md: "0px" }}
+        flexDirection='column'
         me={{ base: "auto", lg: "50px", xl: "auto" }}>
         <Flex
           alignItems='center'
@@ -66,7 +67,8 @@ function SignUp() {
           mx={{ base: "auto", lg: "unset" }}
           ms={{ base: "auto", lg: "auto" }}
           mb='50px'
-          w={{ base: "100%", md: "50%", lg: "42%" }}>
+
+          w={{ base: "100%", md: "50%", lg: "450px" }}>
           <Flex
             direction='column'
             textAlign='center'
@@ -217,7 +219,8 @@ function SignUp() {
                     color={titleColor}
                     as='span'
                     ms='5px'
-                    href='#'
+                    as={ReachLink}
+                    href='/home/signin'
                     fontWeight='bold'>
                     Sign In
                   </Link>
@@ -231,20 +234,21 @@ function SignUp() {
           mx={{ base: "auto", lg: "unset" }}
           ms={{ base: "auto", lg: "auto" }}
           mb='90px'>
-          <AuthFooter />
+          {/*<AuthFooter />*/}
         </Box>
         <Box
           display={{ base: "none", lg: "block" }}
           overflowX='hidden'
-          h='1300px'
-          maxW={{ md: "50vw", lg: "48vw" }}
+          h='100%'
+          maxW={{ md: "50vw", lg: "50vw" }}
+          minH='100vh'
           w='960px'
           position='absolute'
           left='0px'>
           <Box
             bgImage={signUpImage}
             w='100%'
-            h='1300px'
+            h='100%'
             bgSize='cover'
             bgPosition='50%'
             position='absolute'
