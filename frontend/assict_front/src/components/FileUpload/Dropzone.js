@@ -6,10 +6,44 @@ import {Separator} from "../Separator/Separator";
 import axios from 'axios';
 
 
-function onFileUpload(event, current_files){
+
+async function onFileUpload(event, current_files) {
   const formData = new FormData();
   event.preventDefault();
   console.log(current_files);
+  // const patientResult = await axios({
+  //   method: 'get',
+  //   url: 'http://127.0.0.1:8000/api/ct/patientResult',
+  //   headers: { }
+  // })
+
+  let fileList = [];
+  for (let i = 0; i < current_files.length; i++) {
+    fileList.push(current_files[i]);
+  }
+
+  var axios = require('axios');
+  var config = {
+    method: 'post',
+    url: 'http://127.0.0.1:8000/api/ct/patientResult',
+    headers: { }
+  };
+  axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+  let url = 'http://{{django_server}}:8000/api/ct/fileUpload/'
+
+  const fileSend = await axios({
+    method: 'get',
+    url: 'http://{{django_server}}:8000/api/ct/fileUpload/',
+    data: {
+      fileList
+    }
+  })
 
   //axios await patientResult -> id return (성공했을 때)
   // 위 id 값으로 current_files 하나씩 http://{{django_server}}:8000/api/ct/fileUpload/1
