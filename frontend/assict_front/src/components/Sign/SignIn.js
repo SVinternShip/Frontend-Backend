@@ -55,8 +55,15 @@ async function LogIn(username, password) {
   },
       );
   console.log(response);
+  localStorage.clear();
+  localStorage.setItem('token', response.data.token); //response로 받은 data중에 token값
+  if (localStorage.getItem('token') !== null) //token값이 존재하면 로그인이 되었다고 판단
+  {
+    window.location.replace('http://localhost:3000/home/tables'); //로그인이 되면 tables 페이지로 redirect
+  }
 
     } catch (error) {
+
     //응답 실패
     if (error.response){
       console.log('error response');
