@@ -16,7 +16,7 @@
 
 */
 
-import React from "react";
+import React, {useState} from "react";
 // Chakra imports
 import {
   Box,
@@ -40,11 +40,52 @@ import signInImage from "../../assets/img/signInImage.png";
 import AuthFooter from "../Footer/AuthFooter";
 import GradientBorder from "../GradientBorder/GradientBorder";
 
-import signIn from "../../api/signIn";
 
-function SignIn() {
+import axios from "axios";
+
+
+async function LogIn(username, password) {
+  try {
+  //응답 성공
+  const response = await axios.post('/api/user/login',
+    {
+    //보내고자 하는 데이터
+      username: username,
+      password: password
+  },
+      );
+  console.log(response);
+
+    } catch (error) {
+    //응답 실패
+    if (error.response){
+      console.log('error response');
+    }
+    else if(error.request){
+      console.log('error request');
+    }
+    else if (error.message){
+      console.log('error message');
+    }
+  }
+}
+
+
+
+export default function SignIn() {
   const titleColor = "white";
   const textColor = "gray.400";
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleUsernameOnChange = (e) => {
+    setUsername(e.target.value)
+  }
+
+  const handlePasswordOnChange = (e) => {
+    setPassword(e.target.value)
+  }
+
 
   return (
     <Flex position='relative'>
@@ -94,7 +135,7 @@ function SignIn() {
                 mb='24px'
                 w={{ base: "100%", lg: "fit-content" }}
                 borderRadius='20px'>
-                <Input
+                <Input id='username'
                   color='white'
                   bg='rgb(19,21,54)'
                   border='transparent'
@@ -104,6 +145,10 @@ function SignIn() {
                   w={{ base: "100%", md: "346px" }}
                   maxW='100%'
                   h='46px'
+                  type='Text'
+                       name="username"
+                       onChange={handleUsernameOnChange}
+                  value={username}
                   placeholder='Your user ID'
                 />
               </GradientBorder>
@@ -120,7 +165,7 @@ function SignIn() {
                 mb='24px'
                 w={{ base: "100%", lg: "fit-content" }}
                 borderRadius='20px'>
-                <Input
+                <Input id='password'
                   color='white'
                   bg='rgb(19,21,54)'
                   border='transparent'
@@ -130,12 +175,16 @@ function SignIn() {
                   w={{ base: "100%", md: "346px" }}
                   maxW='100%'
                   type='password'
+                       name="password"
+                       value={password}
+                       onChange={handlePasswordOnChange}
                   placeholder='Your password'
                 />
               </GradientBorder>
             </FormControl>
 
-            <Button onClick={signIn}
+            <Button
+                onClick={()=>LogIn(username, password)}
               variant='brand'
               fontSize='10px'
               type='submit'
@@ -214,5 +263,3 @@ function SignIn() {
     </Flex>
   );
 }
-
-export default SignIn;
