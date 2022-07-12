@@ -22,20 +22,23 @@ async function onFileUpload(event, current_files) {
     fileList.push(current_files[i]);
   }
 
-  var axios = require('axios');
-  var config = {
+  let axios = require('axios');
+  let config = {
     method: 'post',
     url: 'http://127.0.0.1:8000/api/ct/patientResult',
-    headers: { }
+    headers: {}
   };
+  let patientNum;
   axios(config)
   .then(function (response) {
     console.log(JSON.stringify(response.data));
+    patientNum = response["id"];
   })
   .catch(function (error) {
     console.log(error);
   });
-  let url = 'http://{{django_server}}:8000/api/ct/fileUpload/'
+
+  let uploadUrl = 'http://{{django_server}}:8000/api/ct/fileUpload/'+ patientNum;
 
   const fileSend = await axios({
     method: 'get',
