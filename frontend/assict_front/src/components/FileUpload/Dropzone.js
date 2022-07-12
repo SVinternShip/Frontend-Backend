@@ -5,8 +5,6 @@ import Card from "../Card/Card";
 import {Separator} from "../Separator/Separator";
 import axios from 'axios';
 
-
-
 async function onFileUpload(event, current_files) {
   const formData = new FormData();
   event.preventDefault();
@@ -42,7 +40,7 @@ async function onFileUpload(event, current_files) {
 
   const fileSend = await axios({
     method: 'get',
-    url: 'http://{{django_server}}:8000/api/ct/fileUpload/',
+    url: uploadUrl,
     data: {
       fileList
     }
