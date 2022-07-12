@@ -82,7 +82,7 @@ export default function Configurator(props) {
                     Navbar Fixed
                   </Text>
                   <Switch
-                    colorScheme='brand'
+                    colorscheme='brand'
                     isChecked={switched}
                     onChange={(event) => {
                       if (switched === true) {
