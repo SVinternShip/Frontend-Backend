@@ -61,6 +61,8 @@ async function signUp(hospital, username, last_name, first_name, password) {
   },
       );
   console.log(response);
+  window.location.replace('http://localhost:3000/home/signin');
+  //회원가입 완료 후 signin 페이지로 redirect
 
     } catch (error) {
     //응답 실패
