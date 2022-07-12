@@ -16,7 +16,7 @@
 
 */
 
-import React from "react";
+import React, {useState} from "react";
 
 // Chakra imports
 import {
@@ -43,12 +43,70 @@ import GradientBorder from "../GradientBorder/GradientBorder";
 
 // Assets
 import signUpImage from "../../assets/img/signUpImage.png";
+import axios from "axios";
 
-import signUp from "../../api/signUp";
 
-function SignUp() {
+
+async function signUp(hospital, username, last_name, first_name, password) {
+  try {
+  //응답 성공
+  const response = await axios.post('/api/user/signup',
+    {
+    //보내고자 하는 데이터
+      hospital: hospital,
+      username: username,
+      last_name: last_name,
+      first_name: first_name,
+      password: password,
+  },
+      );
+  console.log(response);
+
+    } catch (error) {
+    //응답 실패
+    if (error.response){
+      console.log('error response');
+    }
+    else if(error.request){
+      console.log('error request');
+    }
+    else if (error.message){
+      console.log('error message');
+    }
+  }
+}
+
+
+
+export default function SignUp() {
   const titleColor = "white";
   const textColor = "gray.400";
+
+  const [hospital, setHospital] = useState("");
+  const [username, setUserName] = useState("");
+  const [last_name, setLastName] = useState("");
+  const [first_name, setFirstName] = useState("");
+  const [password, setPassWord] = useState("");
+
+  const handleHospitalOnChange = (e) => {
+    setHospital(e.target.value)
+  }
+
+  const handleUserNameOnChange = (e) => {
+    setUserName(e.target.value)
+  }
+
+  const handleLastNameOnChange = (e) => {
+    setLastName(e.target.value)
+  }
+
+  const handleFirstNameOnChange = (e) => {
+    setFirstName(e.target.value)
+  }
+
+  const handlePassWordOnChange = (e) => {
+    setPassWord(e.target.value)
+  }
 
   return (
     <Flex position='relative' overflow={{ lg: "hidden" }}>
@@ -124,7 +182,7 @@ function SignUp() {
                   h='50px'
                   w={{ base: "100%", lg: "fit-content" }}
                   borderRadius='20px'>
-                  <Input
+                  <Input id='hospital'
                     color={titleColor}
                     bg={{
                       base: "rgb(19,21,54)",
@@ -137,6 +195,9 @@ function SignUp() {
                     maxW='100%'
                     h='46px'
                     type='text'
+                    name="hospital"
+                    value={hospital}
+                    onChange={handleHospitalOnChange}
                     placeholder='Your hospital code'
                   />
                 </GradientBorder>
@@ -153,6 +214,7 @@ function SignUp() {
                   w={{ base: "100%", lg: "fit-content" }}
                   borderRadius='20px'>
                   <Input
+                      id='username'
                     color={titleColor}
                     bg={{
                       base: "rgb(19,21,54)",
@@ -164,8 +226,75 @@ function SignUp() {
                     w={{ base: "100%", md: "346px" }}
                     maxW='100%'
                     h='46px'
-                    type='email'
+                    type='Text'
+                    name='username'
+                    onChange={handleUserNameOnChange}
+                    value={username}
                     placeholder='Your ID'
+                  />
+                </GradientBorder>
+                <FormLabel
+                  color={titleColor}
+                  ms='4px'
+                  fontSize='sm'
+                  fontWeight='normal'>
+                  Last name
+                </FormLabel>
+                <GradientBorder
+                  mb='24px'
+                  h='50px'
+                  w={{ base: "100%", lg: "fit-content" }}
+                  borderRadius='20px'>
+                  <Input
+                      id='last_name'
+                    color={titleColor}
+                    bg={{
+                      base: "rgb(19,21,54)",
+                    }}
+                    border='transparent'
+                    borderRadius='20px'
+                    fontSize='sm'
+                    size='lg'
+                    w={{ base: "100%", md: "346px" }}
+                    maxW='100%'
+                    h='46px'
+                    type='Text'
+                    name='last_name'
+                    onChange={handleLastNameOnChange}
+                    value={last_name}
+                    placeholder='Your Last name'
+                  />
+                </GradientBorder>
+                <FormLabel
+                  color={titleColor}
+                  ms='4px'
+                  fontSize='sm'
+                  fontWeight='normal'>
+                  First name
+                </FormLabel>
+                <GradientBorder
+                  mb='24px'
+                  h='50px'
+                  w={{ base: "100%", lg: "fit-content" }}
+                  borderRadius='20px'>
+                  <Input
+                      id='first_name'
+                    color={titleColor}
+                    bg={{
+                      base: "rgb(19,21,54)",
+                    }}
+                    border='transparent'
+                    borderRadius='20px'
+                    fontSize='sm'
+                    size='lg'
+                    w={{ base: "100%", md: "346px" }}
+                    maxW='100%'
+                    h='46px'
+                    type='Text'
+                    name='first_name'
+                    onChange={handleFirstNameOnChange}
+                    value={first_name}
+                    placeholder='Your First name'
                   />
                 </GradientBorder>
                 <FormLabel
@@ -181,6 +310,7 @@ function SignUp() {
                   w={{ base: "100%", lg: "fit-content" }}
                   borderRadius='20px'>
                   <Input
+                      id='password'
                     color={titleColor}
                     bg={{
                       base: "rgb(19,21,54)",
@@ -193,11 +323,12 @@ function SignUp() {
                     maxW='100%'
                     h='46px'
                     type='password'
+                    value={password}
+                      onChange={handlePassWordOnChange}
                     placeholder='Your password'
                   />
                 </GradientBorder>
-
-                <Button onClick={signUp}
+                <Button onClick={()=>signUp(hospital, username, last_name, first_name, password)}
                   variant='brand'
                   fontSize='10px'
                   type='submit'
@@ -283,5 +414,3 @@ function SignUp() {
     </Flex>
   );
 }
-
-export default SignUp;
