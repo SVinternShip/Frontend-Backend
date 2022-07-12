@@ -12,7 +12,5 @@ WORKDIR /usr/src/app
 # copy project
 COPY . .
 
-EXPOSE 8000:8000
-
 COPY entrypoint.sh /
 ENTRYPOINT ["sh", "/entrypoint.sh"]
