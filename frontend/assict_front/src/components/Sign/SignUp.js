@@ -50,7 +50,7 @@ import axios from "axios";
 async function signUp(hospital, username, last_name, first_name, password) {
   try {
   //응답 성공
-  const response = await axios.post('/api/user/signup',
+  const response = await axios.post('http://localhost:8000/api/user/signup',
     {
     //보내고자 하는 데이터
       hospital: hospital,

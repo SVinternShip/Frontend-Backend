@@ -47,7 +47,7 @@ import axios from "axios";
 async function LogIn(username, password) {
   try {
   //응답 성공
-  const response = await axios.post('/api/user/login',
+  const response = await axios.post('http://localhost:8000/api/user/login',
     {
     //보내고자 하는 데이터
       username: username,
