@@ -64,7 +64,7 @@ function DashboardTableRow(props) {
             fontWeight='bold'
             pb='.2rem'>{`${progression}%`}</Text>
           <Progress
-            colorScheme='brand'
+            colorscheme='brand'
             maxW='125px'
             h='3px'
             bg='#2D2E5F'
