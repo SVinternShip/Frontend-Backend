@@ -31,7 +31,7 @@ import { FaPlayCircle } from "react-icons/fa";
 
 //// <Icon as={logo} h={"20px"} w={"20px"} me='18px' />
 function DashboardTableRow(props) {
-  const { patient_result_id, name, status, budget, progression, lastItem } = props;
+  const { patient_result_id, name, status, date,time, progression, lastItem } = props;
   const textColor = useColorModeValue("gray.700", "white");
   const colorStatus = useColorModeValue("white", "gray.400");
   return (
@@ -49,9 +49,14 @@ function DashboardTableRow(props) {
       </Td>
       <Td borderBottomColor='#56577A' border={lastItem ? "none" : null}>
         <Text fontSize='sm' color='#fff' fontWeight='bold' pb='.5rem' padding={0}>
-          {budget}
+          {date}
         </Text>
       </Td>
+        <Td borderBottomColor='#56577A' border={lastItem ? "none" : null}>
+            <Text fontSize='sm' color='#fff' fontWeight='bold' pb='.5rem' padding={0}>
+                {time}
+            </Text>
+        </Td>
     <Td borderBottomColor='#56577A'>
         <Badge
             bg={status === "Finished" ? "green.400" : "transparent"}

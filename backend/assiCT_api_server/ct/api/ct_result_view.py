@@ -1,18 +1,19 @@
-import os
 import tempfile
+from datetime import datetime
+
 from django.http import Http404, FileResponse
 from django.views.decorators.csrf import csrf_exempt
 from google.cloud import storage
 from rest_framework import status
 from rest_framework.decorators import api_view
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from datetime import date
+
 from ..models.ctResult import CtResult
 from ..models.patientResult import PatientResult
 from ..serializer.serializer import CtResultSerializer
-from rest_framework.decorators import permission_classes
-from rest_framework.permissions import IsAuthenticated, AllowAny
 
 bucket_name = 'sv_internship_image'  # 서비스 계정 생성한 bucket 이름 입력
 storage_client = storage.Client()
@@ -66,20 +67,18 @@ def get_patient_result_object(id):
 def store_image_to_gc(request):
     original_img = request.FILES['original_image']
     lime_img = request.FILES['lime_image']
-
     # GCP에 업로드할 파일 절대경로
-    original_img_name = str(date.today()) + '_original_' + str(original_img.name)  # 업로드할 파일을 GCP에 저장할 때의 이름
+    now = str(datetime.datetime.now())
+    original_img_name = now + '_original_' + str(original_img.name)  # 업로드할 파일을 GCP에 저장할 때의 이름
 
     blob = bucket.blob(original_img_name)
-    blob.upload_from_file(original_img.file)
+    blob.upload_from_file(original_img, rewind=True)
 
-    lime_img_name = str(date.today()) + '_lime_' + str(lime_img.name)  # 업로드할 파일을 GCP에 저장할 때의 이름
+    lime_img_name = now + '_lime_' + str(lime_img.name)  # 업로드할 파일을 GCP에 저장할 때의 이름
 
     blob = bucket.blob(lime_img_name)
-    blob.upload_from_file(lime_img.file)
-
+    blob.upload_from_file(lime_img, rewind=True)
     return original_img_name, lime_img_name
-
 
 @csrf_exempt
 @api_view(['POST'])
