@@ -16,7 +16,7 @@
 
 */
 
-import React from "react";
+import React , { useState, useEffect } from "react";
 
 // Chakra imports
 import {
@@ -34,7 +34,7 @@ import {
 import Card from "../../components/Card/Card.js";
 import CardHeader from "../../components/Card/CardHeader.js";
 import CardBody from "../../components/Card/CardBody.js";
-
+import axios from 'axios';
 // Table Components
 import TablesProjectRow from "../../components/Tables/TablesProjectRow";
 import TablesTableRow from "../../components/Tables/TablesTableRow";
@@ -45,67 +45,56 @@ import { tablesProjectData, tablesTableData } from "../../variables/general";
 // Icons
 import { AiFillCheckCircle } from "react-icons/ai";
 
+function DrawTableRow(props){
+  const tableRowData = props.data
+  const list = []
+
+  for(let i=0; i<tableRowData.length;i++){
+    let currentData = tableRowData[i]
+    console.log(currentData)
+    const total_dcm = currentData['total_dcm']
+    const complete_dcm = currentData['complete_dcm']
+    if (currentData['total_dcm'] == 0)
+      continue
+    let patientName = currentData['patientName']
+    if (patientName == "")
+      patientName="Proceeding..."
+    let status = "Working..."
+    if (total_dcm == complete_dcm)
+       status = "Finished"
+
+    list.push(<TablesProjectRow
+        patient_result_id={currentData['id']}
+        name={patientName}
+        status={status}
+        budget={currentData['studyDate']}
+        progression={Math.ceil(complete_dcm / total_dcm * 100)}
+        lastItem={i === tableRowData.length - 1 ? true : false}/>)
+  }
+
+  return (list)
+}
+
 function Tables() {
+  const [data, setData] = useState({ hits: [] });
+
+  useEffect(() => {
+    const token = 'JWT ' + localStorage.getItem('token')
+    const fetchData = async () => {
+      const result = await axios.get("http://127.0.0.1:8000/api/ct/patientResult", {
+        "headers": {
+          "Authorization": token
+        }
+      })
+      console.log(result)
+      setData(result.data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <Flex direction='column' pt={{ base: "120px", md: "75px" }}>
       {/* Previous Results Table */}
-      <Card overflowX={{ sm: "scroll", xl: "hidden" }} pb='0px'>
-        <CardHeader p='6px 0px 22px 0px'>
-          <Text fontSize='lg' color='#fff' fontWeight='bold'>
-            Previous Results
-          </Text>
-        </CardHeader>
-        <CardBody>
-          <Table variant='simple' color='#fff'>
-            <Thead>
-              <Tr my='.8rem' ps='0px' color='gray.400'>
-                <Th
-                  ps='0px'
-                  color='gray.400'
-                  fontFamily='Plus Jakarta Display'
-                  borderBottomColor='#56577A'>
-                  COL1 - edit
-                </Th>
-                <Th
-                  color='gray.400'
-                  fontFamily='Plus Jakarta Display'
-                  borderBottomColor='#56577A'>
-                  COL2 - edit
-                </Th>
-                <Th
-                  color='gray.400'
-                  fontFamily='Plus Jakarta Display'
-                  borderBottomColor='#56577A'>
-                  Status
-                </Th>
-                <Th
-                  color='gray.400'
-                  fontFamily='Plus Jakarta Display'
-                  borderBottomColor='#56577A'>
-                  COL4 - edit
-                </Th>
-                <Th borderBottomColor='#56577A'></Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {tablesTableData.map((row, index, arr) => {
-                return (
-                  <TablesTableRow
-                    name={row.name}
-                    logo={row.logo}
-                    email={row.email}
-                    subdomain={row.subdomain}
-                    domain={row.domain}
-                    status={row.status}
-                    date={row.date}
-                    lastItem={index === arr.length - 1 ? true : false}
-                  />
-                );
-              })}
-            </Tbody>
-          </Table>
-        </CardBody>
-      </Card>
       {/* Projects Table */}
       <Card my='22px' overflowX={{ sm: "scroll", xl: "hidden" }} pb='0px'>
         <CardHeader p='6px 0px 22px 0px'>
@@ -127,13 +116,13 @@ function Tables() {
                   color='gray.400'
                   fontFamily='Plus Jakarta Display'
                   borderBottomColor='#56577A'>
-                  COL1 - edit
+                  Patient Name
                 </Th>
                 <Th
                   color='gray.400'
                   fontFamily='Plus Jakarta Display'
                   borderBottomColor='#56577A'>
-                  COL2 - edit
+                  Date
                 </Th>
                 <Th
                   color='gray.400'
@@ -145,24 +134,13 @@ function Tables() {
                   color='gray.400'
                   fontFamily='Plus Jakarta Display'
                   borderBottomColor='#56577A'>
-                  cerebral hemorrhage
+                  Analysis Progress
                 </Th>
                 <Th borderBottomColor='#56577A'></Th>
               </Tr>
             </Thead>
             <Tbody>
-              {tablesProjectData.map((row, index, arr) => {
-                return (
-                  <TablesProjectRow
-                    name={row.name}
-                    logo={row.logo}
-                    status={row.status}
-                    budget={row.budget}
-                    progression={row.progression}
-                    lastItem={index === arr.length - 1 ? true : false}
-                  />
-                );
-              })}
+              <DrawTableRow data={data}/>
             </Tbody>
           </Table>
         </CardBody>

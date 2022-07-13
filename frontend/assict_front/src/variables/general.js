@@ -85,62 +85,6 @@ export const timelineData = [
     date: "18 DEC 4:41 PM",
   },
 ];
-export const rtlDashboardTableData = [
-  {
-    logo: AdobexdLogo,
-    name: "نسخة Vision UI",
-    members: [avatar1, avatar2, avatar3, avatar4, avatar5],
-    budget: "$14,000",
-    progression: 60,
-  },
-  {
-    logo: AtlassianLogo,
-    name: "إضافة مسار التقدم",
-    members: [avatar3, avatar2],
-    budget: "$3,000",
-    progression: 10,
-  },
-  {
-    logo: SlackLogo,
-    name: "إصلاح أخطاء النظام الأساسي",
-    members: [avatar10, avatar4],
-    budget: "غير مضبوط",
-    progression: 100,
-  },
-  {
-    logo: InvisionLogo,
-    name: "إعادة تصميم متجر جديد على الإنترنت",
-    members: [avatar9, avatar3, avatar2],
-    budget: "$7,600",
-    progression: 40,
-  },
-];
-
-export const rtlTimelineData = [
-  {
-    logo: FaBell,
-    title: "$2400, تغييرات في التصميم",
-    date: "22 DEC 7:20 PM",
-    color: "teal.300",
-  },
-  {
-    logo: FaHtml5,
-    title: "طلب جديد #4219423",
-    date: "21 DEC 11:21 PM",
-    color: "orange",
-  },
-  {
-    logo: FaShoppingCart,
-    title: "مدفوعات الخادم لشهر أبريل",
-    date: "21 DEC 9:28 PM",
-    color: "blue.400",
-  },
-  {
-    logo: AdobexdLogo,
-    title: "طلب جديد #9851258",
-    date: "18 DEC 4:41 PM",
-  },
-];
 
 export const tablesTableData = [
   {
@@ -149,7 +93,7 @@ export const tablesTableData = [
     email: "alexa@simmmple.com",
     subdomain: "Manager",
     domain: "Organization",
-    status: "Online",
+    status: "Sline",
     date: "14/06/21",
   },
   {

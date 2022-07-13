@@ -18,20 +18,22 @@
 
 import React from "react";
 import {
-  Tr,
-  Td,
-  Flex,
-  Text,
-  Progress,
-  Icon,
-  Button,
-  useColorModeValue,
+    Tr,
+    Td,
+    Flex,
+    Text,
+    Progress,
+    Icon,
+    Button,
+    useColorModeValue, Badge,
 } from "@chakra-ui/react";
-import { FaEllipsisV } from "react-icons/fa";
+import { FaPlayCircle } from "react-icons/fa";
 
+//// <Icon as={logo} h={"20px"} w={"20px"} me='18px' />
 function DashboardTableRow(props) {
-  const { logo, name, status, budget, progression, lastItem } = props;
+  const { patient_result_id, name, status, budget, progression, lastItem } = props;
   const textColor = useColorModeValue("gray.700", "white");
+  const colorStatus = useColorModeValue("white", "gray.400");
   return (
     <Tr>
       <Td
@@ -40,22 +42,28 @@ function DashboardTableRow(props) {
         borderBottomColor='#56577A'
         border={lastItem ? "none" : null}>
         <Flex alignItems='center' py='.8rem' minWidth='100%' flexWrap='nowrap'>
-          <Icon as={logo} h={"20px"} w={"20px"} me='18px' />
           <Text fontSize='sm' color='#fff' minWidth='100%'>
             {name}
           </Text>
         </Flex>
       </Td>
       <Td borderBottomColor='#56577A' border={lastItem ? "none" : null}>
-        <Text fontSize='sm' color='#fff' fontWeight='bold' pb='.5rem'>
+        <Text fontSize='sm' color='#fff' fontWeight='bold' pb='.5rem' padding={0}>
           {budget}
         </Text>
       </Td>
-      <Td borderBottomColor='#56577A' border={lastItem ? "none" : null}>
-        <Text fontSize='sm' color='#fff' fontWeight='bold' pb='.5rem'>
-          {status}
-        </Text>
-      </Td>
+    <Td borderBottomColor='#56577A'>
+        <Badge
+            bg={status === "Finished" ? "green.400" : "transparent"}
+            color={status === "Finished" ? "white" : colorStatus}
+            fontSize='sm'
+            p='3px 10px'
+            borderRadius='8px'
+            border={status === "Finished" ? "none" : "1px solid #fff"}
+            fontWeight='normal'>
+            {status}
+        </Badge>
+    </Td>
       <Td borderBottomColor='#56577A' border={lastItem ? "none" : null}>
         <Flex direction='column'>
           <Text
@@ -74,8 +82,12 @@ function DashboardTableRow(props) {
         </Flex>
       </Td>
       <Td borderBottomColor='#56577A' border={lastItem ? "none" : null}>
-        <Button p='0px' bg='transparent' _hover='none' _active='none'>
-          <Icon as={FaEllipsisV} color='gray.400' cursor='pointer' />
+        <Button value={patient_result_id} p='0px' bg='transparent' _hover='none' _active='none'onClick={event=>{
+            event.preventDefault();
+            console.log(event.currentTarget.value)
+            // 여기서 다른 주소로 redirect
+        }}>
+          <Icon  as={FaPlayCircle} color='gray.400' cursor='pointer' />
         </Button>
       </Td>
     </Tr>
