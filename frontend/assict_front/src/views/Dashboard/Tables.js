@@ -60,14 +60,16 @@ function DrawTableRow(props){
     if (patientName === "")
       patientName="Proceeding..."
     let status = "Working..."
-    if (total_dcm === complete_dcm)
+    if (total_dcm <= complete_dcm)
        status = "Finished"
-
+    const date = currentData['createdDate'].split('T')[0]
+    const time = currentData['createdDate'].split('T')[1].split('.')[0]
     list.push(<TablesProjectRow
         patient_result_id={currentData['id']}
         name={patientName}
         status={status}
-        budget={currentData['createdDate']}
+        date={date}
+        time={time}
         progression={Math.ceil(complete_dcm / total_dcm * 100)}
         lastItem={i === tableRowData.length - 1 ? true : false}/>)
   }
@@ -125,6 +127,12 @@ function Tables() {
                   Date
                 </Th>
                 <Th
+                    color='gray.400'
+                    fontFamily='Plus Jakarta Display'
+                    borderBottomColor='#56577A'>
+                  Time
+                </Th>
+                <Th
                   color='gray.400'
                   fontFamily='Plus Jakarta Display'
                   borderBottomColor='#56577A'>
@@ -136,7 +144,7 @@ function Tables() {
                   borderBottomColor='#56577A'>
                   Analysis Progress
                 </Th>
-                <Th borderBottomColor='#56577A'></Th>
+                <Th borderBottomColor='#56577A'/>
               </Tr>
             </Thead>
             <Tbody>
