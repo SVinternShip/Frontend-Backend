@@ -6,10 +6,11 @@ import Result from "../../components/Result/Result";
 import {useParams} from "react-router-dom";
 import axios from "axios";
 
-function ResultPage(props){
+function ResultPage(){
 
     const navRef = React.useRef();
     const wrapper = React.createRef();
+
     return(
         <ChakraProvider theme={theme} resetCss={false} w='100%'>
             <Box ref={navRef} w='100%'>
