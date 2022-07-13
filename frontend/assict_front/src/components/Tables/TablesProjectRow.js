@@ -91,8 +91,9 @@ function DashboardTableRow(props) {
             event.preventDefault();
             console.log(event.currentTarget.value)
             // 여기서 다른 주소로 redirect
+            window.location.href="/home/tables/${patient_result_id}"
         }}>
-          <Icon  as={FaPlayCircle} color='gray.400' cursor='pointer' />
+          <Icon  as={FaPlayCircle} color='gray.400' cursor='pointer'/>
         </Button>
       </Td>
     </Tr>
