@@ -28,12 +28,15 @@ import {
     useColorModeValue, Badge,
 } from "@chakra-ui/react";
 import { FaPlayCircle } from "react-icons/fa";
+import {useNavigate} from "react-router-dom";
 
 //// <Icon as={logo} h={"20px"} w={"20px"} me='18px' />
 function DashboardTableRow(props) {
   const { patient_result_id, name, status, date,time, progression, lastItem } = props;
   const textColor = useColorModeValue("gray.700", "white");
   const colorStatus = useColorModeValue("white", "gray.400");
+  const navigate=useNavigate();
+
   return (
     <Tr>
       <Td
@@ -91,7 +94,7 @@ function DashboardTableRow(props) {
             event.preventDefault();
             console.log(event.currentTarget.value)
             // 여기서 다른 주소로 redirect
-            window.location.href="/home/tables/${patient_result_id}"
+            navigate(`/home/tables/${patient_result_id}`)
         }}>
           <Icon  as={FaPlayCircle} color='gray.400' cursor='pointer'/>
         </Button>
