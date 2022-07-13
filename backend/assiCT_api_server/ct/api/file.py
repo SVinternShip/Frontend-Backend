@@ -15,9 +15,9 @@ def make_dicom_request(files, patient_result_id):
     payload={'patient_result': patient_result_id}
     try:
         response = requests.request("POST", "http://"+ml_server_host+"/ct/storeResult", data=payload, files=files)
-    except ConnectionError:
+    except Exception as e:
         raise Exception
-    response = "good"
+    response = response.json()
     return response
 
 
@@ -43,8 +43,6 @@ def dicom_file_upload(request, patient_result_id):
             response = make_dicom_request(request.FILES, patient_result_id)
             patient_result = get_object(patient_result_id)
             patient_result.increase_total_dcm()
-        except Exception:
+        except Exception as e:
             return Response("Cannot connect to ML server", status=status.HTTP_404_NOT_FOUND)
-    return JsonResponse({
-        'task_id': response
-    })
+    return JsonResponse(response)

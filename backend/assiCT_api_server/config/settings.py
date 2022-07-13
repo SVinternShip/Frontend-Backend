@@ -16,9 +16,11 @@ import os
 import datetime
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.conf.global_settings import DATETIME_FORMAT, DATETIME_INPUT_FORMATS
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
-environ.Env.read_env(BASE_DIR / '.env_server')
+environ.Env.read_env(BASE_DIR / '.env_local')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -53,9 +55,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'django.contrib.sites',
     'django_prometheus',
-    ]
-
-
+]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -130,12 +130,11 @@ LANGUAGE_CODE = 'ko-kr'
 
 TIME_ZONE = 'Asia/Seoul'
 
-USE_I18N = True
+USE_I18N = False
+USE_L10N = False
+USE_TZ = False
 
-USE_L10N = True
-
-USE_TZ = True
-
+DATETIME_INPUT_FORMATS = ['%Y-%m-%dT%H:%M:%S']
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -154,12 +153,11 @@ JWT_AUTH = {
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=28),  # JWT 토큰 갱신 유효기간
 }
 
-
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated', # 인증된 사용자만 접근 가능
-        'rest_framework.permissions.IsAdminUser', # 관리자만 접근 가능
-        'rest_framework.permissions.AllowAny', # 누구나 접근 가능
+        'rest_framework.permissions.IsAuthenticated',  # 인증된 사용자만 접근 가능
+        'rest_framework.permissions.IsAdminUser',  # 관리자만 접근 가능
+        'rest_framework.permissions.AllowAny',  # 누구나 접근 가능
 
     ),
 
