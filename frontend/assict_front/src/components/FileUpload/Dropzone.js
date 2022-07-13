@@ -1,6 +1,6 @@
 import React, {UseState} from 'react';
 import {useDropzone} from 'react-dropzone';
-import {Text, Button} from "@chakra-ui/react";
+import {Text, Button, Flex} from "@chakra-ui/react";
 import Card from "../Card/Card";
 import {Separator} from "../Separator/Separator";
 import axios from 'axios';
@@ -77,17 +77,27 @@ function Dropzone(props) {
       <div {...getRootProps({className: 'dropzone'})} >
         <input {...getInputProps()} />
         <Card overflowX={{ xl: "hidden" }} my='22px' pb='100px' placeholder="Drag and drop files here">
-          <a>Double click to open dialog or Drag your files</a>
+          <Flex direction='column' pt={{ base: "100px", md: "100px" }}>
+            <a><Text
+                        fontSize="2xl"
+                        fontFamily="monospace"
+                        fontWeight="thin"
+                        color="gray.400"
+            >Double click to open dialog or Drag your files</Text></a>
+          </Flex>
         </Card>
       </div>
 
-        <h4>Files</h4>
+        <h4><Text
+            fontSize="larger"
+            fontFamily="heading"
+        >Files</Text></h4>
           <Separator/>
-        <ul>{files}</ul>
+      <ul><Text fontFamily="monospace">{files}</Text></ul>
 
       <div className="App">
         <div>
-          <button className="btn" type="submit" onClick={event => onFileUpload(event, acceptedFiles)}>Upload</button>
+          <Button variant="outline" className="btn" type="submit" onClick={event => onFileUpload(event, acceptedFiles)}>Upload</Button>
         </div>
       </div>
 
