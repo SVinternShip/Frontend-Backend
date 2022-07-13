@@ -28,10 +28,12 @@ function upLoadDcm(file,token, patient_result_id){
 
 async function onFileUpload(event, current_files) {
   event.preventDefault();
-  if (current_files.length < 1)
+  if (current_files.length < 1){
     alert("Selected file zero")
     return
-  const token = 'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFzc2ljdCIsImV4cCI6MTY1ODIyNzU2MCwiZW1haWwiOiIiLCJvcmlnX2lhdCI6MTY1NzYyMjc2MH0.V1EV7pqpg_YCIhBlfxVrhbil5LCyTqZt194K0N0Rv4s'
+  }
+  const token = 'JWT ' + localStorage.getItem('token')
+  console.log(token)
   let config = {
     "method": 'post',
     "url": 'http://127.0.0.1:8000/api/ct/patientResult',
@@ -50,6 +52,7 @@ async function onFileUpload(event, current_files) {
   }catch (err) {
     
   }
+  window.location.replace('http://localhost:3000/home/tables');
 }
 
 
