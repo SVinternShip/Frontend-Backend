@@ -54,20 +54,20 @@ function DrawTableRow(props){
     console.log(currentData)
     const total_dcm = currentData['total_dcm']
     const complete_dcm = currentData['complete_dcm']
-    if (currentData['total_dcm'] == 0)
+    if (currentData['total_dcm'] === 0)
       continue
     let patientName = currentData['patientName']
-    if (patientName == "")
+    if (patientName === "")
       patientName="Proceeding..."
     let status = "Working..."
-    if (total_dcm == complete_dcm)
+    if (total_dcm === complete_dcm)
        status = "Finished"
 
     list.push(<TablesProjectRow
         patient_result_id={currentData['id']}
         name={patientName}
         status={status}
-        budget={currentData['studyDate']}
+        budget={currentData['createdDate']}
         progression={Math.ceil(complete_dcm / total_dcm * 100)}
         lastItem={i === tableRowData.length - 1 ? true : false}/>)
   }
