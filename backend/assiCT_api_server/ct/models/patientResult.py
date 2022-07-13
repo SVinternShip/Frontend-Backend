@@ -8,7 +8,6 @@ class PatientResult(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="patient_results")
     createdDate = models.DateTimeField(auto_now_add=True)
     patientName = models.CharField(max_length=10, blank=True)
-    studyDate = models.DateTimeField(auto_now_add=True, blank=True)
     note = models.CharField(max_length=256, blank=True)
     total_dcm = models.IntegerField(default=0)
     complete_dcm = models.IntegerField(default=0)
