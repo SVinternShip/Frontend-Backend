@@ -74,18 +74,19 @@ function Dropzone(props) {
 
     <div className="container">
 
-      <div {...getRootProps({className: 'dropzone'})} >
+      <div {...getRootProps({className: 'dropzone'})} verticalAlign="middle">
         <input {...getInputProps()} />
-        <Card overflowX={{ xl: "hidden" }} my='20px' pb='100px'>
-          <Flex direction='column' pt={{ base: "100px", md: "100px" }}>
+        <Card overflowX={{ xl: "hidden" }} my='20px' pb='100px' align="center" display="flex" verticalAlign="middle">
+          <Box  align="center" display="flex" alignContent="center" verticalAlign="middle">
             <a><Text
                         fontSize="2xl"
                         fontFamily="monospace"
                         fontWeight="thin"
                         color="gray.400"
+                        align="center"
             >Double click to open dialog or Drag your files</Text></a>
 
-          </Flex>
+          </Box>
         </Card>
       </div>
 
@@ -95,14 +96,14 @@ function Dropzone(props) {
         >Files</Text></h4>
           <Separator/>
       <Box h="100px">
-        <ul><Text fontFamily="monospace">{files}</Text></ul>
+        <ul><Text fontFamily="monospace" fontWeight="thin" fontSize="large">{files}</Text></ul>
       </Box>
       <div className="App">
         <div>
-          <Button variant="outline" className="btn" type="submit" onClick={event => onFileUpload(event, acceptedFiles)}>Upload</Button>
+          <Button variant="outline" className="btn" type="submit" align="center" onClick={event => onFileUpload(event, acceptedFiles)}
+          >Upload</Button>
         </div>
       </div>
-
     </div>
   );
 }
