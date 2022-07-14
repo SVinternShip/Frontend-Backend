@@ -106,7 +106,7 @@ export default function HeaderLinks(props) {
       
       <Menu>
         <MenuButton align='center'>
-          <BellIcon color={navbarIcon} mt='-4px' w='18px' h='18px' />
+          <BellIcon color={navbarIcon} mt='-4px' w='18px' h='18px'marginLeft="15px"/>
         </MenuButton>
 
         <MenuList
