@@ -49,21 +49,20 @@ import axios from "axios";
 
 async function signUp(hospital, username, last_name, first_name, password) {
   try {
-  //응답 성공
-  const response = await axios.post('http://localhost:8000/api/user/signup',
-    {
-    //보내고자 하는 데이터
-      hospital: hospital,
-      username: username,
-      last_name: last_name,
-      first_name: first_name,
-      password: password,
-  },
-      );
-  console.log(response);
-  window.location.replace('http://localhost:3000/home/signin');
-  //회원가입 완료 후 signin 페이지로 redirect
-
+    //응답 성공
+    const response = await axios.post('http://localhost:8000/api/user/signup',
+                          {
+                                  //보내고자 하는 데이터
+                                  hospital: hospital,
+                                  username: username,
+                                  last_name: last_name,
+                                  first_name: first_name,
+                                  password: password,
+                                },
+                    );
+    console.log(response);
+    window.location.replace('http://localhost:3000/home/signin');
+    //회원가입 완료 후 signin 페이지로 redirect
     } catch (error) {
     //응답 실패
     if (error.response){
@@ -77,8 +76,6 @@ async function signUp(hospital, username, last_name, first_name, password) {
     }
   }
 }
-
-
 
 export default function SignUp() {
   const titleColor = "white";
@@ -110,9 +107,16 @@ export default function SignUp() {
     setPassWord(e.target.value)
   }
 
+  const handleEnterPress = e => {
+    if(e.key === 'Enter') {
+      signUp(hospital, username, last_name, first_name, password)
+    }
+  }
+
   return (
     <Flex position='relative' overflow={{ lg: "hidden" }}>
       <Flex
+          onKeyPress={handleEnterPress}
         minH='100vh'
         h={{ base: "120vh", lg: "fit-content" }}
         w='100%'
@@ -139,14 +143,14 @@ export default function SignUp() {
             mt={{ base: "60px", md: "140px", lg: "200px" }}
             mb='50px'>
             <Text
-              fontSize='45px'
+              fontSize='50px'
               lineHeight='39px'
               color='white'
               fontWeight='bold'>
               Welcome to AssiCT!
             </Text>
             <Text
-              fontSize='18px'
+              fontSize='25px'
               color='white'
               fontWeight='normal'
               mt='10px'

@@ -77,8 +77,6 @@ async function LogIn(username, password) {
   }
 }
 
-
-
 export default function SignIn() {
   const titleColor = "white";
   const textColor = "gray.400";
@@ -93,9 +91,15 @@ export default function SignIn() {
     setPassword(e.target.value)
   }
 
+  const handleEnterPress = e => {
+    if(e.key === 'Enter') {
+      LogIn(username, password)
+    }
+  }
 
   return (
-    <Flex position='relative'>
+    <Flex position='relative'
+          onKeyPress={handleEnterPress}>
       <Flex
         minH='100vh'
         h={{ base: "120vh", lg: "fit-content" }}
