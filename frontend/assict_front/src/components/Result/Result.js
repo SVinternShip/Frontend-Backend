@@ -15,6 +15,9 @@ import {useStyles} from "@chakra-ui/react";
 import CardBody from "../Card/CardBody";
 import TablesProjectRow from "../Tables/TablesProjectRow";
 import CardHeader from "../Card/CardHeader";
+import {toVarReference} from "@chakra-ui/system";
+
+
 
   export default function Result(props) {
 
@@ -26,8 +29,8 @@ import CardHeader from "../Card/CardHeader";
     // prediction:  false -> 출혈, true: 정상 => 나중에 렌더하는 함수에다가 적용하기
 
     // const [data3, setData3] = useState([]);
-    const [data4, setData4] = useState({ct_results_id: '', fileName: '', prediction: '', studyDate: ''});
-
+    const [data4, setData4] = useState([]);
+ // const [arr, setArr]= useState([]);
 
   useEffect(() => {
       //현재 url: http://localhost:3000/home/tables/{patient_result_id}
@@ -62,29 +65,32 @@ import CardHeader from "../Card/CardHeader";
       // setData2(ListData);
       // console.log(data2)
 
-      //출력 형태: {ct_results_id: [ 1,2 ], fileName: [fileName1, fileName2], ...}
-      var i;
-      var CtIdList= [];
-      var arr = [];
-      var FileNameList = [];
-      var arr2 = [];
-      var PredList = [];
-      var arr3 = [];
-      var stdDateList = [];
-      var arr4 = [];
-      for (i=0; i<Object.keys(result.data.ct_results).length; i++){
-        arr[i] = result.data.ct_results[i].id;
-        arr2[i] = result.data.ct_results[i].fileName;
-        arr3[i] = result.data.ct_results[i].prediction;
-        arr4[i] = result.data.ct_results[i].studyDate;
-      }
-      CtIdList = arr;
-      FileNameList = arr2;
-      PredList = arr3;
-      stdDateList = arr4;
 
-      setData4({ct_results_id: CtIdList, fileName: FileNameList, prediction: PredList, studyDate: stdDateList})
+      var i;
+      var arr=[];
+
+      //출력 형태: [ct_result.id, ct_result_filename, prediction(정상/출혈), studydate]
+
+      var ListData = [];
+      var tableArr = [];
+      for (i=0; i<Object.keys(result.data.ct_results).length; i++){
+        tableArr[i] = result.data.ct_results[i].prediction;
+        if (tableArr[i]==true)
+            tableArr[i]="정상";
+        else
+          tableArr[i]="출혈";
+      }
+      ListData = tableArr;
+      console.log(ListData)
+
+      for (i=0; i<Object.keys(result.data.ct_results).length; i++) {
+        arr[i] = [result.data.ct_results[i].id, result.data.ct_results[i].fileName, tableArr[i], result.data.ct_results[i].studyDate];
+      }
+      // console.log(arr)
+      setData4(arr)
+      //출력 방식: [ [ct_results_id, fileName, prediction, studyDate], [ct_results_id, fileName, prediction, studyDate], ... ]
       console.log(data4)
+
 
     };
     fetchData();
@@ -175,7 +181,7 @@ import CardHeader from "../Card/CardHeader";
               </Tr>
             </Thead>
             <Tbody>
-              {/*<DrawTableRow2 data={data2}/>*/}
+              {/*<DrawTableRow data={data4}/>*/}
             </Tbody>
           </Table>
         </CardBody>
