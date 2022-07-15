@@ -19,18 +19,16 @@ import {toVarReference} from "@chakra-ui/system";
 
 
 
+
   export default function Result(props) {
 
   // 1. 이름(patientName), 날짜(createdDate) 상태 저장
       const [data, setData] = useState({ patientName:'', createdDate:'',});
 
 
-    // ct_results_id, fileName, 이미지 정보(prediction, studyDate)를 각각 배열의 형태로 상태 저장
-    // prediction:  false -> 출혈, true: 정상 => 나중에 렌더하는 함수에다가 적용하기
-
-    // const [data3, setData3] = useState([]);
+    // 수정 전: ct_results_id, fileName, 이미지 정보(prediction, studyDate)를 각각 배열의 형태로 상태 저장 (2차원 배열)
+    // 수정 후 출력 방식: [ [ct_results_id, fileName, prediction, studyDate], [ct_results_id, fileName, prediction, studyDate], ... ]
     const [data4, setData4] = useState([]);
- // const [arr, setArr]= useState([]);
 
   useEffect(() => {
       //현재 url: http://localhost:3000/home/tables/{patient_result_id}
@@ -70,27 +68,22 @@ import {toVarReference} from "@chakra-ui/system";
       var arr=[];
 
       //출력 형태: [ct_result.id, ct_result_filename, prediction(정상/출혈), studydate]
-
-      var ListData = [];
-      var tableArr = [];
+      var predArr = [];
       for (i=0; i<Object.keys(result.data.ct_results).length; i++){
-        tableArr[i] = result.data.ct_results[i].prediction;
-        if (tableArr[i]==true)
-            tableArr[i]="정상";
+        predArr[i] = result.data.ct_results[i].prediction;
+        if (predArr[i]==true)
+            predArr[i]="정상";
         else
-          tableArr[i]="출혈";
+          predArr[i]="출혈";
       }
-      ListData = tableArr;
-      console.log(ListData)
+      console.log(predArr)
 
       for (i=0; i<Object.keys(result.data.ct_results).length; i++) {
-        arr[i] = [result.data.ct_results[i].id, result.data.ct_results[i].fileName, tableArr[i], result.data.ct_results[i].studyDate];
+        arr[i] = [result.data.ct_results[i].id, result.data.ct_results[i].fileName, predArr[i], result.data.ct_results[i].studyDate];
       }
-      // console.log(arr)
+      console.log(arr)
       setData4(arr)
-      //출력 방식: [ [ct_results_id, fileName, prediction, studyDate], [ct_results_id, fileName, prediction, studyDate], ... ]
       console.log(data4)
-
 
     };
     fetchData();
