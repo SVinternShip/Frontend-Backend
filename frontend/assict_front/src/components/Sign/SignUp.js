@@ -139,14 +139,14 @@ export default function SignUp() {
             mt={{ base: "60px", md: "140px", lg: "200px" }}
             mb='50px'>
             <Text
-              fontSize='4xl'
+              fontSize='45px'
               lineHeight='39px'
               color='white'
               fontWeight='bold'>
               Welcome to AssiCT!
             </Text>
             <Text
-              fontSize='md'
+              fontSize='18px'
               color='white'
               fontWeight='normal'
               mt='10px'
@@ -174,7 +174,7 @@ export default function SignUp() {
                 <FormLabel
                   color={titleColor}
                   ms='4px'
-                  fontSize='sm'
+                  fontSize='lg'
                   fontWeight='normal'>
                   Hospital Code
                 </FormLabel>
@@ -206,7 +206,7 @@ export default function SignUp() {
                 <FormLabel
                   color={titleColor}
                   ms='4px'
-                  fontSize='sm'
+                  fontSize='lg'
                   fontWeight='normal'>
                   ID
                 </FormLabel>
@@ -238,7 +238,7 @@ export default function SignUp() {
                 <FormLabel
                   color={titleColor}
                   ms='4px'
-                  fontSize='sm'
+                  fontSize='lg'
                   fontWeight='normal'>
                   Last name
                 </FormLabel>
@@ -270,7 +270,7 @@ export default function SignUp() {
                 <FormLabel
                   color={titleColor}
                   ms='4px'
-                  fontSize='sm'
+                  fontSize='lg'
                   fontWeight='normal'>
                   First name
                 </FormLabel>
@@ -302,7 +302,7 @@ export default function SignUp() {
                 <FormLabel
                   color={titleColor}
                   ms='4px'
-                  fontSize='sm'
+                  fontSize='lg'
                   fontWeight='normal'>
                   Password
                 </FormLabel>
@@ -332,7 +332,7 @@ export default function SignUp() {
                 </GradientBorder>
                 <Button onClick={()=>signUp(hospital, username, last_name, first_name, password)}
                   variant='brand'
-                  fontSize='10px'
+                  fontSize='18px'
                   type='submit'
                   w='100%'
                   maxW='350px'
@@ -396,7 +396,7 @@ export default function SignUp() {
               textAlign='center'
               color='white'
               letterSpacing='8px'
-              fontSize='20px'
+              fontSize='30px'
               fontWeight='500'>
               YOUR PERSONAL ASSISTANT
             </Text>
@@ -404,7 +404,7 @@ export default function SignUp() {
               textAlign='center'
               color='transparent'
               letterSpacing='8px'
-              fontSize='36px'
+              fontSize='45px'
               fontWeight='bold'
               bgClip='text !important'
               bg='linear-gradient(94.56deg, #FFFFFF 79.99%, #21242F 102.65%)'>

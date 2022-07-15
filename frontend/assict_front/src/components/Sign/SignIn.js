@@ -252,7 +252,7 @@ export default function SignIn() {
               letterSpacing='8px'
               fontSize='30px'
               fontWeight='500'>
-              YOUR PERSONAL ASSISTANT:
+              YOUR PERSONAL ASSISTANT
             </Text>
             <Text
               textAlign='center'
