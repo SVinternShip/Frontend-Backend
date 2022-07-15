@@ -100,14 +100,14 @@ export default function SignIn() {
         minH='100vh'
         h={{ base: "120vh", lg: "fit-content" }}
         w='100%'
-        maxW='1044px'
+        maxW='1300px'
         mx='auto'
         pt={{ sm: "100px", md: "0px" }}
         flexDirection='column'
         me={{ base: "auto", lg: "50px", xl: "auto" }}>
         <Flex
           alignItems='center'
-          justifyContent='start'
+          justifyContent='center'
           style={{ userSelect: "none" }}
           mx={{ base: "auto", lg: "unset" }}
           ms={{ base: "auto", lg: "auto" }}
@@ -119,7 +119,7 @@ export default function SignIn() {
             background='transparent'
             mt={{ base: "50px", md: "150px", lg: "160px", xl: "245px" }}
             mb={{ base: "60px", lg: "95px" }}>
-            <Heading color={titleColor} fontSize='32px' mb='10px'>
+            <Heading color={titleColor} fontSize='45px' mb='10px'>
               Nice to see you!
             </Heading>
             <Text
@@ -127,13 +127,13 @@ export default function SignIn() {
               ms='4px'
               color={textColor}
               fontWeight='bold'
-              fontSize='14px'>
+              fontSize='18px'>
               Enter your ID and password to sign in
             </Text>
             <FormControl>
               <FormLabel
                 ms='4px'
-                fontSize='sm'
+                fontSize='lg'
                 fontWeight='normal'
                 color='white'>
                 User ID
@@ -147,7 +147,7 @@ export default function SignIn() {
                   bg='rgb(19,21,54)'
                   border='transparent'
                   borderRadius='20px'
-                  fontSize='sm'
+                  fontSize='md'
                   size='lg'
                   w={{ base: "100%", md: "346px" }}
                   maxW='100%'
@@ -163,7 +163,7 @@ export default function SignIn() {
             <FormControl>
               <FormLabel
                 ms='4px'
-                fontSize='sm'
+                fontSize='lg'
                 fontWeight='normal'
                 color='white'>
                 Password
@@ -177,7 +177,7 @@ export default function SignIn() {
                   bg='rgb(19,21,54)'
                   border='transparent'
                   borderRadius='20px'
-                  fontSize='sm'
+                  fontSize='md'
                   size='lg'
                   w={{ base: "100%", md: "346px" }}
                   maxW='100%'
@@ -193,7 +193,7 @@ export default function SignIn() {
             <Button
                 onClick={()=>LogIn(username, password)}
               variant='brand'
-              fontSize='10px'
+              fontSize='18px'
               type='submit'
               w='100%'
               maxW='350px'
@@ -250,7 +250,7 @@ export default function SignIn() {
               textAlign='center'
               color='white'
               letterSpacing='8px'
-              fontSize='20px'
+              fontSize='30px'
               fontWeight='500'>
               YOUR PERSONAL ASSISTANT:
             </Text>
@@ -258,7 +258,7 @@ export default function SignIn() {
               textAlign='center'
               color='transparent'
               letterSpacing='8px'
-              fontSize='36px'
+              fontSize='45px'
               fontWeight='bold'
               bgClip='text !important'
               bg='linear-gradient(94.56deg, #FFFFFF 79.99%, #21242F 102.65%)'>

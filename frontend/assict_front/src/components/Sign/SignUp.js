@@ -116,7 +116,7 @@ export default function SignUp() {
         minH='100vh'
         h={{ base: "120vh", lg: "fit-content" }}
         w='100%'
-        maxW='1044px'
+        maxW='1500px'
         mx='auto'
         pt={{ sm: "100px", md: "0px" }}
         flexDirection='column'
