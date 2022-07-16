@@ -16,14 +16,143 @@ import CardBody from "../Card/CardBody";
 import TablesProjectRow from "../Tables/TablesProjectRow";
 import CardHeader from "../Card/CardHeader";
 import {toVarReference} from "@chakra-ui/system";
+import ResultProjectRow from "./ResultProjectRow";
+import PatientInfoRow from "./PatientInfoRow";
+import ImgInfoRow from "./ImgInfoRow";
+
+
+
+// fileName - prediction, studyDate( split 필요! )
+//ct_result json
+//ResultProjectRow.js와 이어짐 (filename 목록 만들고 '선택' 버튼 누르면 무언가를 호출하게끔!)
+function DrawTableRow(props){
+  const tableRowData = props.data
+  const list = []
+
+  for(let i=0; i<tableRowData.length;i++){
+    let currentData = tableRowData[i]
+    console.log(currentData)
+    const ct_result_id = currentData[0] //fileName - ct_result_id
+    const fileName = currentData[1]
+
+    //이미지 정보
+    const prediction = currentData[2]
+    const date = currentData[3].split('T')[0]
+    const time = currentData[3].split('T')[1]
+
+    list.push(<ResultProjectRow
+        ct_result_id={ct_result_id}
+        fileName={fileName}
+        prediction={prediction}
+        date={date}
+        time={time}/>)
+  }
+
+  return (list)
+}
+
+
+// patientName, createdDate(data)를 props로 받는 함수 (patientResult json)
+function DrawPatientInfo(props){
+  const patientInfoRow = props.data
+  const list1 = []
+
+  const patientName = patientInfoRow[0]
+// const createdDate = patientInfoRow[1]
+//   const createdTime = patientInfoRow[1]
+  const createdDate = patientInfoRow[1].split('T')[0]
+  const createdTime = patientInfoRow[1].split('T')[1].split('.')[0]
+  console.log(createdTime)
+
+    list1.push(<PatientInfoRow
+        patientName={patientName}
+        createdDate={createdDate}
+        createdTime = {createdTime}/>)
+
+  return (list1)
+}
+
+
+
+//props로 받는 data4:  [ [ct_results_id, fileName, prediction, studyDate], [ct_results_id, fileName, prediction, ...] , ... ]
+function DrawFileList(props){
+  const list= []
+  // var apiVar
+  // for(let i=0; i<props.data.length;i++){
+  //   let fileList = props.data[i][1];
+  //   // console.log(apiVar) //i값 가져오기
+  //   // // 어차피 return 못하면 가져올 필요x
+  //
+  //
+  //   let ct_result_id = props.data[i][0];
+  //
+  //   //더 추가해야하가ㅣㄴ 핮지만.. token이며 뭐며...ㅇㅇ => 이걸 밑에 result 함수 속 useEffect에 넣을 수 있나?
+  //   const original_res = await axios.get('http://localhost:8000/api/ct/ctResult/' + apiVar + 'original');
+  //   const lime_res = await axios.get('http://localhost:8000/api/ct/ctResult/' + apiVar + 'lime');
+  //
+  //
+  //   const [img, setImg] = useState([]);
+
+    //   // 출력 형태: [fileName1, fileName2, ...]
+    //   var ListData = [];
+    //   var tableArr = [];
+    //   for (let i=0; i<Object.keys(result.data.ct_results).length; i++){
+    //     tableArr[i] = result.data.ct_results[i].fileName;
+    //   }
+    //   ListData = tableArr;
+    //   setData2(ListData);
+    //   console.log(data2)
+    //
+    // console.log(fileList)
+    //
+    // list.push(<ResultProjectRow
+    //     ct_result_id={}
+    //     fileName{}/>);
+  return (list)
+
+}
+
+
+
+// function DrawTableRow(props){
+//   const list = [];
+//   var i, prediction, studyDate;
+//   const file = props.data[i][0];
+//   console.log(file)
+//   console.log(props.data)
+//   for(let i=0; i<props.length;i++){
+//     if (file == props[i][0])
+//     {
+//       var prediction = props.data[i][2];
+//       var studyDate = props.data[i][3];
+//     }
+//     list.push(<TablesProjectRow
+//         prediction={prediction}
+//         studyDate={studyDate}/>)
+//     console.log(list)
+//   }
+//
+//   return list
+//   console.log(list)
+
+//props=data4 [ , , , , ]
+  //fileName이 i번째에 있으면.. 마찬가지로 data4[i]를 구하고
+  //거기서 prediction: data4[i][2]
+  // studyDate: data4[i][3]
+
+  //ct_result_id: data4[i][0]
+  //let ct_result_id=data4[i][0]
+
+  //여기서 ct_result_id 를 parvar로 넘겨서 api 호출!!
+  //response로 받는 originalimgUrl이랑 limeimgUrl
 
 
 
 
   export default function Result(props) {
 
-  // 1. 이름(patientName), 날짜(createdDate) 상태 저장
-      const [data, setData] = useState({ patientName:'', createdDate:'',});
+  // 1. 이름(patientName), 날짜(createdDate) 상태 저장 (=> array가 아니라서 문제 발생!
+      const [data, setData] = useState([]);
 
 
     // 수정 전: ct_results_id, fileName, 이미지 정보(prediction, studyDate)를 각각 배열의 형태로 상태 저장 (2차원 배열)
@@ -46,12 +175,17 @@ import {toVarReference} from "@chakra-ui/system";
             //header에 jwt 토큰 포함시킴(unauthorized 오류 방지)
         }
       })
-      // console.log(result)
-      setData({patientName: result.data.patientName, createdDate: result.data.createdDate});
-      // console.log(data)
+      console.log(result)
+      var patientArr;
+      patientArr = [result.data.patientName, result.data.createdDate];
+      setData(patientArr);
+      console.log(data)
+      // setData({patientName: result.data.patientName, createdDate: result.data.createdDate});
+
       // const getValues = Object.values(data); //key없이 값(value)만 출력됨
       // console.log(getValues)
       console.log(Object.keys(result.data.ct_results).length) //ct_results 배열 길이 구하고 확인
+
 
       //출력 형태: [fileName1, fileName2, ...]
       // var ListData = [];
@@ -76,14 +210,14 @@ import {toVarReference} from "@chakra-ui/system";
         else
           predArr[i]="출혈";
       }
-      console.log(predArr)
 
       for (i=0; i<Object.keys(result.data.ct_results).length; i++) {
         arr[i] = [result.data.ct_results[i].id, result.data.ct_results[i].fileName, predArr[i], result.data.ct_results[i].studyDate];
       }
-      console.log(arr)
       setData4(arr)
       console.log(data4)
+
+
 
     };
     fetchData();
@@ -174,7 +308,9 @@ import {toVarReference} from "@chakra-ui/system";
               </Tr>
             </Thead>
             <Tbody>
-              {/*<DrawTableRow data={data4}/>*/}
+              <DrawPatientInfo data={data}></DrawPatientInfo>
+              <DrawTableRow data={data4}></DrawTableRow>
+              {/*<ImgInfoRow data={data4}></ImgInfoRow>*/}
             </Tbody>
           </Table>
         </CardBody>
