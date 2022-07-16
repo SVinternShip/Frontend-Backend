@@ -68,7 +68,7 @@ def store_image_to_gc(request):
     original_img = request.FILES['original_image']
     lime_img = request.FILES['lime_image']
     # GCP에 업로드할 파일 절대경로
-    now = str(datetime.datetime.now())
+    now = str(datetime.now())
     original_img_name = now + '_original_' + str(original_img.name)  # 업로드할 파일을 GCP에 저장할 때의 이름
 
     blob = bucket.blob(original_img_name)
