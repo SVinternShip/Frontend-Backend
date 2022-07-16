@@ -23,8 +23,18 @@ def signup(request):
     if serializer.is_valid():
         serializer.save()
         return JsonResponse(serializer.data, status=201)
-    return JsonResponse(serializer.errors)
+    top_error_key = list(serializer.errors.keys())[0]
+    top_error_code = serializer.errors.get(top_error_key)[0].code
+    return Response(get_error_msg(top_error_key, top_error_code), status=status.HTTP_400_BAD_REQUEST)
 
+def get_error_msg(key, code):
+    if code is "unique":
+        return "중복된 "+key+" 입니다."
+    if code is "does_not_exist":
+        return "존재하지 않는 " + key + " 입니다."
+    if code is "blank":
+        return key + " 값이 입력되지 않았습니다."
+    return "잘못된 값 오류"
 
 #로그인
 @permission_classes([AllowAny])

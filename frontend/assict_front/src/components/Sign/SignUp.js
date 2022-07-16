@@ -60,21 +60,13 @@ async function signUp(hospital, username, last_name, first_name, password) {
                                   password: password,
                                 },
                     );
-    console.log(response);
-    window.location.replace('http://localhost:3000/home/signin');
-    //회원가입 완료 후 signin 페이지로 redirect
     } catch (error) {
     //응답 실패
-    if (error.response){
-      console.log('error response');
-    }
-    else if(error.request){
-      console.log('error request');
-    }
-    else if (error.message){
-      console.log('error message');
-    }
+    console.log(error.response['data'])
+    return
   }
+  //회원가입 완료 후 signin 페이지로 redirect
+  window.location.replace('http://localhost:3000/home/signin');
 }
 
 export default function SignUp() {
