@@ -28,9 +28,8 @@ import {
   Input,
   Link,
   Link as ReachLink,
-  Switch,
   Text,
-  DarkMode,
+  useToast,
 } from "@chakra-ui/react";
 
 // Assets
@@ -44,40 +43,37 @@ import GradientBorder from "../GradientBorder/GradientBorder";
 import axios from "axios";
 
 
-async function LogIn(username, password) {
-  try {
-  //응답 성공
-  const response = await axios.post('http://localhost:8000/api/user/login',
-    {
-    //보내고자 하는 데이터
-      username: username,
-      password: password
-  },
+export default function SignIn() {
+  const toast = useToast()
+
+  async function LogIn(username, password) {
+    try {
+      //응답 성공
+      const response = await axios.post('http://localhost:8000/api/user/login',
+          {
+            //보내고자 하는 데이터
+            username: username,
+            password: password
+          },
       );
-  console.log(response);
-  localStorage.clear();
-  localStorage.setItem('token', response.data.token); //response로 받은 data중에 token값
-  if (localStorage.getItem('token') !== null) //token값이 존재하면 로그인이 되었다고 판단
-  {
-    window.location.replace('http://localhost:3000/home/tables'); //로그인이 되면 tables 페이지로 redirect
-  }
+      localStorage.clear();
+      localStorage.setItem('token', response.data.token); //response로 받은 data중에 token값
+      if (localStorage.getItem('token') !== null) //token값이 존재하면 로그인이 되었다고 판단
+      {
+        window.location.replace('http://localhost:3000/home/tables'); //로그인이 되면 tables 페이지로 redirect
+      }
 
     } catch (error) {
-
-    //응답 실패
-    if (error.response){
-      console.log('error response');
-    }
-    else if(error.request){
-      console.log('error request');
-    }
-    else if (error.message){
-      console.log('error message');
+      toast({
+        title: '로그인 실패',
+        position: 'top',
+        description: "ID, Password를 다시 확인해 주세요",
+        status: "error",
+        isClosable: true,
+      })
     }
   }
-}
 
-export default function SignIn() {
   const titleColor = "white";
   const textColor = "gray.400";
   const [username, setUsername] = useState("");
