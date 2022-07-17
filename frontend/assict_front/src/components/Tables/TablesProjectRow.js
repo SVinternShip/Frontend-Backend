@@ -38,25 +38,30 @@ function DashboardTableRow(props) {
   const navigate=useNavigate();
 
   return (
-    <Tr>
+    <Tr onClick={event=>{
+        event.preventDefault();
+        console.log(patient_result_id)
+        // 여기서 다른 주소로 redirect
+        navigate(`/home/tables/${patient_result_id}`)
+    }}>
       <Td
         minWidth={{ sm: "250px" }}
         ps='0px'
         borderBottomColor='#56577A'
         border={lastItem ? "none" : null}>
         <Flex alignItems='center' py='.8rem' minWidth='100%' flexWrap='nowrap'>
-          <Text fontSize='sm' color='#fff' minWidth='100%'>
+          <Text fontSize='15px' color='#fff' minWidth='100%'>
             {name}
           </Text>
         </Flex>
       </Td>
       <Td borderBottomColor='#56577A' border={lastItem ? "none" : null}>
-        <Text fontSize='sm' color='#fff' fontWeight='bold' pb='.5rem' padding={0}>
+        <Text fontSize='15px' color='#fff' fontWeight='bold' pb='.5rem' padding={0}>
           {date}
         </Text>
       </Td>
         <Td borderBottomColor='#56577A' border={lastItem ? "none" : null}>
-            <Text fontSize='sm' color='#fff' fontWeight='bold' pb='.5rem' padding={0}>
+            <Text fontSize='15px' color='#fff' fontWeight='bold' pb='.5rem' padding={0}>
                 {time}
             </Text>
         </Td>
@@ -64,7 +69,7 @@ function DashboardTableRow(props) {
         <Badge
             bg={status === "Finished" ? "green.400" : "transparent"}
             color={status === "Finished" ? "white" : colorStatus}
-            fontSize='sm'
+            fontSize='15px'
             p='3px 10px'
             borderRadius='8px'
             border={status === "Finished" ? "none" : "1px solid #fff"}
@@ -75,7 +80,7 @@ function DashboardTableRow(props) {
       <Td borderBottomColor='#56577A' border={lastItem ? "none" : null}>
         <Flex direction='column'>
           <Text
-            fontSize='sm'
+              fontSize='15px'
             color='#fff'
             fontWeight='bold'
             pb='.2rem'>{`${progression}%`}</Text>
@@ -90,14 +95,6 @@ function DashboardTableRow(props) {
         </Flex>
       </Td>
       <Td borderBottomColor='#56577A' border={lastItem ? "none" : null}>
-        <Button value={patient_result_id} p='0px' bg='transparent' _hover='none' _active='none'onClick={event=>{
-            event.preventDefault();
-            console.log(event.currentTarget.value)
-            // 여기서 다른 주소로 redirect
-            navigate(`/home/tables/${patient_result_id}`)
-        }}>
-          <Icon  as={FaPlayCircle} color='gray.400' cursor='pointer'/>
-        </Button>
       </Td>
     </Tr>
   );

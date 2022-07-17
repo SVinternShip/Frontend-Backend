@@ -41,39 +41,22 @@ var dashRoutes = [
     component: Tables,
     layout: "/home",
   },
-
+  {
+    path: "/fileupload",
+    name: "File Upload",
+    rtlName: "لوحة القيادة",
+    icon: <DocumentIcon color='inherit' />,
+    secondaryNavbar: true,
+    component: FileUpload,
+    layout: "/home",
+  },
   {
     name: "ACCOUNT PAGES",
     category: "account",
     rtlName: "صفحات",
     state: "pageCollapse",
     views: [
-      {
-        path: "/signin",
-        name: "Sign In",
-        rtlName: "لوحة القيادة",
-        icon: <GlobeIcon color='inherit' />,
-        component: SignIn,
-        layout: "/home",
-      },
-      {
-        path: "/signup",
-        name: "Sign Up",
-        rtlName: "لوحة القيادة",
-        icon: <RocketIcon color='inherit' />,
-        secondaryNavbar: true,
-        component: SignUp,
-        layout: "/home",
-      },
-        {
-        path: "/fileupload",
-        name: "File Upload",
-        rtlName: "لوحة القيادة",
-        icon: <DocumentIcon color='inherit' />,
-        secondaryNavbar: true,
-        component: FileUpload,
-        layout: "/home",
-      },
+
     ],
   },
 ];

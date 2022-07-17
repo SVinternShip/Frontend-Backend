@@ -65,7 +65,7 @@ function Dropzone(props) {
 
   const files = acceptedFiles.map(file => (
     <li key={file.path}>
-      {file.path} - {file.size} bytes
+      {file.path}
     </li>
 
   ));
@@ -79,11 +79,12 @@ function Dropzone(props) {
         <Card overflowX={{ xl: "hidden" }} my='20px' pb='100px' align="center" display="flex" verticalAlign="middle">
           <Box  align="center" display="flex" alignContent="center" verticalAlign="middle" pt={{ base: "100px", md: "13%" }}>
             <a><Text
-                        fontSize="2xl"
-                        fontFamily="monospace"
-                        fontWeight="thin"
-                        color="gray.400"
-                        align="center"
+                ps='0px'
+                color='gray.400'
+                fontFamily='Plus Jakarta Display'
+                borderBottomColor='#56577A'
+                fontSize="2xl"
+                align="center"
             >Double click to open dialog or Drag your files</Text></a>
 
           </Box>
@@ -98,12 +99,7 @@ function Dropzone(props) {
       <Box h="100px">
         <ul><Text fontFamily="monospace" fontWeight="thin" fontSize="large">{files}</Text></ul>
       </Box>
-      <div className="App">
-        <div>
-          <Button variant="outline" className="btn" type="submit" align="center" onClick={event => onFileUpload(event, acceptedFiles)}
-          >Upload</Button>
-        </div>
-      </div>
+      <Button variant="outline" className="btn" type="submit" align="center" onClick={event => onFileUpload(event, acceptedFiles)}>Upload</Button>
     </div>
   );
 }

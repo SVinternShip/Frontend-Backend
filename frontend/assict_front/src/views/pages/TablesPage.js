@@ -47,7 +47,7 @@ function TablesPage(props){
               <AdminNavbar
                 onOpen={onOpen}
                 logoText={"YOUR PERSONAL ASSISTANT"}
-                brandText={'AssiCT'} //제목 들어갈 부분
+                brandText={'Tables'} //제목 들어갈 부분
                 secondary={false}
                 fixed={fixed}
                 {...rest}

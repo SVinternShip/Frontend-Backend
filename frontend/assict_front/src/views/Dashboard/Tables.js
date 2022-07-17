@@ -101,7 +101,7 @@ function Tables() {
       <Card my='22px' overflowX={{ sm: "scroll", xl: "hidden" }} pb='0px'>
         <CardHeader p='6px 0px 22px 0px'>
           <Flex direction='column'>
-            <Text fontSize='lg' color='#fff' fontWeight='bold' mb='.5rem'>
+            <Text fontSize='xl' color='#fff' fontWeight='bold' mb='.5rem'>
               CT Result
             </Text>
             <Flex align='center'>
@@ -116,30 +116,35 @@ function Tables() {
                 <Th
                   ps='0px'
                   color='gray.400'
+                  fontSize='15px'
                   fontFamily='Plus Jakarta Display'
                   borderBottomColor='#56577A'>
                   Patient Name
                 </Th>
                 <Th
                   color='gray.400'
+                  fontSize='15px'
                   fontFamily='Plus Jakarta Display'
                   borderBottomColor='#56577A'>
                   Date
                 </Th>
                 <Th
                     color='gray.400'
+                    fontSize='15px'
                     fontFamily='Plus Jakarta Display'
                     borderBottomColor='#56577A'>
                   Time
                 </Th>
                 <Th
                   color='gray.400'
+                  fontSize='15px'
                   fontFamily='Plus Jakarta Display'
                   borderBottomColor='#56577A'>
                   Status
                 </Th>
                 <Th
                   color='gray.400'
+                  fontSize='15px'
                   fontFamily='Plus Jakarta Display'
                   borderBottomColor='#56577A'>
                   Analysis Progress
