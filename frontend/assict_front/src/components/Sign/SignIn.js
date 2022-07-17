@@ -45,15 +45,15 @@ import axios from "axios";
 function checkToken(){
   if (localStorage.getItem('token') !== null) //token값이 존재하면 로그인이 되었다고 판단
   {
+    console.log("@@@@")
     window.location.replace('http://localhost:3000/home/tables'); //로그인이 되면 tables 페이지로 redirect
   }
 }
 
 export default function SignIn() {
   const toast = useToast()
-
+  checkToken()
   async function LogIn(username, password) {
-    checkToken()
     try {
       //응답 성공
       const response = await axios.post('http://localhost:8000/api/user/login',
