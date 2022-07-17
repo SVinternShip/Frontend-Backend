@@ -18,7 +18,6 @@ import CardHeader from "../Card/CardHeader";
 import {toVarReference} from "@chakra-ui/system";
 import ResultProjectRow from "./ResultProjectRow";
 import PatientInfoRow from "./PatientInfoRow";
-import ImgInfoRow from "./ImgInfoRow";
 
 
 
@@ -31,7 +30,7 @@ function DrawTableRow(props){
 
   for(let i=0; i<tableRowData.length;i++){
     let currentData = tableRowData[i]
-    console.log(currentData)
+    console.log(currentData+'data')
     const ct_result_id = currentData[0] //fileName - ct_result_id
     const fileName = currentData[1]
 
@@ -40,12 +39,17 @@ function DrawTableRow(props){
     const date = currentData[3].split('T')[0]
     const time = currentData[3].split('T')[1]
 
+    //여기서 setState 걸어주기 가능?
+
     list.push(<ResultProjectRow
         ct_result_id={ct_result_id}
+        data={props}
         fileName={fileName}
         prediction={prediction}
         date={date}
-        time={time}/>)
+        time={time}
+        index={i}
+    />)
   }
 
   return (list)
@@ -60,15 +64,15 @@ function DrawPatientInfo(props){
   const patientName = patientInfoRow[0]
 // const createdDate = patientInfoRow[1]
 //   const createdTime = patientInfoRow[1]
-  const createdDate = patientInfoRow[1].split('T')[0]
-  const createdTime = patientInfoRow[1].split('T')[1].split('.')[0]
-  console.log(createdTime)
+//   const createdDate = patientInfoRow[1].split('T')[0]
+//   const createdTime = patientInfoRow[1].split('T')[1].split('.')[0]
+//   console.log(createdTime)
 
     list1.push(<PatientInfoRow
         patientName={patientName}
-        createdDate={createdDate}
-        createdTime = {createdTime}/>)
-
+        // createdDate={createdDate}
+        // createdTime = {createdTime}/>)
+/>)
   return (list1)
 }
 
