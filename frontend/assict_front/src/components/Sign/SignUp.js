@@ -29,10 +29,8 @@ import {
   Input,
   Link,
   Link as ReachLink,
-  Switch,
   Text,
-  Icon,
-  DarkMode,
+  useToast,
 } from "@chakra-ui/react";
 
 // Icons
@@ -47,29 +45,39 @@ import axios from "axios";
 
 
 
-async function signUp(hospital, username, last_name, first_name, password) {
-  try {
-    //응답 성공
-    const response = await axios.post('http://localhost:8000/api/user/signup',
-                          {
-                                  //보내고자 하는 데이터
-                                  hospital: hospital,
-                                  username: username,
-                                  last_name: last_name,
-                                  first_name: first_name,
-                                  password: password,
-                                },
-                    );
-    } catch (error) {
-    //응답 실패
-    console.log(error.response['data'])
-    return
-  }
-  //회원가입 완료 후 signin 페이지로 redirect
-  window.location.replace('http://localhost:3000/home/signin');
-}
 
 export default function SignUp() {
+
+  const toast = useToast()
+
+  async function signUp(hospital, username, last_name, first_name, password) {
+    try {
+      //응답 성공
+      const response = await axios.post('http://localhost:8000/api/user/signup',
+          {
+            //보내고자 하는 데이터
+            hospital: hospital,
+            username: username,
+            last_name: last_name,
+            first_name: first_name,
+            password: password,
+          },
+      );
+    } catch (error) {
+      //응답 실패
+      toast({
+        title: '회원가입 실패',
+        position: 'top',
+        description: error.response['data'],
+        status: "error",
+        isClosable: true,
+      })
+      return
+    }
+    //회원가입 완료 후 signin 페이지로 redirect
+    window.location.replace('http://localhost:3000/home/signin');
+  }
+
   const titleColor = "white";
   const textColor = "gray.400";
 
