@@ -22,7 +22,7 @@ import {
     useColorModeValue, Badge, Img, FormControl, FormLabel,
 } from "@chakra-ui/react";
 import { FaPlayCircle } from "react-icons/fa";
-import {useNavigate} from "react-router-dom";
+// import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
 
@@ -47,7 +47,7 @@ function DashboardTableRow1(props) {
   const { patient_result_id, name, status, progression, lastItem } = props;
   const textColor = useColorModeValue("gray.700", "white");
   const colorStatus = useColorModeValue("white", "gray.400");
-  const navigate=useNavigate();
+  // const navigate=useNavigate();
 
     const [showInfo, setShow] = useState([]);
 
@@ -97,8 +97,13 @@ function DashboardTableRow1(props) {
 
 
   return (
-      //과제: RowClick
-    <Tr>
+    <Tr onClick={event=>{
+            // event.preventDefault();
+            console.log(event.currentTarget.value)
+            //정보 보여주는 함수
+            setShow(DrawImageInfo(data ,index)) //set하고 렌더
+            setId(ct_result_id) //api를 위한 ct_result_id set
+        }}>
       <Td
         minWidth={{ sm: "250px" }}
         ps='0px'
@@ -136,7 +141,7 @@ function DashboardTableRow1(props) {
           </Text>
         </Flex>
       </Td>
-              <Td
+        <Td
         minWidth={{ sm: "250px" }}
         ps='0px'
         borderBottomColor='#56577A'
@@ -149,25 +154,13 @@ function DashboardTableRow1(props) {
           </Text>
         </Flex>
       </Td>
-
         <Td>
-
-        </Td>
+            <Text fontSize='sm'>CT</Text>
             <Img src={orgImg} />
+            <Text fontSize='sm'>LIME</Text>
             <Img src={limeImg} />
-            {/*{lime_res}*/}>
-      <Td borderBottomColor='#56577A' border={lastItem ? "none" : null}>
-        <Button value={index} p='0px' bg='transparent' _hover='none' _active='none'onClick={event=>{
-            // event.preventDefault();
-            console.log(event.currentTarget.value)
-            //정보 보여주는 함수
-            setShow(DrawImageInfo(data ,index)) //set하고 렌더
-            setId(ct_result_id) //api를 위한 ct_result_id set
-        }}>
-            <Text>선택</Text>
-          {/*<Icon  as={FaPlayCircle} color='gray.400' cursor='pointer'/>*/}
-        </Button>
-      </Td>
+        </Td>
+            {/*{lime_res}*/}
     </Tr>
   );
 }

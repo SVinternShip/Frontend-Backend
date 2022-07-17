@@ -28,14 +28,13 @@ import {
     useColorModeValue, Badge,
 } from "@chakra-ui/react";
 import { FaPlayCircle } from "react-icons/fa";
-import {useNavigate} from "react-router-dom";
+// import {useNavigate} from "react-router-dom";
 
-//// <Icon as={logo} h={"20px"} w={"20px"} me='18px' />
 function DashboardTableRow2(props) {
     const { patientName, createdDate, createdTime, lastItem } = props;
   const textColor = useColorModeValue("gray.700", "white");
   const colorStatus = useColorModeValue("white", "gray.400");
-  const navigate=useNavigate();
+  // const navigate=useNavigate();
 
   return (
     <Tr>
@@ -60,38 +59,6 @@ function DashboardTableRow2(props) {
                 {createdTime}
             </Text>
         </Td>
-    {/*<Td borderBottomColor='#56577A'>*/}
-    {/*    <Badge*/}
-    {/*        bg={status === "Finished" ? "green.400" : "transparent"}*/}
-    {/*        color={status === "Finished" ? "white" : colorStatus}*/}
-    {/*        fontSize='sm'*/}
-    {/*        p='3px 10px'*/}
-    {/*        borderRadius='8px'*/}
-    {/*        border={status === "Finished" ? "none" : "1px solid #fff"}*/}
-    {/*        fontWeight='normal'>*/}
-    {/*        {status}*/}
-    {/*    </Badge>*/}
-    {/*</Td>*/}
-    {/*  <Td borderBottomColor='#56577A' border={lastItem ? "none" : null}>*/}
-    {/*    <Flex direction='column'>*/}
-    {/*      <Text*/}
-    {/*        fontSize='sm'*/}
-    {/*        color='#fff'*/}
-    {/*        fontWeight='bold'*/}
-    {/*        pb='.2rem'>{`${progression}%`}</Text>*/}
-    {/*      <Progress*/}
-    {/*        colorscheme='brand'*/}
-    {/*        maxW='125px'*/}
-    {/*        h='3px'*/}
-    {/*        bg='#2D2E5F'*/}
-    {/*        value={progression}*/}
-    {/*        borderRadius='15px'*/}
-    {/*      />*/}
-    {/*    </Flex>*/}
-    {/*  </Td>*/}
-      <Td borderBottomColor='#56577A' border={lastItem ? "none" : null}>
-
-      </Td>
     </Tr>
   );
 }

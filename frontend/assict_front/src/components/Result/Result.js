@@ -40,7 +40,7 @@ import {CheckIcon, CloseIcon, EditIcon} from "@chakra-ui/icons";
 // fileName - prediction, studyDate( split 필요! )
 //ct_result json
 //ResultProjectRow.js와 이어짐 (filename 목록 만들고 '선택' 버튼 누르면 무언가를 호출하게끔!)
-function DrawTableRow(props){
+function DrawRow(props){
   const tableRowData = props.data
   const list = []
 
@@ -80,15 +80,16 @@ function DrawPatientInfo(props){
   const patientName = patientInfoRow[0]
 // const createdDate = patientInfoRow[1]
 //   const createdTime = patientInfoRow[1]
-  const createdDate = patientInfoRow[1].split('T')[0]
-  const createdTime = patientInfoRow[1].split('T')[1].split('.')[0]
+//   const createdDate = patientInfoRow[1].split('T')[0]
+//   const createdTime = patientInfoRow[1].split('T')[1].split('.')[0]
 //   console.log(createdTime)
 
     list1.push(<PatientInfoRow
         patientName={patientName}
-        createdDate={createdDate}
-        createdTime = {createdTime}/>)
-// />)
+        // createdDate={createdDate}
+        // createdTime = {createdTime}
+    />)
+
   return (list1)
 }
 
@@ -291,8 +292,43 @@ function DrawFileList(props){
           //                 {...rest}
           //             />
           //         </Portal>
-          //         <PanelContent>
-          //             <PanelContainer>
+                  <PanelContent>
+                      <PanelContainer>
+                                <Card>
+        <CardHeader p='6px 0px 22px 0px'>
+          <Flex direction='column'>
+            <Text fontSize='lg' color='#fff' fontWeight='bold' mb='.5rem'>
+              Patient Information
+            </Text>
+            <Flex align='center'>
+            </Flex>
+          </Flex>
+        </CardHeader>
+        <CardBody>
+          <Table>
+            <Thead>
+
+              <Tr>
+                <Th>
+                  patient name
+                </Th>
+                <Th>
+                  created Date
+                </Th>
+                <Th>
+                  created time
+                </Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {/* 여기 해결해야함! */}
+              <DrawPatientInfo data={data}></DrawPatientInfo>
+              {/* DrawPatientInfo 문제...! 인줄 알았으나 split의 문제였음! */}
+            </Tbody>
+          </Table>
+        </CardBody>
+      </Card>
+
     <Flex direction='column' pt={{ base: "120px", md: "75px" }}>
       {/* Previous Results Table */}
       {/* Projects Table */}
@@ -303,7 +339,7 @@ function DrawFileList(props){
               CT Result
             </Text>
             <Flex align='center'>
-
+    
             </Flex>
           </Flex>
         </CardHeader>
@@ -316,48 +352,43 @@ function DrawFileList(props){
                   color='gray.400'
                   fontFamily='Plus Jakarta Display'
                   borderBottomColor='#56577A'>
-                  FileName
+                  FILENAME
                 </Th>
                 <Th
                   color='gray.400'
                   fontFamily='Plus Jakarta Display'
                   borderBottomColor='#56577A'>
-                  Date
+                  Prediction
                 </Th>
                 <Th
                     color='gray.400'
                     fontFamily='Plus Jakarta Display'
                     borderBottomColor='#56577A'>
+                  Date
+                </Th>
+                <Th
+                  color='gray.400'
+                  fontFamily='Plus Jakarta Display'
+                  borderBottomColor='#56577A'>
                   Time
                 </Th>
                 <Th
                   color='gray.400'
                   fontFamily='Plus Jakarta Display'
                   borderBottomColor='#56577A'>
-                  Status
-                </Th>
-                <Th
-                  color='gray.400'
-                  fontFamily='Plus Jakarta Display'
-                  borderBottomColor='#56577A'>
-                  Analysis Progress
+                  Image
                 </Th>
                 <Th borderBottomColor='#56577A'/>
               </Tr>
-
             </Thead>
             <Tbody>
-              <DrawTableRow data={data4}></DrawTableRow>
-                            {/*이거 나중에 그려야하는데*/}
-              {/*<DrawPatientInfo data={data}></DrawPatientInfo>*/}
+              <DrawRow data={data4}></DrawRow>
 
-
-
-
+    
               {/*<Editable defaultValue='환자 관련 정보를 메모하세요.'>*/}
               {/*  <EditablePreview></EditablePreview>*/}
               {/*  <EditableInput></EditableInput>*/}
-
+    
               {/*</Editable>*/}
         {/*      <FormControl>*/}
         {/*    <FormLabel>*/}
@@ -367,8 +398,17 @@ function DrawFileList(props){
         {/*    </FormLabel>*/}
         {/*</FormControl>*/}
         {/*      <Button type='submit'>저장</Button>*/}
-
-              <Editable
+    
+              {/*<ImgInfoRow data={data4}></ImgInfoRow>*/}
+            </Tbody>
+          </Table>
+        </CardBody>
+      </Card>
+    </Flex>
+                        <Flex>
+                        <Card>
+                          <CardBody>
+                           <Editable
       textAlign='center'
       defaultValue='환자 정보 메모'
       fontSize='2xl'
@@ -378,16 +418,13 @@ function DrawFileList(props){
       <Input as={EditableInput} />
       <EditableControls />
     </Editable>
-
-              {/*<ImgInfoRow data={data4}></ImgInfoRow>*/}
-            </Tbody>
-          </Table>
-        </CardBody>
-      </Card>
-    </Flex>
-      //                 </PanelContainer>
-      //             </PanelContent>
-      //             <Configurator
+                            </CardBody>
+                        </Card>
+                          </Flex>
+      </PanelContainer>
+      </PanelContent>
+      //
+          //             <Configurator
       //                 secondary={false} //
       //                 isOpen={isOpen}
       //                 onClose={onClose}
