@@ -29,12 +29,16 @@ services:
   prometheus:
     container_name: assict_prometheus
     image: prom/prometheus
+    user: root
     restart: always
     volumes:
-      - prometheus_data:/prometheus
+      - ./prometheus:/prometheus
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - 9090:9090
+    command:
+      - '--web.enable-lifecycle'
+      - '--config.file=/etc/prometheus/prometheus.yml'
   grafana:
     build:
       context: grafana
@@ -88,6 +92,17 @@ services:
     depends_on:
       - nginx
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+  alertmanager:
+    image: prom/alertmanager
+    container_name: alertmanager
+    user: root
+    ports:
+      - 9093:9093
+    volumes:
+      - ./alertmanager/:/etc/alertmanager/
+    restart: always
+    command:
+      - '--config.file=/etc/alertmanager/config.yml'
 volumes:
   build_folder: null
   prometheus_data: { }

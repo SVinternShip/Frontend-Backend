@@ -5,6 +5,9 @@ global:
   external_labels:
     monitor: 'assict-monitor'
 
+rule_files:
+  - "/prometheus/alert.rules"
+
 scrape_configs:
   - job_name: assict_django
     metrics_path: '/prometheus/metrics'
@@ -24,3 +27,11 @@ scrape_configs:
   - job_name: node-exporter
     static_configs:
       - targets: ['node-exporter:9100']
+
+alerting:
+  alertmanagers:
+  - scheme: http
+    static_configs:
+    - targets:
+      - "alertmanager:9093"
+
