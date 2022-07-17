@@ -127,9 +127,9 @@ function DashboardTableRow1(props) {
   //여기서 usestate써도 될 듯?///???? 보여줄때 state달리한다거나..
     const [showInfo, setShow] = useState([]);
 
-    prediction = showInfo[1]
-    date = showInfo[2]
-    time = showInfo[3]
+    prediction = showInfo[0]
+    date = showInfo[1]
+    time = showInfo[2]
     console.log(prediction)
     console.log(date)
     console.log(time)
@@ -179,13 +179,12 @@ function DashboardTableRow1(props) {
           </Text>
         </Flex>
       </Td>
-        {/*//*/}
-         <Td
+      <Td
         minWidth={{ sm: "250px" }}
         ps='0px'
         borderBottomColor='#56577A'
         // border={lastItem ? "none" : null}
-              >
+      >
         <Flex alignItems='center' py='.8rem' minWidth='100%' flexWrap='nowrap'>
           <Text fontSize='sm' color='#fff' minWidth='100%'>
               {prediction}
@@ -198,7 +197,7 @@ function DashboardTableRow1(props) {
         ps='0px'
         borderBottomColor='#56577A'
         // border={lastItem ? "none" : null}
-              >
+      >
         <Flex alignItems='center' py='.8rem' minWidth='100%' flexWrap='nowrap'>
           <Text fontSize='sm' color='#fff' minWidth='100%'>
               {date}
