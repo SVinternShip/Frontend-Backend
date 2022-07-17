@@ -1,5 +1,18 @@
 import React, {useEffect, useState} from "react";
-import {ChakraProvider, Flex, Portal, Table, Tbody, Text, Th, Thead, Tr} from "@chakra-ui/react";
+import {
+  Button, ButtonGroup,
+  ChakraProvider, Editable, EditableInput, EditablePreview,
+  Flex,
+  FormControl, FormHelperText,
+  FormLabel, IconButton, Input,
+  Portal,
+  Table,
+  Tbody,
+  Text,
+  Th,
+  Thead,
+  Tr, useEditableControls
+} from "@chakra-ui/react";
 import theme from "../../theme/themeAdmin";
 import Sidebar from "../Sidebar/Sidebar";
 import dashRoutes from "../../routes";
@@ -18,7 +31,10 @@ import CardHeader from "../Card/CardHeader";
 import {toVarReference} from "@chakra-ui/system";
 import ResultProjectRow from "./ResultProjectRow";
 import PatientInfoRow from "./PatientInfoRow";
+import {CheckIcon, CloseIcon, EditIcon} from "@chakra-ui/icons";
 
+
+//메모장 function 만들장
 
 
 // fileName - prediction, studyDate( split 필요! )
@@ -64,15 +80,15 @@ function DrawPatientInfo(props){
   const patientName = patientInfoRow[0]
 // const createdDate = patientInfoRow[1]
 //   const createdTime = patientInfoRow[1]
-//   const createdDate = patientInfoRow[1].split('T')[0]
-//   const createdTime = patientInfoRow[1].split('T')[1].split('.')[0]
+  const createdDate = patientInfoRow[1].split('T')[0]
+  const createdTime = patientInfoRow[1].split('T')[1].split('.')[0]
 //   console.log(createdTime)
 
     list1.push(<PatientInfoRow
         patientName={patientName}
-        // createdDate={createdDate}
-        // createdTime = {createdTime}/>)
-/>)
+        createdDate={createdDate}
+        createdTime = {createdTime}/>)
+// />)
   return (list1)
 }
 
@@ -150,7 +166,25 @@ function DrawFileList(props){
   //여기서 ct_result_id 를 parvar로 넘겨서 api 호출!!
   //response로 받는 originalimgUrl이랑 limeimgUrl
 
+  function EditableControls() {
+    const {
+      isEditing,
+      getSubmitButtonProps,
+      getCancelButtonProps,
+      getEditButtonProps,
+    } = useEditableControls()
 
+    return isEditing ? (
+      <ButtonGroup justifyContent='center' size='sm'>
+        <IconButton type='submit' icon={<CheckIcon />} {...getSubmitButtonProps()} />
+        <IconButton icon={<CloseIcon />} {...getCancelButtonProps()} />
+      </ButtonGroup>
+    ) : (
+      <Flex justifyContent='center'>
+        <IconButton size='sm' icon={<EditIcon />} {...getEditButtonProps()} />
+      </Flex>
+    )
+  }
 
 
   export default function Result(props) {
@@ -282,7 +316,7 @@ function DrawFileList(props){
                   color='gray.400'
                   fontFamily='Plus Jakarta Display'
                   borderBottomColor='#56577A'>
-                  Patient Name
+                  FileName
                 </Th>
                 <Th
                   color='gray.400'
@@ -310,10 +344,41 @@ function DrawFileList(props){
                 </Th>
                 <Th borderBottomColor='#56577A'/>
               </Tr>
+
             </Thead>
             <Tbody>
-              <DrawPatientInfo data={data}></DrawPatientInfo>
               <DrawTableRow data={data4}></DrawTableRow>
+                            {/*이거 나중에 그려야하는데*/}
+              {/*<DrawPatientInfo data={data}></DrawPatientInfo>*/}
+
+
+
+
+              {/*<Editable defaultValue='환자 관련 정보를 메모하세요.'>*/}
+              {/*  <EditablePreview></EditablePreview>*/}
+              {/*  <EditableInput></EditableInput>*/}
+
+              {/*</Editable>*/}
+        {/*      <FormControl>*/}
+        {/*    <FormLabel>*/}
+        {/*        <input placeholder='Memo'>*/}
+        {/*        </input>*/}
+        {/*      <FormHelperText>환자 관련 정보를 메모하세요.</FormHelperText>*/}
+        {/*    </FormLabel>*/}
+        {/*</FormControl>*/}
+        {/*      <Button type='submit'>저장</Button>*/}
+
+              <Editable
+      textAlign='center'
+      defaultValue='환자 정보 메모'
+      fontSize='2xl'
+      isPreviewFocusable={false}>
+      <EditablePreview />
+      {/* Here is the custom input */}
+      <Input as={EditableInput} />
+      <EditableControls />
+    </Editable>
+
               {/*<ImgInfoRow data={data4}></ImgInfoRow>*/}
             </Tbody>
           </Table>
