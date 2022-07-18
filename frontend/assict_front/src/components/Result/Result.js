@@ -37,6 +37,7 @@ import CtImageInfo from "./CtImageInfo";
 import PatientInfoRow from "./PatientInfoRow";
 import {CheckIcon, CloseIcon, EditIcon} from "@chakra-ui/icons";
 import {Separator} from "../Separator/Separator";
+import CtImageBox from "./CtImageBox";
 
 
 //메모장 function 만들장
@@ -97,7 +98,7 @@ function DrawPatientInfo(props){
   const createdDateTime = patientInfoRow[1].split('T')
   const createdDate = createdDateTime[0]
   const createdTime = createdDateTime[1].split('.')[0]
-  console.log(createdDate, createdTime)
+  // console.log(createdDate, createdTime)
 
 
   return (<PatientInfoRow
@@ -110,15 +111,25 @@ function DrawPatientInfo(props){
 function DrawCurrentImgInfo(props){
   const patientInfoRow = props.data
 
-  console.log(patientInfoRow)
+  // console.log(patientInfoRow)
 
 
   return (<CtImageInfo
-      prediction={patientInfoRow[2]}
-      fileName={patientInfoRow[1]}
-      studyDate = {patientInfoRow[3]}
+      prediction={"patientInfoRow[2]"}
+      fileName={"patientInfoRow[1]"}
+      studyDate = {"patientInfoRow[3]"}
   />)
 }
+
+
+function DrawImage(props){
+  const orgData = props.org
+  const limeData = props.lime
+    return (<CtImageBox
+        changeClickedImg={props.changeClickedImg}
+        original_image={orgData}
+        lime_image={limeData} />)
+ }
 
 
 
@@ -215,6 +226,8 @@ function DrawFileList(props){
   }
 
   const ct_images = []
+const org_images = []
+const lime_images = []
 
   export default function Result(props) {
 
@@ -226,10 +239,21 @@ function DrawFileList(props){
     // 수정 후 출력 방식: [ [ct_results_id, fileName, prediction, studyDate], [ct_results_id, fileName, prediction, studyDate], ... ]
     const [ctResultData, setCtResultData] = useState([]);
     const [currentClickedImg, setcurrentClickedImg] = useState(null);
-    const [currentClickedImgInfo, setcurrentClickedImgInfo] = useState(null);
+
+    const [currentClickedOrg, setcurrentClickedOrg] = useState(null);
+    const [currentClickedLime, setcurrentClickedLime] = useState(null);
+
+
+    const [currentClickedImgInfo, setcurrentClickedImgInfo] = useState([null]);
 
     const changeClickedImg = (value) => {
       console.log(ct_images[value])
+      console.log(org_images[value])
+      console.log(lime_images[value])
+
+      setcurrentClickedOrg(org_images[value])
+      setcurrentClickedLime(lime_images[value])
+
       setcurrentClickedImg(ct_images[value]);
       setcurrentClickedImgInfo(ctResultData[value])
     };
@@ -250,7 +274,7 @@ function DrawFileList(props){
               //header에 jwt 토큰 포함시킴(unauthorized 오류 방지)
           }
         })
-        console.log(result)
+        // console.log(result)
         var patientArr;
         patientArr = [result.data.patientName, result.data.createdDate];
         setPatientInfoData(patientArr);
@@ -300,10 +324,15 @@ function DrawFileList(props){
                 "Authorization": token
               }
             })
-
             //이미지 출력용 setState
             const OrgObjectURL = URL.createObjectURL(original_res.data);
             const LimeObjectURL = URL.createObjectURL(lime_res.data);
+
+            const orgImage = OrgObjectURL
+            const limeImage = LimeObjectURL
+            org_images.push(orgImage)
+            lime_images.push(limeImage)
+
 
             const newImage = {"original_img":OrgObjectURL, "lime_img":LimeObjectURL}
             ct_images.push(newImage)
@@ -311,7 +340,7 @@ function DrawFileList(props){
           getCtImgs();
         }
         setCtResultData(arr)
-        console.log(ctResultData)
+        // console.log(ctResultData)
       };
       fetchData();
     }, []);
@@ -353,6 +382,9 @@ function DrawFileList(props){
                   </GridItem>
                   <GridItem colStart={10} colEnd={11} h='15' rowSpan={5}>
                     <DrawCurrentImgInfo data={currentClickedImgInfo}/>
+                  </GridItem>
+                  <GridItem colSpan={2} h='15' rowSpan={5}>
+                    <DrawImage org={currentClickedOrg} lime={currentClickedLime}/>
                   </GridItem>
                 </Grid>
 
