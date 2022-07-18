@@ -191,12 +191,15 @@ function DrawFileList(props){
   export default function Result(props) {
 
   // 1. 이름(patientName), 날짜(createdDate) 상태 저장 (=> array가 아니라서 문제 발생!
-      const [data, setData] = useState([]);
+      const [patientInfoData, setPatientInfoData] = useState([]);
 
 
     // 수정 전: ct_results_id, fileName, 이미지 정보(prediction, studyDate)를 각각 배열의 형태로 상태 저장 (2차원 배열)
     // 수정 후 출력 방식: [ [ct_results_id, fileName, prediction, studyDate], [ct_results_id, fileName, prediction, studyDate], ... ]
-    const [data4, setData4] = useState([]);
+    const [ctResultData, setCtResultData] = useState([]);
+
+
+    const [ctImgsData, setCtImgsData] = useState([]);
 
   useEffect(() => {
       //현재 url: http://localhost:3000/home/tables/{patient_result_id}
@@ -217,8 +220,8 @@ function DrawFileList(props){
       console.log(result)
       var patientArr;
       patientArr = [result.data.patientName, result.data.createdDate];
-      setData(patientArr);
-      console.log(data)
+      setPatientInfoData(patientArr);
+      console.log(patientInfoData)
       // setData({patientName: result.data.patientName, createdDate: result.data.createdDate});
 
       // const getValues = Object.values(data); //key없이 값(value)만 출력됨
@@ -250,11 +253,38 @@ function DrawFileList(props){
           predArr[i]="출혈";
       }
 
+      var tempImgsList=[];
+
       for (i=0; i<Object.keys(result.data.ct_results).length; i++) {
         arr[i] = [result.data.ct_results[i].id, result.data.ct_results[i].fileName, predArr[i], result.data.ct_results[i].studyDate];
+
+        const getCtImgs = async () => {
+          const original_res = await axios.get('http://localhost:8000/api/ct/ctResult/' + ct_id + '/original', {
+              // responseType: 'arraybuffer',
+              responseType: 'blob', //blob으로 받기
+            "headers": {
+              "Authorization": token
+            }
+          })
+
+            const lime_res = await axios.get('http://localhost:8000/api/ct/ctResult/' + ct_id + '/lime', {
+                responseType: 'blob',
+            "headers": {
+              "Authorization": token
+            }
+          })
+
+            //이미지 출력용 setState
+            const OrgObjectURL = URL.createObjectURL(original_res.data);
+            const LimeObjectURL = URL.createObjectURL(lime_res.data);
+
+
+
+        };
+        getCtImgs();
       }
-      setData4(arr)
-      console.log(data4)
+      setCtResultData(arr)
+      console.log(ctResultData)
 
 
 
@@ -322,7 +352,7 @@ function DrawFileList(props){
             </Thead>
             <Tbody>
               {/* 여기 해결해야함! */}
-              <DrawPatientInfo data={data}></DrawPatientInfo>
+              <DrawPatientInfo data={patientInfoData}></DrawPatientInfo>
               {/* DrawPatientInfo 문제...! 인줄 알았으나 split의 문제였음! */}
             </Tbody>
           </Table>
@@ -382,7 +412,7 @@ function DrawFileList(props){
               </Tr>
             </Thead>
             <Tbody>
-              <DrawRow data={data4}></DrawRow>
+              <DrawRow data={ctResultData}></DrawRow>
 
     
               {/*<Editable defaultValue='환자 관련 정보를 메모하세요.'>*/}
