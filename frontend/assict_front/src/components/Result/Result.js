@@ -201,7 +201,7 @@ function DrawFileList(props){
     // 수정 전: ct_results_id, fileName, 이미지 정보(prediction, studyDate)를 각각 배열의 형태로 상태 저장 (2차원 배열)
     // 수정 후 출력 방식: [ [ct_results_id, fileName, prediction, studyDate], [ct_results_id, fileName, prediction, studyDate], ... ]
     const [ctResultData, setCtResultData] = useState([]);
-    const ctImgsData = []
+    const [ctImgsData, setCtImgsData] = useState([]);
     const [currentClickedImg, setcurrentClickedImg] = useState(null);
 
     const changeClickedImg = (value) => {
@@ -286,7 +286,11 @@ function DrawFileList(props){
             const LimeObjectURL = URL.createObjectURL(lime_res.data);
 
             const newImage = {"original_img":OrgObjectURL, "lime_img":LimeObjectURL}
-            ctImgsData.push(newImage)
+            const newImages = [...ctImgsData]
+            newImages.push(newImage)
+            console.log(newImages)
+            setCtImgsData(newImages)
+            console.log(ctImgsData)
           };
           getCtImgs();
         }
