@@ -1,0 +1,35 @@
+global: ## default 값 지정해주기
+  resolve_timeout: 1m # 이 시간이 지나도록 경고가 업데이트되지 않은 경우 해결되었다고 선언 | default : 5m
+  # 옵션 - email 관련 기본값설정
+  # 옵션 - slack 관련 기본값
+
+# 템플릿이 있을 경우 템플릿 위치 = alertmanager.yml 위치에서 /templates 안에 만듬
+templates:
+- '/etc/alertmanager/templates/*.tmpl'
+
+# route는 루우팅 트리와 그 하위 트리의 노드를 정의한다.
+# 모든 alert는 최상위 경로에서 라우팅 트리를 들어가며, 하위 노드를 가로지르게 되고, conitnue 가 거짓일 경우 멈추고, 아닌 경우 계속 하위트리의 노드에 일치되는지 검색하게 된다.
+route:
+  group_by: ['emailAlert'] # prometheus.yml의 targets -labels의 label_name을 의미합니다.
+  group_wait: 10s # # inhibit 조건 발생에 대한 중복을 방지하기 위한 알림 발생 전 대기시간 | default = 30s
+  group_interval: 10s # 새 알림에 대한 통지를 보내기 전 대기할 시간 | default = 5m
+  repeat_interval: 1h # 이미 있는 경우 알림을 다시 보내기전에 대기할 시간 | default = 4h
+  receiver: 'email' # 알림 설정 대상
+
+receivers:
+- name: 'email'
+  email_configs:
+  - to: 'xcvdsf8216@gmail.com'
+    from: 'xcvdsf8216@gmail.com'
+    smarthost: 'smtp.gmail.com:587'
+    auth_username: "xcvdsf8216@gmail.com"
+    auth_identity: "xcvdsf8216@gmail.com"
+    auth_password: '' # put your google app password
+    send_resolved: true
+
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:  # 음소거가 되어야 할 대상
+      severity: 'warning'
+    equal: ['alertname', 'name'] # value값과 동일한 값을 갖는 경우 inhibit rule 적용
