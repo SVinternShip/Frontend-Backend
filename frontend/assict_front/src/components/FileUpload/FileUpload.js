@@ -67,7 +67,6 @@ function FileUpload(props) {
             <PanelContent>
                 <PanelContainer>
                     <SelectFile/>
-
                 </PanelContainer>
             </PanelContent>
             <Configurator

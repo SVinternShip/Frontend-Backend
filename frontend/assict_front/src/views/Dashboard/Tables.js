@@ -28,6 +28,7 @@ import {
   Th,
   Thead,
   Tr,
+  Spinner
 } from "@chakra-ui/react";
 
 // Custom components
@@ -48,10 +49,17 @@ import { AiFillCheckCircle } from "react-icons/ai";
 function DrawTableRow(props){
   const tableRowData = props.data
   const list = []
-
+  if (tableRowData.length === undefined){
+    return (<Spinner
+        thickness='4px'
+        speed='0.65s'
+        emptyColor='gray.200'
+        color='blue.500'
+        size='xl'
+    />)
+  }
   for(let i=0; i<tableRowData.length;i++){
     let currentData = tableRowData[i]
-    console.log(currentData)
     const total_dcm = currentData['total_dcm']
     const complete_dcm = currentData['complete_dcm']
     if (currentData['total_dcm'] === 0)
@@ -88,7 +96,6 @@ function Tables() {
           "Authorization": token
         }
       })
-      console.log(result)
       setData(result.data);
     };
     fetchData();

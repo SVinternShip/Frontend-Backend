@@ -19,8 +19,7 @@ function SelectFiles() {
       <CardBody>
         <PanelContent color='#fff'>
             <PanelContainer>
-                <Dropzone />
-
+                <Dropzone/>
             </PanelContainer>
         </PanelContent>
       </CardBody>
