@@ -8,34 +8,37 @@ import {
     Icon,
     Button,
     Box,
-    useColorModeValue, Badge, Img, FormControl, FormLabel,
+    useColorModeValue, Badge, Img, FormControl, FormLabel, Table, Thead, Th, Tbody,
 } from "@chakra-ui/react";
+import CardHeader from "../Card/CardHeader";
+import CardBody from "../Card/CardBody";
+import Card from "../Card/Card";
 
 function PatientInfo(props) {
-    const { prediction, fileName, studyDate } = props;
+    const {patientName, createdDate, createdTime } = props;
 
     return(
-        <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
-            <Box p='6'>
-                <Box display='flex' alignItems='baseline'>
-                </Box>
-                <Box
-                    mt='1'
-                    color='#fff'
-                    fontWeight='bold'
-                    as='h4'
-                    lineHeight='tight'
-                    noOfLines={1}
-                >
-                    {fileName}
-                </Box>
-                <Box display='flex' mt='2' alignItems='center'>
-                    <Box as='span' color='#fff' fontWeight='bold' fontSize='sm'>
-                        촬영 날짜 : {studyDate}
+        <Flex direction='column'>
+            <Card overflowX={{ sm: "scroll", xl: "hidden" }} pb='0px'>
+                <CardHeader p='6px 0px 22px 0px'>
+                    <Flex direction='column'>
+                        <Text fontSize='lg' color='#fff' fontWeight='bold' mb='.5rem'>
+                            Patient Information
+                        </Text>
+                        <Flex align='center'>
+                        </Flex>
+                    </Flex>
+                </CardHeader>
+                <CardBody>
+                    <Box mt='1' color='#fff' fontWeight='bold' lineHeight='tight' noOfLines={1}>
+                        환자명 : {patientName}
                     </Box>
+                </CardBody>
+                <Box mt='1' color='#fff' fontWeight='bold' lineHeight='tight' noOfLines={1}>
+                    날짜 : {createdDate} / {createdTime}
                 </Box>
-            </Box>
-        </Box>
+            </Card>
+        </Flex>
     )
 }
 

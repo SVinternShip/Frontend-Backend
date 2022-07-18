@@ -84,23 +84,40 @@ function DrawRow(props){
 // patientName, createdDate(data)를 props로 받는 함수 (patientResult json)
 function DrawPatientInfo(props){
   const patientInfoRow = props.data
-  const list1 = []
-  console.log("@@")
-  console.log(patientInfoRow)
+  if (patientInfoRow.length === 0){
+    return (
+        <PatientInfoRow
+            patientName={null}
+            createdDate={null}
+            createdTime = {null}
+        />
+    )
+  }
   const patientName = patientInfoRow[0]
-// const createdDate = patientInfoRow[1]
-//   const createdTime = patientInfoRow[1]
-//   const createdDate = patientInfoRow[1].split('T')[0]
-//   const createdTime = patientInfoRow[1].split('T')[1].split('.')[0]
-//   console.log(createdTime)
+  const createdDateTime = patientInfoRow[1].split('T')
+  const createdDate = createdDateTime[0]
+  const createdTime = createdDateTime[1].split('.')[0]
+  console.log(createdDate, createdTime)
 
-    list1.push(<PatientInfoRow
-        patientName={patientName}
-        // createdDate={createdDate}
-        // createdTime = {createdTime}
-    />)
 
-  return (list1)
+  return (<PatientInfoRow
+      patientName={patientName}
+      createdDate={createdDate}
+      createdTime = {createdTime}
+  />)
+}
+
+function DrawCurrentImgInfo(props){
+  const patientInfoRow = props.data
+
+  console.log(patientInfoRow)
+
+
+  return (<CtImageInfo
+      prediction={patientInfoRow[2]}
+      fileName={patientInfoRow[1]}
+      studyDate = {patientInfoRow[3]}
+  />)
 }
 
 
@@ -209,10 +226,12 @@ function DrawFileList(props){
     // 수정 후 출력 방식: [ [ct_results_id, fileName, prediction, studyDate], [ct_results_id, fileName, prediction, studyDate], ... ]
     const [ctResultData, setCtResultData] = useState([]);
     const [currentClickedImg, setcurrentClickedImg] = useState(null);
+    const [currentClickedImgInfo, setcurrentClickedImgInfo] = useState(null);
 
     const changeClickedImg = (value) => {
       console.log(ct_images[value])
       setcurrentClickedImg(ct_images[value]);
+      setcurrentClickedImgInfo(ctResultData[value])
     };
 
     useEffect(() => {
@@ -261,10 +280,6 @@ function DrawFileList(props){
         var predArr = [];
         for (i=0; i<Object.keys(result.data.ct_results).length; i++){
           predArr[i] = result.data.ct_results[i].prediction;
-          if (predArr[i]==true)
-              predArr[i]="정상";
-          else
-            predArr[i]="출혈";
         }
 
         for (i=0; i<Object.keys(result.data.ct_results).length; i++) {
@@ -332,24 +347,12 @@ function DrawFileList(props){
           //         </Portal>
         <PanelContent>
             <PanelContainer>
-                <Grid templateColumns='repeat(5, 1fr)' gap={4}>
-                  <GridItem colSpan={2} h='10' rowSpan={5}>
-                    <Card>
-                      <CardHeader p='6px 0px 22px 0px'>
-                        <Flex direction='column'>
-                          <Text fontSize='lg' color='#fff' fontWeight='bold' mb='.5rem'>
-                            Patient Information
-                          </Text>
-                          <Flex align='center'>
-                          </Flex>
-                        </Flex>
-                      </CardHeader>
-                      <CardBody>
-                      </CardBody>
-                    </Card>
+                <Grid templateColumns='repeat(5, 1fr)' mb={10}>
+                  <GridItem colSpan={2} h='15' rowSpan={5}>
+                    <DrawPatientInfo data={patientInfoData}/>
                   </GridItem>
-                  <GridItem colStart={4} colEnd={6} h='10' rowSpan={5}>
-                    <CtImageInfo prediction={true} fileName={"test.dcm"} studyDate={"2022-07-06T23:11:35"}/>
+                  <GridItem colStart={10} colEnd={11} h='15' rowSpan={5}>
+                    <DrawCurrentImgInfo data={currentClickedImgInfo}/>
                   </GridItem>
                 </Grid>
 
