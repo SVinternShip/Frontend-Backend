@@ -40,6 +40,8 @@ import {Separator} from "../Separator/Separator";
 import CtImageBox from "./CtImageBox";
 
 
+
+
 //메모장 function 만들장
 
 
@@ -111,13 +113,12 @@ function DrawPatientInfo(props){
 function DrawCurrentImgInfo(props){
   const patientInfoRow = props.data
 
-  // console.log(patientInfoRow)
-
+  console.log(patientInfoRow)
 
   return (<CtImageInfo
-      prediction={"patientInfoRow[2]"}
-      fileName={"patientInfoRow[1]"}
-      studyDate = {"patientInfoRow[3]"}
+      prediction={patientInfoRow[2]}
+      // fileName={patientInfoRow[1]}
+      studyDate = {patientInfoRow[3]}
   />)
 }
 
@@ -128,7 +129,7 @@ function DrawImage(props){
     return (<CtImageBox
         changeClickedImg={props.changeClickedImg}
         original_image={orgData}
-        lime_image={limeData} />)
+        lime_image={limeData}/>)
  }
 
 
@@ -238,23 +239,19 @@ const lime_images = []
     // 수정 전: ct_results_id, fileName, 이미지 정보(prediction, studyDate)를 각각 배열의 형태로 상태 저장 (2차원 배열)
     // 수정 후 출력 방식: [ [ct_results_id, fileName, prediction, studyDate], [ct_results_id, fileName, prediction, studyDate], ... ]
     const [ctResultData, setCtResultData] = useState([]);
-    const [currentClickedImg, setcurrentClickedImg] = useState(null);
 
     const [currentClickedOrg, setcurrentClickedOrg] = useState(null);
     const [currentClickedLime, setcurrentClickedLime] = useState(null);
 
-
     const [currentClickedImgInfo, setcurrentClickedImgInfo] = useState([null]);
 
     const changeClickedImg = (value) => {
-      console.log(ct_images[value])
       console.log(org_images[value])
       console.log(lime_images[value])
 
       setcurrentClickedOrg(org_images[value])
       setcurrentClickedLime(lime_images[value])
 
-      setcurrentClickedImg(ct_images[value]);
       setcurrentClickedImgInfo(ctResultData[value])
     };
 
@@ -443,7 +440,7 @@ const lime_images = []
               </Tr>
             </Thead>
             <Tbody>
-              <DrawRow ct_data={ctResultData} current_clicked_imgs={currentClickedImg} changeClickedImg={changeClickedImg}/>
+              <DrawRow ct_data={ctResultData} changeClickedImg={changeClickedImg}/>
 
     
               {/*<Editable defaultValue='환자 관련 정보를 메모하세요.'>*/}

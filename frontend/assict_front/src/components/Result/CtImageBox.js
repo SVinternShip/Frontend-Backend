@@ -7,7 +7,7 @@ import {
     Progress,
     Icon,
     Button,
-    useColorModeValue, Badge, Img, Box,
+    useColorModeValue, Badge, Img, Box, Image,
 } from "@chakra-ui/react";
 import { FaPlayCircle } from "react-icons/fa";
 import Card from "../Card/Card";
@@ -20,14 +20,20 @@ function CtImageBox(props) {
   const colorStatus = useColorModeValue("white", "gray.400");
   // const navigate=useNavigate();
 
-  return (
+    // if (props.original_image == null){
+    // return }
+    //
+    // if (props.lime_image == null){
+    //     return ignoreFallbackprop}
+
+    return(
       <Flex direction='column'>
           <Card>
               <CardBody>
                   <Text fontSize='sm'>CT</Text>
-            <Img src={original_image} fallbackSrc='https://i.pinimg.com/originals/3e/16/86/3e1686b8d997105303e88627b2fa5677.png'/>
+            <Image src={original_image} fallbackSrc='https://i.pinimg.com/originals/3e/16/86/3e1686b8d997105303e88627b2fa5677.png' />
             <Text fontSize='sm'>LIME</Text>
-            <Img src={lime_image} fallbackSrc='https://i.pinimg.com/originals/3e/16/86/3e1686b8d997105303e88627b2fa5677.png'/>
+            <Image src={lime_image} fallbackSrc='https://i.pinimg.com/originals/3e/16/86/3e1686b8d997105303e88627b2fa5677.png' />
         </CardBody>
                                         </Card>
                   </Flex>
