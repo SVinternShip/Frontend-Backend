@@ -40,13 +40,16 @@ import {CheckIcon, CloseIcon, EditIcon} from "@chakra-ui/icons";
 // fileName - prediction, studyDate( split 필요! )
 //ct_result json
 //ResultProjectRow.js와 이어짐 (filename 목록 만들고 '선택' 버튼 누르면 무언가를 호출하게끔!)
-function DrawRow(props){
-  const tableRowData = props.data
-  const list = []
 
+//<DrawRow ct_data={ctResultData} current_clicked_imgs={currentClickedImg} changeClickedImg={changeClickedImg}/>
+function DrawRow(props){
+  const tableRowData = props.ct_data
+  const list = []
+  if (tableRowData === undefined){
+    return
+  }
   for(let i=0; i<tableRowData.length;i++){
     let currentData = tableRowData[i]
-    console.log(currentData+'data')
     const ct_result_id = currentData[0] //fileName - ct_result_id
     const fileName = currentData[1]
 
@@ -58,6 +61,7 @@ function DrawRow(props){
     //여기서 setState 걸어주기 가능?
 
     list.push(<ResultProjectRow
+        changeClickedImg={props.changeClickedImg}
         ct_result_id={ct_result_id}
         data={props}
         fileName={fileName}
@@ -191,106 +195,108 @@ function DrawFileList(props){
   export default function Result(props) {
 
   // 1. 이름(patientName), 날짜(createdDate) 상태 저장 (=> array가 아니라서 문제 발생!
-      const [patientInfoData, setPatientInfoData] = useState([]);
+    const [patientInfoData, setPatientInfoData] = useState([]);
 
 
     // 수정 전: ct_results_id, fileName, 이미지 정보(prediction, studyDate)를 각각 배열의 형태로 상태 저장 (2차원 배열)
     // 수정 후 출력 방식: [ [ct_results_id, fileName, prediction, studyDate], [ct_results_id, fileName, prediction, studyDate], ... ]
     const [ctResultData, setCtResultData] = useState([]);
-
-
     const [ctImgsData, setCtImgsData] = useState([]);
+    const [currentClickedImg, setcurrentClickedImg] = useState(null);
 
-  useEffect(() => {
-      //현재 url: http://localhost:3000/home/tables/{patient_result_id}
-    let para = document.location.pathname.split('/');
-    // pathname: /home/tables/{patient_result_id}
-    //{patient_result_id}의 값을 parVar에 저장
-    const parVar = para[3];
+    const changeClickedImg = (value) => {
+      console.log(value)
+      console.log(ctImgsData[value])
+      setcurrentClickedImg(ctImgsData[value]);
+    };
+
+    useEffect(() => {
+        //현재 url: http://localhost:3000/home/tables/{patient_result_id}
+      let para = document.location.pathname.split('/');
+      // pathname: /home/tables/{patient_result_id}
+      //{patient_result_id}의 값을 parVar에 저장
+      const parVar = para[3];
 
 
-    const token = 'JWT ' + localStorage.getItem('token')
-    const fetchData = async () => {
-      const result = await axios.get('http://localhost:8000/api/ct/patientResult/' + parVar, {
-        "headers": {
-          "Authorization": token
-            //header에 jwt 토큰 포함시킴(unauthorized 오류 방지)
+      const token = 'JWT ' + localStorage.getItem('token')
+      const fetchData = async () => {
+        const result = await axios.get('http://localhost:8000/api/ct/patientResult/' + parVar, {
+          "headers": {
+            "Authorization": token
+              //header에 jwt 토큰 포함시킴(unauthorized 오류 방지)
+          }
+        })
+        console.log(result)
+        var patientArr;
+        patientArr = [result.data.patientName, result.data.createdDate];
+        setPatientInfoData(patientArr);
+        console.log(patientInfoData)
+        // setData({patientName: result.data.patientName, createdDate: result.data.createdDate});
+
+        // const getValues = Object.values(data); //key없이 값(value)만 출력됨
+        // console.log(getValues)
+        console.log(Object.keys(result.data.ct_results).length) //ct_results 배열 길이 구하고 확인
+
+
+        //출력 형태: [fileName1, fileName2, ...]
+        // var ListData = [];
+        // var tableArr = [];
+        // for (i=0; i<Object.keys(result.data.ct_results).length; i++){
+        //   tableArr[i] = result.data.ct_results[i].fileName;
+        // }
+        // ListData = tableArr;
+        // setData2(ListData);
+        // console.log(data2)
+
+
+        var i;
+        var arr=[];
+
+        //출력 형태: [ct_result.id, ct_result_filename, prediction(정상/출혈), studydate]
+        var predArr = [];
+        for (i=0; i<Object.keys(result.data.ct_results).length; i++){
+          predArr[i] = result.data.ct_results[i].prediction;
+          if (predArr[i]==true)
+              predArr[i]="정상";
+          else
+            predArr[i]="출혈";
         }
-      })
-      console.log(result)
-      var patientArr;
-      patientArr = [result.data.patientName, result.data.createdDate];
-      setPatientInfoData(patientArr);
-      console.log(patientInfoData)
-      // setData({patientName: result.data.patientName, createdDate: result.data.createdDate});
 
-      // const getValues = Object.values(data); //key없이 값(value)만 출력됨
-      // console.log(getValues)
-      console.log(Object.keys(result.data.ct_results).length) //ct_results 배열 길이 구하고 확인
+        for (i=0; i<Object.keys(result.data.ct_results).length; i++) {
+          arr[i] = [result.data.ct_results[i].id, result.data.ct_results[i].fileName, predArr[i], result.data.ct_results[i].studyDate];
+          let ct_id = result.data.ct_results[i].id
+          const getCtImgs = async () => {
+            const original_res = await axios.get('http://localhost:8000/api/ct/ctResult/' + ct_id + '/original', {
+                // responseType: 'arraybuffer',
+                responseType: 'blob', //blob으로 받기
+              "headers": {
+                "Authorization": token
+              }
+            })
 
-
-      //출력 형태: [fileName1, fileName2, ...]
-      // var ListData = [];
-      // var tableArr = [];
-      // for (i=0; i<Object.keys(result.data.ct_results).length; i++){
-      //   tableArr[i] = result.data.ct_results[i].fileName;
-      // }
-      // ListData = tableArr;
-      // setData2(ListData);
-      // console.log(data2)
-
-
-      var i;
-      var arr=[];
-
-      //출력 형태: [ct_result.id, ct_result_filename, prediction(정상/출혈), studydate]
-      var predArr = [];
-      for (i=0; i<Object.keys(result.data.ct_results).length; i++){
-        predArr[i] = result.data.ct_results[i].prediction;
-        if (predArr[i]==true)
-            predArr[i]="정상";
-        else
-          predArr[i]="출혈";
-      }
-
-      var tempImgsList=[];
-
-      for (i=0; i<Object.keys(result.data.ct_results).length; i++) {
-        arr[i] = [result.data.ct_results[i].id, result.data.ct_results[i].fileName, predArr[i], result.data.ct_results[i].studyDate];
-
-        const getCtImgs = async () => {
-          const original_res = await axios.get('http://localhost:8000/api/ct/ctResult/' + ct_id + '/original', {
-              // responseType: 'arraybuffer',
-              responseType: 'blob', //blob으로 받기
-            "headers": {
-              "Authorization": token
-            }
-          })
-
-            const lime_res = await axios.get('http://localhost:8000/api/ct/ctResult/' + ct_id + '/lime', {
-                responseType: 'blob',
-            "headers": {
-              "Authorization": token
-            }
-          })
+              const lime_res = await axios.get('http://localhost:8000/api/ct/ctResult/' + ct_id + '/lime', {
+                  responseType: 'blob',
+              "headers": {
+                "Authorization": token
+              }
+            })
 
             //이미지 출력용 setState
             const OrgObjectURL = URL.createObjectURL(original_res.data);
             const LimeObjectURL = URL.createObjectURL(lime_res.data);
 
-
-
-        };
-        getCtImgs();
-      }
-      setCtResultData(arr)
-      console.log(ctResultData)
-
-
-
-    };
-    fetchData();
-  }, []);
+            const newImage = {"original_img":OrgObjectURL, "lime_img":LimeObjectURL}
+            const newImages = [...ctImgsData]
+            newImages.push(newImage)
+            setCtImgsData(newImages)
+          };
+          getCtImgs();
+        }
+        setCtResultData(arr)
+        console.log(ctResultData)
+      };
+      fetchData();
+    }, []);
 
 
       const [sidebarVariant, setSidebarVariant] = useState("transparent");
@@ -412,7 +418,7 @@ function DrawFileList(props){
               </Tr>
             </Thead>
             <Tbody>
-              <DrawRow data={ctResultData}></DrawRow>
+              <DrawRow ct_data={ctResultData} current_clicked_imgs={currentClickedImg} changeClickedImg={changeClickedImg}/>
 
     
               {/*<Editable defaultValue='환자 관련 정보를 메모하세요.'>*/}
@@ -431,6 +437,7 @@ function DrawFileList(props){
     
               {/*<ImgInfoRow data={data4}></ImgInfoRow>*/}
             </Tbody>
+
           </Table>
         </CardBody>
       </Card>

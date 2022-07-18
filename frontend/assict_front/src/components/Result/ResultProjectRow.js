@@ -43,7 +43,7 @@ function DrawImageInfo(data, index){
 
 
 function DashboardTableRow1(props) {
-    let { data, date, time, ct_result_id, prediction, fileName, index } = props;
+    let { data, time, ct_result_id, prediction, fileName, index, changeClickedImg } = props;
   const { patient_result_id, name, status, progression, lastItem } = props;
   const textColor = useColorModeValue("gray.700", "white");
   const colorStatus = useColorModeValue("white", "gray.400");
@@ -54,55 +54,15 @@ function DashboardTableRow1(props) {
     prediction = showInfo[0]
     date = showInfo[1]
     time = showInfo[2]
-    console.log(prediction)
-    console.log(date)
-    console.log(time)
 
     //이미지 api 호출
     //과제: console에 너무 많이 뜨는 요청들 정리하기
-    const [orgImg, setOrg] = useState(''); //OriginalImage
-    const [limeImg, setLime] = useState(''); //LimeImage
-
-    //ct_result_id
-    const [ct_id, setId] = useState('');
-
-
-    const token = 'JWT ' + localStorage.getItem('token')
-    const fetchData = async () => {
-      const original_res = await axios.get('http://localhost:8000/api/ct/ctResult/' + ct_id + '/original', {
-          // responseType: 'arraybuffer',
-          responseType: 'blob', //blob으로 받기
-        "headers": {
-          "Authorization": token
-        }
-      })
-
-        const lime_res = await axios.get('http://localhost:8000/api/ct/ctResult/' + ct_id + '/lime', {
-            responseType: 'blob',
-        "headers": {
-          "Authorization": token
-        }
-      })
-
-        //이미지 출력용 setState
-        const OrgObjectURL = URL.createObjectURL(original_res.data);
-        setOrg(OrgObjectURL);
-
-        const LimeObjectURL = URL.createObjectURL(lime_res.data);
-        setLime(LimeObjectURL);
-
-
-    };
-    fetchData();
-
 
   return (
     <Tr onClick={event=>{
             // event.preventDefault();
-            console.log(event.currentTarget.value)
-            //정보 보여주는 함수
-            setShow(DrawImageInfo(data ,index)) //set하고 렌더
-            setId(ct_result_id) //api를 위한 ct_result_id set
+            event.preventDefault()
+            changeClickedImg(index)
         }}>
       <Td
         minWidth={{ sm: "250px" }}
@@ -154,12 +114,12 @@ function DashboardTableRow1(props) {
           </Text>
         </Flex>
       </Td>
-        <Td>
-            <Text fontSize='sm'>CT</Text>
-            <Img src={orgImg} />
-            <Text fontSize='sm'>LIME</Text>
-            <Img src={limeImg} />
-        </Td>
+        {/*<Td>*/}
+        {/*    <Text fontSize='sm'>CT</Text>*/}
+        {/*    <Img src={orgImg} />*/}
+        {/*    <Text fontSize='sm'>LIME</Text>*/}
+        {/*    <Img src={limeImg} />*/}
+        {/*</Td>*/}
             {/*{lime_res}*/}
     </Tr>
   );
