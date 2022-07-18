@@ -191,6 +191,7 @@ function DrawFileList(props){
     )
   }
 
+  const ct_images = []
 
   export default function Result(props) {
 
@@ -201,13 +202,11 @@ function DrawFileList(props){
     // 수정 전: ct_results_id, fileName, 이미지 정보(prediction, studyDate)를 각각 배열의 형태로 상태 저장 (2차원 배열)
     // 수정 후 출력 방식: [ [ct_results_id, fileName, prediction, studyDate], [ct_results_id, fileName, prediction, studyDate], ... ]
     const [ctResultData, setCtResultData] = useState([]);
-    const [ctImgsData, setCtImgsData] = useState([]);
     const [currentClickedImg, setcurrentClickedImg] = useState(null);
 
     const changeClickedImg = (value) => {
-      console.log(value)
-      console.log(ctImgsData[value])
-      setcurrentClickedImg(ctImgsData[value]);
+      console.log(ct_images[value])
+      setcurrentClickedImg(ct_images[value]);
     };
 
     useEffect(() => {
@@ -286,11 +285,7 @@ function DrawFileList(props){
             const LimeObjectURL = URL.createObjectURL(lime_res.data);
 
             const newImage = {"original_img":OrgObjectURL, "lime_img":LimeObjectURL}
-            const newImages = [...ctImgsData]
-            newImages.push(newImage)
-            console.log(newImages)
-            setCtImgsData(newImages)
-            console.log(ctImgsData)
+            ct_images.push(newImage)
           };
           getCtImgs();
         }
@@ -299,7 +294,6 @@ function DrawFileList(props){
       };
       fetchData();
     }, []);
-
 
       const [sidebarVariant, setSidebarVariant] = useState("transparent");
       const [fixed, setFixed] = useState(false);
