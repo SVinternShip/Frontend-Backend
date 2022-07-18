@@ -43,7 +43,7 @@ function DrawImageInfo(data, index){
 
 
 function DashboardTableRow1(props) {
-    let { data, time, ct_result_id, prediction, fileName, index, changeClickedImg } = props;
+    let { data,date, time, ct_result_id, prediction, fileName, index, changeClickedImg } = props;
   const { patient_result_id, name, status, progression, lastItem } = props;
   const textColor = useColorModeValue("gray.700", "white");
   const colorStatus = useColorModeValue("white", "gray.400");

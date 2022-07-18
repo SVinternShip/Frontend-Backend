@@ -11,6 +11,9 @@ import {
   Text,
   Th,
   Thead,
+  Grid,
+  Box,
+  GridItem,
   Tr, useEditableControls
 } from "@chakra-ui/react";
 import theme from "../../theme/themeAdmin";
@@ -30,8 +33,10 @@ import TablesProjectRow from "../Tables/TablesProjectRow";
 import CardHeader from "../Card/CardHeader";
 import {toVarReference} from "@chakra-ui/system";
 import ResultProjectRow from "./ResultProjectRow";
+import CtImageInfo from "./CtImageInfo";
 import PatientInfoRow from "./PatientInfoRow";
 import {CheckIcon, CloseIcon, EditIcon} from "@chakra-ui/icons";
+import {Separator} from "../Separator/Separator";
 
 
 //메모장 function 만들장
@@ -80,7 +85,8 @@ function DrawRow(props){
 function DrawPatientInfo(props){
   const patientInfoRow = props.data
   const list1 = []
-
+  console.log("@@")
+  console.log(patientInfoRow)
   const patientName = patientInfoRow[0]
 // const createdDate = patientInfoRow[1]
 //   const createdTime = patientInfoRow[1]
@@ -324,42 +330,30 @@ function DrawFileList(props){
           //                 {...rest}
           //             />
           //         </Portal>
-                  <PanelContent>
-                      <PanelContainer>
-                                <Card>
-        <CardHeader p='6px 0px 22px 0px'>
-          <Flex direction='column'>
-            <Text fontSize='lg' color='#fff' fontWeight='bold' mb='.5rem'>
-              Patient Information
-            </Text>
-            <Flex align='center'>
-            </Flex>
-          </Flex>
-        </CardHeader>
-        <CardBody>
-          <Table>
-            <Thead>
+        <PanelContent>
+            <PanelContainer>
+                <Grid templateColumns='repeat(5, 1fr)' gap={4}>
+                  <GridItem colSpan={2} h='10' rowSpan={5}>
+                    <Card>
+                      <CardHeader p='6px 0px 22px 0px'>
+                        <Flex direction='column'>
+                          <Text fontSize='lg' color='#fff' fontWeight='bold' mb='.5rem'>
+                            Patient Information
+                          </Text>
+                          <Flex align='center'>
+                          </Flex>
+                        </Flex>
+                      </CardHeader>
+                      <CardBody>
+                      </CardBody>
+                    </Card>
+                  </GridItem>
+                  <GridItem colStart={4} colEnd={6} h='10' rowSpan={5}>
+                    <CtImageInfo prediction={true} fileName={"test.dcm"} studyDate={"2022-07-06T23:11:35"}/>
+                  </GridItem>
+                </Grid>
 
-              <Tr>
-                <Th>
-                  patient name
-                </Th>
-                <Th>
-                  created Date
-                </Th>
-                <Th>
-                  created time
-                </Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {/* 여기 해결해야함! */}
-              <DrawPatientInfo data={patientInfoData}></DrawPatientInfo>
-              {/* DrawPatientInfo 문제...! 인줄 알았으나 split의 문제였음! */}
-            </Tbody>
-          </Table>
-        </CardBody>
-      </Card>
+
 
     <Flex direction='column' pt={{ base: "120px", md: "75px" }}>
       {/* Previous Results Table */}

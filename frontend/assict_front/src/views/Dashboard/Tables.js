@@ -111,9 +111,6 @@ function Tables() {
             <Text fontSize='xl' color='#fff' fontWeight='bold' mb='.5rem'>
               CT Result
             </Text>
-            <Flex align='center'>
-
-            </Flex>
           </Flex>
         </CardHeader>
         <CardBody>

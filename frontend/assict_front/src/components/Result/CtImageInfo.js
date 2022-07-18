@@ -11,13 +11,41 @@ import {
     useColorModeValue, Badge, Img, FormControl, FormLabel,
 } from "@chakra-ui/react";
 
-function PatientInfo(props) {
+function get_prediction_result(prediction){
+    if (prediction === true){
+        return(
+            <Box
+                color='#fff'
+                fontWeight='bold'
+                letterSpacing='wide'
+                fontSize='xl'
+                textTransform='uppercase'
+            >
+                정상
+            </Box>
+        )
+    }
+    return (
+        <Box
+            borderColor='red.700'
+            color='red.400'
+            fontWeight='bold'
+            letterSpacing='wide'
+            fontSize='xl'
+            textTransform='uppercase'
+        >
+            출혈 위험
+        </Box>
+    )
+}
+function CtImageInfo(props) {
     const { prediction, fileName, studyDate } = props;
 
     return(
         <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
             <Box p='6'>
                 <Box display='flex' alignItems='baseline'>
+                    {get_prediction_result(prediction)}
                 </Box>
                 <Box
                     mt='1'
@@ -39,4 +67,4 @@ function PatientInfo(props) {
     )
 }
 
-export default PatientInfo;
+export default CtImageInfo;
