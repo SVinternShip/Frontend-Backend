@@ -1,6 +1,6 @@
 import React, {UseState} from 'react';
 import {useDropzone} from 'react-dropzone';
-import {Text, Button, Flex, Box} from "@chakra-ui/react";
+import {Text, Button, Grid, GridItem , Box} from "@chakra-ui/react";
 import Card from "../Card/Card";
 import {Separator} from "../Separator/Separator";
 import axios from 'axios';
@@ -90,16 +90,18 @@ function Dropzone(props) {
           </Box>
         </Card>
       </div>
-
-        <h4><Text
-            fontSize="larger"
-            fontFamily="heading"
-        >Files</Text></h4>
-          <Separator/>
-      <Box h="100px">
+      <Grid templateColumns='repeat(5, 1fr)' gap={4} pb={3}>
+        <GridItem colSpan={1}>
+          <Text fontSize="larger" fontFamily="heading">Files</Text>
+        </GridItem>
+        <GridItem colStart={7}>
+          <Button variant="outline" className="btn" type="submit" align="center" onClick={event => onFileUpload(event, acceptedFiles)}>Upload</Button>
+        </GridItem>
+      </Grid>
+      <Separator/>
+      <Box pos="absolute">
         <ul><Text fontFamily="monospace" fontWeight="thin" fontSize="large">{files}</Text></ul>
       </Box>
-      <Button variant="outline" className="btn" type="submit" align="center" onClick={event => onFileUpload(event, acceptedFiles)}>Upload</Button>
     </div>
   );
 }

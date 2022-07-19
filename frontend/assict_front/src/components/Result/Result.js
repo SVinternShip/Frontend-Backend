@@ -11,6 +11,9 @@ import {
   Text,
   Th,
   Thead,
+  Grid,
+  Box,
+  GridItem,
   Tr, useEditableControls
 } from "@chakra-ui/react";
 import theme from "../../theme/themeAdmin";
@@ -30,8 +33,13 @@ import TablesProjectRow from "../Tables/TablesProjectRow";
 import CardHeader from "../Card/CardHeader";
 import {toVarReference} from "@chakra-ui/system";
 import ResultProjectRow from "./ResultProjectRow";
+import CtImageInfo from "./CtImageInfo";
 import PatientInfoRow from "./PatientInfoRow";
 import {CheckIcon, CloseIcon, EditIcon} from "@chakra-ui/icons";
+import {Separator} from "../Separator/Separator";
+import CtImageBox from "./CtImageBox";
+
+
 
 
 //메모장 function 만들장
@@ -40,13 +48,16 @@ import {CheckIcon, CloseIcon, EditIcon} from "@chakra-ui/icons";
 // fileName - prediction, studyDate( split 필요! )
 //ct_result json
 //ResultProjectRow.js와 이어짐 (filename 목록 만들고 '선택' 버튼 누르면 무언가를 호출하게끔!)
-function DrawTableRow(props){
-  const tableRowData = props.data
-  const list = []
 
+//<DrawRow ct_data={ctResultData} current_clicked_imgs={currentClickedImg} changeClickedImg={changeClickedImg}/>
+function DrawRow(props){
+  const tableRowData = props.ct_data
+  const list = []
+  if (tableRowData === undefined){
+    return
+  }
   for(let i=0; i<tableRowData.length;i++){
     let currentData = tableRowData[i]
-    console.log(currentData+'data')
     const ct_result_id = currentData[0] //fileName - ct_result_id
     const fileName = currentData[1]
 
@@ -58,6 +69,7 @@ function DrawTableRow(props){
     //여기서 setState 걸어주기 가능?
 
     list.push(<ResultProjectRow
+        changeClickedImg={props.changeClickedImg}
         ct_result_id={ct_result_id}
         data={props}
         fileName={fileName}
@@ -75,22 +87,50 @@ function DrawTableRow(props){
 // patientName, createdDate(data)를 props로 받는 함수 (patientResult json)
 function DrawPatientInfo(props){
   const patientInfoRow = props.data
-  const list1 = []
-
+  if (patientInfoRow.length === 0){
+    return (
+        <PatientInfoRow
+            patientName={null}
+            createdDate={null}
+            createdTime = {null}
+        />
+    )
+  }
   const patientName = patientInfoRow[0]
-// const createdDate = patientInfoRow[1]
-//   const createdTime = patientInfoRow[1]
-  const createdDate = patientInfoRow[1].split('T')[0]
-  const createdTime = patientInfoRow[1].split('T')[1].split('.')[0]
-//   console.log(createdTime)
+  const createdDateTime = patientInfoRow[1].split('T')
+  const createdDate = createdDateTime[0]
+  const createdTime = createdDateTime[1].split('.')[0]
+  // console.log(createdDate, createdTime)
 
-    list1.push(<PatientInfoRow
-        patientName={patientName}
-        createdDate={createdDate}
-        createdTime = {createdTime}/>)
-// />)
-  return (list1)
+
+  return (<PatientInfoRow
+      patientName={patientName}
+      createdDate={createdDate}
+      createdTime = {createdTime}
+  />)
 }
+
+function DrawCurrentImgInfo(props){
+  const patientInfoRow = props.data
+
+  console.log(patientInfoRow)
+
+  return (<CtImageInfo
+      prediction={patientInfoRow[2]}
+      // fileName={patientInfoRow[1]}
+      studyDate = {patientInfoRow[3]}
+  />)
+}
+
+
+function DrawImage(props){
+  const orgData = props.org
+  const limeData = props.lime
+    return (<CtImageBox
+        changeClickedImg={props.changeClickedImg}
+        original_image={orgData}
+        lime_image={limeData}/>)
+ }
 
 
 
@@ -186,81 +226,121 @@ function DrawFileList(props){
     )
   }
 
+  const ct_images = []
+const org_images = []
+const lime_images = []
 
   export default function Result(props) {
 
   // 1. 이름(patientName), 날짜(createdDate) 상태 저장 (=> array가 아니라서 문제 발생!
-      const [data, setData] = useState([]);
+    const [patientInfoData, setPatientInfoData] = useState([]);
 
 
     // 수정 전: ct_results_id, fileName, 이미지 정보(prediction, studyDate)를 각각 배열의 형태로 상태 저장 (2차원 배열)
     // 수정 후 출력 방식: [ [ct_results_id, fileName, prediction, studyDate], [ct_results_id, fileName, prediction, studyDate], ... ]
-    const [data4, setData4] = useState([]);
+    const [ctResultData, setCtResultData] = useState([]);
 
-  useEffect(() => {
-      //현재 url: http://localhost:3000/home/tables/{patient_result_id}
-    let para = document.location.pathname.split('/');
-    // pathname: /home/tables/{patient_result_id}
-    //{patient_result_id}의 값을 parVar에 저장
-    const parVar = para[3];
+    const [currentClickedOrg, setcurrentClickedOrg] = useState(null);
+    const [currentClickedLime, setcurrentClickedLime] = useState(null);
 
+    const [currentClickedImgInfo, setcurrentClickedImgInfo] = useState([null]);
 
-    const token = 'JWT ' + localStorage.getItem('token')
-    const fetchData = async () => {
-      const result = await axios.get('http://localhost:8000/api/ct/patientResult/' + parVar, {
-        "headers": {
-          "Authorization": token
-            //header에 jwt 토큰 포함시킴(unauthorized 오류 방지)
-        }
-      })
-      console.log(result)
-      var patientArr;
-      patientArr = [result.data.patientName, result.data.createdDate];
-      setData(patientArr);
-      console.log(data)
-      // setData({patientName: result.data.patientName, createdDate: result.data.createdDate});
+    const changeClickedImg = (value) => {
+      console.log(org_images[value])
+      console.log(lime_images[value])
 
-      // const getValues = Object.values(data); //key없이 값(value)만 출력됨
-      // console.log(getValues)
-      console.log(Object.keys(result.data.ct_results).length) //ct_results 배열 길이 구하고 확인
+      setcurrentClickedOrg(org_images[value])
+      setcurrentClickedLime(lime_images[value])
 
-
-      //출력 형태: [fileName1, fileName2, ...]
-      // var ListData = [];
-      // var tableArr = [];
-      // for (i=0; i<Object.keys(result.data.ct_results).length; i++){
-      //   tableArr[i] = result.data.ct_results[i].fileName;
-      // }
-      // ListData = tableArr;
-      // setData2(ListData);
-      // console.log(data2)
-
-
-      var i;
-      var arr=[];
-
-      //출력 형태: [ct_result.id, ct_result_filename, prediction(정상/출혈), studydate]
-      var predArr = [];
-      for (i=0; i<Object.keys(result.data.ct_results).length; i++){
-        predArr[i] = result.data.ct_results[i].prediction;
-        if (predArr[i]==true)
-            predArr[i]="정상";
-        else
-          predArr[i]="출혈";
-      }
-
-      for (i=0; i<Object.keys(result.data.ct_results).length; i++) {
-        arr[i] = [result.data.ct_results[i].id, result.data.ct_results[i].fileName, predArr[i], result.data.ct_results[i].studyDate];
-      }
-      setData4(arr)
-      console.log(data4)
-
-
-
+      setcurrentClickedImgInfo(ctResultData[value])
     };
-    fetchData();
-  }, []);
 
+    useEffect(() => {
+        //현재 url: http://localhost:3000/home/tables/{patient_result_id}
+      let para = document.location.pathname.split('/');
+      // pathname: /home/tables/{patient_result_id}
+      //{patient_result_id}의 값을 parVar에 저장
+      const parVar = para[3];
+
+
+      const token = 'JWT ' + localStorage.getItem('token')
+      const fetchData = async () => {
+        const result = await axios.get('http://localhost:8000/api/ct/patientResult/' + parVar, {
+          "headers": {
+            "Authorization": token
+              //header에 jwt 토큰 포함시킴(unauthorized 오류 방지)
+          }
+        })
+        // console.log(result)
+        var patientArr;
+        patientArr = [result.data.patientName, result.data.createdDate];
+        setPatientInfoData(patientArr);
+        console.log(patientInfoData)
+        // setData({patientName: result.data.patientName, createdDate: result.data.createdDate});
+
+        // const getValues = Object.values(data); //key없이 값(value)만 출력됨
+        // console.log(getValues)
+        console.log(Object.keys(result.data.ct_results).length) //ct_results 배열 길이 구하고 확인
+
+
+        //출력 형태: [fileName1, fileName2, ...]
+        // var ListData = [];
+        // var tableArr = [];
+        // for (i=0; i<Object.keys(result.data.ct_results).length; i++){
+        //   tableArr[i] = result.data.ct_results[i].fileName;
+        // }
+        // ListData = tableArr;
+        // setData2(ListData);
+        // console.log(data2)
+
+
+        var i;
+        var arr=[];
+
+        //출력 형태: [ct_result.id, ct_result_filename, prediction(정상/출혈), studydate]
+        var predArr = [];
+        for (i=0; i<Object.keys(result.data.ct_results).length; i++){
+          predArr[i] = result.data.ct_results[i].prediction;
+        }
+
+        for (i=0; i<Object.keys(result.data.ct_results).length; i++) {
+          arr[i] = [result.data.ct_results[i].id, result.data.ct_results[i].fileName, predArr[i], result.data.ct_results[i].studyDate];
+          let ct_id = result.data.ct_results[i].id
+          const getCtImgs = async () => {
+            const original_res = await axios.get('http://localhost:8000/api/ct/ctResult/' + ct_id + '/original', {
+                // responseType: 'arraybuffer',
+                responseType: 'blob', //blob으로 받기
+              "headers": {
+                "Authorization": token
+              }
+            })
+
+              const lime_res = await axios.get('http://localhost:8000/api/ct/ctResult/' + ct_id + '/lime', {
+                  responseType: 'blob',
+              "headers": {
+                "Authorization": token
+              }
+            })
+            //이미지 출력용 setState
+            const OrgObjectURL = URL.createObjectURL(original_res.data);
+            const LimeObjectURL = URL.createObjectURL(lime_res.data);
+
+            const orgImage = OrgObjectURL
+            const limeImage = LimeObjectURL
+            org_images.push(orgImage)
+            lime_images.push(limeImage)
+
+
+            const newImage = {"original_img":OrgObjectURL, "lime_img":LimeObjectURL}
+            ct_images.push(newImage)
+          };
+          getCtImgs();
+        }
+        setCtResultData(arr)
+        // console.log(ctResultData)
+      };
+      fetchData();
+    }, []);
 
       const [sidebarVariant, setSidebarVariant] = useState("transparent");
       const [fixed, setFixed] = useState(false);
@@ -268,138 +348,69 @@ function DrawFileList(props){
       const mainPanel = React.useRef();
 
       return (
-          // <ChakraProvider theme={theme} resetCss={false}>
-          //     <Sidebar
-          //         routes={dashRoutes}
-          //         logoText={"YOUR PERSONAL ASSISTANT"}
-          //         display='none'
-          //         sidebarVariant={sidebarVariant}
-          //         {...rest}
-          //     />
-          //     <MainPanel ref={mainPanel}
-          //                w={{
-          //                    base: "100%",
-          //                    xl: "calc(100% - 275px)",
-          //                }}>
-          //         <Portal>
-          //             <AdminNavbar
-          //                 onOpen={onOpen}
-          //                 logoText={"YOUR PERSONAL ASSISTANT"}
-          //                 brandText={'Patient Result'} //제목 들어갈 부분
-          //                 secondary={false}
-          //                 fixed={fixed}
-          //                 {...rest}
-          //             />
-          //         </Portal>
-          //         <PanelContent>
-          //             <PanelContainer>
-    <Flex direction='column' pt={{ base: "120px", md: "75px" }}>
-      {/* Previous Results Table */}
-      {/* Projects Table */}
-      <Card my='22px' overflowX={{ sm: "scroll", xl: "hidden" }} pb='0px'>
-        <CardHeader p='6px 0px 22px 0px'>
-          <Flex direction='column'>
-            <Text fontSize='lg' color='#fff' fontWeight='bold' mb='.5rem'>
-              CT Result
-            </Text>
-            <Flex align='center'>
+            <PanelContainer>
+            <PanelContainer>
+                {/*<Grid templateColumns='repeat(5, 1fr)' mb={10}>*/}
+              <Grid templateAreas={`"header header" "nav main" "nav footer"`}
+                    gridTemplateRows={'50px 1fr 30px'}
+                    gridTemplateColumns={'150px 1fr'} h='200px' gap='1' color='blackAlpha.700' fontWeight='bold'>
+                  <GridItem colSpan={2} h='15' rowSpan={5} area={'header'}>
+                    <DrawPatientInfo data={patientInfoData}/>
+                  </GridItem>
+                  <GridItem colStart={10} colEnd={11} h='15' rowSpan={5} area={'main'}>
+                    <DrawCurrentImgInfo data={currentClickedImgInfo}/>
+                  </GridItem>
+              </Grid>
 
-            </Flex>
-          </Flex>
-        </CardHeader>
-        <CardBody>
-          <Table variant='simple' color='#fff'>
-            <Thead>
-              <Tr my='.8rem' ps='0px'>
-                <Th
-                  ps='0px'
-                  color='gray.400'
-                  fontFamily='Plus Jakarta Display'
-                  borderBottomColor='#56577A'>
-                  FileName
-                </Th>
-                <Th
-                  color='gray.400'
-                  fontFamily='Plus Jakarta Display'
-                  borderBottomColor='#56577A'>
-                  Date
-                </Th>
-                <Th
-                    color='gray.400'
-                    fontFamily='Plus Jakarta Display'
-                    borderBottomColor='#56577A'>
-                  Time
-                </Th>
-                <Th
-                  color='gray.400'
-                  fontFamily='Plus Jakarta Display'
-                  borderBottomColor='#56577A'>
-                  Status
-                </Th>
-                <Th
-                  color='gray.400'
-                  fontFamily='Plus Jakarta Display'
-                  borderBottomColor='#56577A'>
-                  Analysis Progress
-                </Th>
-                <Th borderBottomColor='#56577A'/>
-              </Tr>
+              <Grid>
+                <GridItem colStart={10} colEnd={11} h='15' rowSpan={5} area={'main'}>
+                  <DrawImage org={currentClickedOrg} lime={currentClickedLime}/>
+                </GridItem>
 
-            </Thead>
-            <Tbody>
-              <DrawTableRow data={data4}></DrawTableRow>
-                            {/*이거 나중에 그려야하는데*/}
-              {/*<DrawPatientInfo data={data}></DrawPatientInfo>*/}
+                  <GridItem colSpan={2} h='15' rowSpan={5} area={'nav'}>
+                     <Card my='22px' overflowX={{ sm: "scroll", xl: "hidden" }} pb='0px'>
+                      <CardHeader p='6px 0px 22px 0px'>
+                        <Flex direction='column'>
+                          <Text fontSize='lg' color='#fff' fontWeight='bold' mb='.5rem'>
+                          CT Result
+                          </Text>
+                        </Flex>
+                      </CardHeader>
+                      <CardBody>
+                        <Table size='sm' variant='simple' color='#fff'>
+                          <Thead>
+                            <Tr my='0.5rem' ps='0px'>
+                              <Th ps='0px' color='gray.400' fontFamily='Plus Jakarta Display' borderBottomColor='#56577A'>
+                              FILENAME
+                              </Th>
+                            </Tr>
+                          </Thead>
+                          <Tbody>
+                            <DrawRow ct_data={ctResultData} changeClickedImg={changeClickedImg}/>
+                          </Tbody>
+                        </Table>
+                      </CardBody>
+                    </Card>
+                </GridItem>
+              {/*  </Grid>*/}
 
-
-
-
-              {/*<Editable defaultValue='환자 관련 정보를 메모하세요.'>*/}
-              {/*  <EditablePreview></EditablePreview>*/}
-              {/*  <EditableInput></EditableInput>*/}
-
-              {/*</Editable>*/}
-        {/*      <FormControl>*/}
-        {/*    <FormLabel>*/}
-        {/*        <input placeholder='Memo'>*/}
-        {/*        </input>*/}
-        {/*      <FormHelperText>환자 관련 정보를 메모하세요.</FormHelperText>*/}
-        {/*    </FormLabel>*/}
-        {/*</FormControl>*/}
-        {/*      <Button type='submit'>저장</Button>*/}
-
-              <Editable
-      textAlign='center'
-      defaultValue='환자 정보 메모'
-      fontSize='2xl'
-      isPreviewFocusable={false}>
-      <EditablePreview />
-      {/* Here is the custom input */}
-      <Input as={EditableInput} />
-      <EditableControls />
-    </Editable>
-
-              {/*<ImgInfoRow data={data4}></ImgInfoRow>*/}
-            </Tbody>
-          </Table>
-        </CardBody>
-      </Card>
-    </Flex>
-      //                 </PanelContainer>
-      //             </PanelContent>
-      //             <Configurator
-      //                 secondary={false} //
-      //                 isOpen={isOpen}
-      //                 onClose={onClose}
-      //                 isChecked={fixed}
-      //                 onSwitch={(value) => {
-      //                     setFixed(value);
-      //                 }}
-      //                 onOpaque={() => setSidebarVariant("opaque")}
-      //                 onTransparent={() => setSidebarVariant("transparent")}
-      //             />
-      //         </MainPanel>
-      //     </ChakraProvider>
+              {/*<Grid>*/}
+                <GridItem colSpan={2} h='15' rowSpan={5} area={'footer'}>
+                        <Flex>
+                        <Card>
+                          <CardBody>
+                           <Editable textAlign='center' defaultValue='메모' fontSize='2xl' isPreviewFocusable={false}>
+                             <EditablePreview />
+                             {/* Here is the custom input */}
+                             <Input as={EditableInput} />
+                             <EditableControls />
+                           </Editable>
+                            </CardBody>
+                        </Card>
+                        </Flex>
+                  </GridItem>
+                </Grid>
+      </PanelContainer></PanelContainer>
       );
 
   }
