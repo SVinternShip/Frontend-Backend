@@ -18,6 +18,13 @@ from .serializer.serializer import UserRegisterSerializer, UserLoginSerializer, 
 @api_view(['POST'])
 @permission_classes([AllowAny]) # 모든 사용자 접근가능
 def signup(request):
+    '''
+        회원가입
+
+        ___
+        # 내용
+            - 
+    '''
     data = JSONParser().parse(request)
     serializer = UserRegisterSerializer(data=data)
     if serializer.is_valid():
@@ -42,6 +49,13 @@ class Login(generics.GenericAPIView):
     serializer_class = UserLoginSerializer
 
     def post(self, request, *args, **kwargs):
+        '''
+            로그인
+
+            ___
+            # 내용
+                - 
+        '''
         serializer = self.get_serializer(data=request.data)
 
         if not serializer.is_valid(raise_exception=True):
@@ -69,9 +83,17 @@ class Login(generics.GenericAPIView):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated]) #인증된 사용자만 접근 가능
 def logout(request):
-     if request.method == 'POST':
-         response = JsonResponse({
+    '''
+        로그아웃
+
+        ___
+        # 내용
+            - 
+    '''
+    
+    if request.method == 'POST':
+        response = JsonResponse({
              "message": "success"
-         })
-         response.delete_cookie('jwt')
-         return response
+        })
+        response.delete_cookie('jwt')
+        return response
