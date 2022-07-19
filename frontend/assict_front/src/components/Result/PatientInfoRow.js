@@ -26,7 +26,7 @@ function PatientInfo(props) {
   const { patientName, createdDate, createdTime } = props;
 
   return (
-    <Card overflowX={{ sm: "scroll", xl: "hidden" }} pb="0px">
+    <Card>
       <CardHeader p="6px 0px 22px 0px">
         <Flex direction="column">
           <Text fontSize="lg" color="#fff" fontWeight="bold" mb=".5rem">

@@ -42,7 +42,7 @@ function CtImageInfo(props) {
     const { prediction, fileName, studyDate } = props;
 
     return (
-      <Box borderWidth="1px" borderRadius="lg" overflow="hidden">
+      <Box borderWidth="1px" borderRadius="lg">
         <Box p="6">
           <Box display="flex" alignItems="baseline">
             {get_prediction_result(prediction)}

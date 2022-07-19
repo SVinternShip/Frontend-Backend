@@ -23,7 +23,7 @@ import {
   Box,
   GridItem,
   Tr,
-  useEditableControls,
+  useEditableControls, WrapItem, Wrap,
 } from "@chakra-ui/react";
 import theme from "../../theme/themeAdmin";
 import Sidebar from "../Sidebar/Sidebar";
@@ -257,20 +257,22 @@ export default function Result(props) {
   const mainPanel = React.useRef();
 
   return (
-    <PanelContainer>
-      <PanelContainer>
-        <Flex minWidth='max-content'>
-          <Box>
+      <Box>
+        <Wrap>
+          <WrapItem>
+          <Box minWidth={"350px"}>
             <DrawPatientInfo data={patientInfoData} />
           </Box>
+          </WrapItem>
           <Spacer/>
-          <Box display='flex' alignItems='stretch'>
+          <WrapItem>
+          <Box alignItems="stretch" minWidth={"350px"}>
             <DrawCurrentImgInfo data={currentClickedImgInfo} />
           </Box>
-        </Flex>
+          </WrapItem>
+        </Wrap>
         <Flex>
           <Box>
-            <GridItem colSpan={2} h="15" rowSpan={5} area={"nav"}>
               <Card
                 my="22px"
                 overflowX={{ sm: "scroll", xl: "hidden" }}
@@ -288,7 +290,7 @@ export default function Result(props) {
                     </Text>
                   </Flex>
                 </CardHeader>
-                <CardBody>
+                <CardBody maxHeight={"450px"}>
                   <Table size="sm" variant="simple" color="#fff">
                     <Thead>
                       <Tr my="0.5rem" ps="0px">
@@ -311,13 +313,11 @@ export default function Result(props) {
                   </Table>
                 </CardBody>
               </Card>
-            </GridItem>
           </Box>
         </Flex>
         {/*<DrawImage org={currentClickedOrg} lime={currentClickedLime} />*/}
 
         {/*<NoteWithButton note={note} />*/}
-      </PanelContainer>
-    </PanelContainer>
+      </Box>
   );
 }

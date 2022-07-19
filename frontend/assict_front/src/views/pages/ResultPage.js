@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, ChakraProvider, Portal } from "@chakra-ui/react";
+import { Box, ChakraProvider, Flex, Portal, Text } from "@chakra-ui/react";
 import theme from "../../theme/themeAuth";
 import AuthNavbar from "../../components/Navbars/AuthNavbar";
 import Result from "../../components/Result/Result";
@@ -12,6 +12,10 @@ import Configurator from "../../components/Configurator/Configurator";
 import MainPanel from "../../components/Layout/MainPanel";
 import PanelContainer from "../../components/Layout/PanelContainer";
 import PanelContent from "../../components/Layout/PanelContent";
+import Card from "../../components/Card/Card";
+import CardHeader from "../../components/Card/CardHeader";
+import CardBody from "../../components/Card/CardBody";
+import Dropzone from "../../components/FileUpload/Dropzone";
 
 function ResultPage(props) {
   const [sidebarVariant, setSidebarVariant] = useState("transparent");
@@ -49,22 +53,22 @@ function ResultPage(props) {
           xl: "calc(100% - 275px)",
         }}
       >
-        <Portal>
-          <AdminNavbar
-            onOpen={onOpen}
-            logoText={"YOUR PERSONAL ASSISTANT"}
-            brandText={"Results"} //제목 들어갈 부분
-            secondary={false}
-            fixed={fixed}
-            {...rest}
-          />
-        </Portal>
+        {/*<Portal>*/}
+        {/*  <AdminNavbar*/}
+        {/*    onOpen={onOpen}*/}
+        {/*    logoText={"YOUR PERSONAL ASSISTANT"}*/}
+        {/*    brandText={"Results"} //제목 들어갈 부분*/}
+        {/*    secondary={false}*/}
+        {/*    fixed={fixed}*/}
+        {/*    {...rest}*/}
+        {/*  />*/}
+        {/*</Portal>*/}
         <PanelContent>
-          <PanelContainer>
+          <PanelContainer pt={"16px"}>
             <Box ref={navRef} w="100%">
               <Box w="100%">
                 <Box ref={wrapper} w="100%">
-                  <Result />
+                  <Result/>
                 </Box>
               </Box>
             </Box>
