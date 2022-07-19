@@ -23,7 +23,9 @@ import {
   Box,
   GridItem,
   Tr,
-  useEditableControls, WrapItem, Wrap,
+  useEditableControls,
+  WrapItem,
+  Wrap,
 } from "@chakra-ui/react";
 import theme from "../../theme/themeAdmin";
 import Sidebar from "../Sidebar/Sidebar";
@@ -70,9 +72,6 @@ function DrawRow(props) {
         ct_result_id={ct_result_id}
         data={props}
         fileName={fileName}
-        prediction={prediction}
-        date={date}
-        time={time}
         index={i}
       />
     );
@@ -257,67 +256,68 @@ export default function Result(props) {
   const mainPanel = React.useRef();
 
   return (
-      <Box>
-        <Wrap>
-          <WrapItem>
+    <Box>
+      <Wrap>
+        <WrapItem>
           <Box minWidth={"350px"}>
             <DrawPatientInfo data={patientInfoData} />
           </Box>
-          </WrapItem>
-          <Spacer/>
-          <WrapItem>
+        </WrapItem>
+        <Spacer />
+        <WrapItem>
           <Box alignItems="stretch" minWidth={"350px"}>
             <DrawCurrentImgInfo data={currentClickedImgInfo} />
           </Box>
-          </WrapItem>
-        </Wrap>
-        <Flex>
-          <Box>
-              <Card
-                my="22px"
-                overflowX={{ sm: "scroll", xl: "hidden" }}
-                pb="0px"
-              >
-                <CardHeader p="6px 0px 22px 0px">
-                  <Flex direction="column">
-                    <Text
-                      fontSize="lg"
-                      color="#fff"
-                      fontWeight="bold"
-                      mb=".5rem"
-                    >
-                      CT Result
-                    </Text>
-                  </Flex>
-                </CardHeader>
-                <CardBody maxHeight={"450px"}>
-                  <Table size="sm" variant="simple" color="#fff">
-                    <Thead>
-                      <Tr my="0.5rem" ps="0px">
-                        <Th
-                          ps="0px"
-                          color="gray.400"
-                          fontFamily="Plus Jakarta Display"
-                          borderBottomColor="#56577A"
-                        >
-                          FILENAME
-                        </Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      <DrawRow
-                        ct_data={ctResultData}
-                        changeClickedImg={changeClickedImg}
-                      />
-                    </Tbody>
-                  </Table>
-                </CardBody>
-              </Card>
-          </Box>
-        </Flex>
-        {/*<DrawImage org={currentClickedOrg} lime={currentClickedLime} />*/}
+        </WrapItem>
+      </Wrap>
 
-        {/*<NoteWithButton note={note} />*/}
-      </Box>
+      <Wrap>
+        <WrapItem>
+          <Box maxWidth={"600px"}>
+            <Card my="22px" overflowX={{ sm: "scroll", xl: "hidden" }} pb="0px">
+              <CardHeader p="6px 0px 22px 0px">
+                <Flex direction="column">
+                  <Text fontSize="lg" color="#fff" fontWeight="bold" mb=".5rem">
+                    CT Result
+                  </Text>
+                </Flex>
+              </CardHeader>
+              <CardBody maxHeight={"450px"}>
+                <Table  variant="simple" color="#fff">
+                  <Thead>
+                    <Tr my="0.5rem" ps="0px">
+                      <Th
+                        ps="0px"
+                        color="gray.400"
+                        fontFamily="Plus Jakarta Display"
+                        borderBottomColor="#56577A"
+                      >
+                        FILENAME
+                      </Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    <DrawRow
+                      ct_data={ctResultData}
+                      changeClickedImg={changeClickedImg}
+                    />
+                  </Tbody>
+                </Table>
+              </CardBody>
+            </Card>
+          </Box>
+        </WrapItem>
+        <Spacer/>
+        <WrapItem>
+          <Box>
+            <DrawImage org={currentClickedOrg} lime={currentClickedLime} />
+          </Box>
+        </WrapItem>
+      </Wrap>
+
+
+
+      {/*<NoteWithButton note={note} />*/}
+    </Box>
   );
 }

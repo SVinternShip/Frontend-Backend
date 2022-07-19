@@ -30,6 +30,7 @@ function CtImageBox(props) {
     } else if (imgMode === "original") {
       return (
         <Image
+            minWidth={"500px"}
           onClick={() => {
             setMode("lime");
           }}
@@ -39,6 +40,7 @@ function CtImageBox(props) {
     } else if (imgMode === "lime") {
       return (
         <Image
+            minWidth={"500px"}
           onClick={() => {
             setMode("original");
           }}
@@ -49,12 +51,10 @@ function CtImageBox(props) {
   }
 
   return (
-    <Card>
-      <CardBody>
-        <Text fontSize="sm">CT</Text>
-        {changeMode()}
-      </CardBody>
-    </Card>
+    <Box>
+      <Text fontSize="sm">CT</Text>
+      {changeMode()}
+    </Box>
   );
 }
 

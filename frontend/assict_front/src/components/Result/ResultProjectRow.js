@@ -76,18 +76,6 @@ function DashboardTableRow1(props) {
         </Flex>
       </Td>
       <Td
-        minWidth={{ sm: "15px" }}
-        ps='0px'
-        borderBottomColor='#56577A'
-        // border={lastItem ? "none" : null}
-      >
-        <Flex alignItems='center' py='.8rem' minWidth='100%' flexWrap='nowrap'>
-          <Text fontSize='sm' color='#fff' minWidth='100%'>
-              {prediction}
-          </Text>
-        </Flex>
-      </Td>
-      <Td
         minWidth={{ sm: "250px" }}
         ps='0px'
         borderBottomColor='#56577A'
