@@ -13,6 +13,7 @@ import {
   IconButton,
   Input,
   Portal,
+  Spacer,
   Table,
   Tbody,
   Text,
@@ -258,52 +259,61 @@ export default function Result(props) {
   return (
     <PanelContainer>
       <PanelContainer>
-        <Box w={"100%"}>
-          <Grid templateColumns="repeat(5, 1fr)" gap={4}>
-            <GridItem colSpan={2} h="10">
-              <DrawPatientInfo data={patientInfoData} />
+        <Flex minWidth='max-content'>
+          <Box>
+            <DrawPatientInfo data={patientInfoData} />
+          </Box>
+          <Spacer/>
+          <Box display='flex' alignItems='stretch'>
+            <DrawCurrentImgInfo data={currentClickedImgInfo} />
+          </Box>
+        </Flex>
+        <Flex>
+          <Box>
+            <GridItem colSpan={2} h="15" rowSpan={5} area={"nav"}>
+              <Card
+                my="22px"
+                overflowX={{ sm: "scroll", xl: "hidden" }}
+                pb="0px"
+              >
+                <CardHeader p="6px 0px 22px 0px">
+                  <Flex direction="column">
+                    <Text
+                      fontSize="lg"
+                      color="#fff"
+                      fontWeight="bold"
+                      mb=".5rem"
+                    >
+                      CT Result
+                    </Text>
+                  </Flex>
+                </CardHeader>
+                <CardBody>
+                  <Table size="sm" variant="simple" color="#fff">
+                    <Thead>
+                      <Tr my="0.5rem" ps="0px">
+                        <Th
+                          ps="0px"
+                          color="gray.400"
+                          fontFamily="Plus Jakarta Display"
+                          borderBottomColor="#56577A"
+                        >
+                          FILENAME
+                        </Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      <DrawRow
+                        ct_data={ctResultData}
+                        changeClickedImg={changeClickedImg}
+                      />
+                    </Tbody>
+                  </Table>
+                </CardBody>
+              </Card>
             </GridItem>
-            <GridItem colStart={4} colEnd={6} h="10">
-              <DrawCurrentImgInfo data={currentClickedImgInfo} />
-            </GridItem>
-          </Grid>
-        </Box>
-
-        <Box>
-          <GridItem colSpan={2} h="15" rowSpan={5} area={"nav"}>
-            <Card my="22px" overflowX={{ sm: "scroll", xl: "hidden" }} pb="0px">
-              <CardHeader p="6px 0px 22px 0px">
-                <Flex direction="column">
-                  <Text fontSize="lg" color="#fff" fontWeight="bold" mb=".5rem">
-                    CT Result
-                  </Text>
-                </Flex>
-              </CardHeader>
-              <CardBody>
-                <Table size="sm" variant="simple" color="#fff">
-                  <Thead>
-                    <Tr my="0.5rem" ps="0px">
-                      <Th
-                        ps="0px"
-                        color="gray.400"
-                        fontFamily="Plus Jakarta Display"
-                        borderBottomColor="#56577A"
-                      >
-                        FILENAME
-                      </Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    <DrawRow
-                      ct_data={ctResultData}
-                      changeClickedImg={changeClickedImg}
-                    />
-                  </Tbody>
-                </Table>
-              </CardBody>
-            </Card>
-          </GridItem>
-        </Box>
+          </Box>
+        </Flex>
         {/*<DrawImage org={currentClickedOrg} lime={currentClickedLime} />*/}
 
         {/*<NoteWithButton note={note} />*/}
