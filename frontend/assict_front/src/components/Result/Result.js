@@ -34,6 +34,7 @@ import CardHeader from "../Card/CardHeader";
 import {toVarReference} from "@chakra-ui/system";
 import ResultProjectRow from "./ResultProjectRow";
 import CtImageInfo from "./CtImageInfo";
+import NoteWithButton from "./Note";
 import PatientInfoRow from "./PatientInfoRow";
 import {CheckIcon, CloseIcon, EditIcon} from "@chakra-ui/icons";
 import {Separator} from "../Separator/Separator";
@@ -226,10 +227,10 @@ function DrawFileList(props){
     )
   }
 
-  const ct_images = []
+const ct_images = []
 const org_images = []
 const lime_images = []
-
+let note = ""
   export default function Result(props) {
 
   // 1. 이름(patientName), 날짜(createdDate) 상태 저장 (=> array가 아니라서 문제 발생!
@@ -274,6 +275,7 @@ const lime_images = []
         // console.log(result)
         var patientArr;
         patientArr = [result.data.patientName, result.data.createdDate];
+        note = result.data.note
         setPatientInfoData(patientArr);
         console.log(patientInfoData)
         // setData({patientName: result.data.patientName, createdDate: result.data.createdDate});
@@ -395,18 +397,9 @@ const lime_images = []
               {/*  </Grid>*/}
 
               {/*<Grid>*/}
-                <GridItem colSpan={2} h='15' rowSpan={5} area={'footer'}>
+                <GridItem colSpan={5} h='15' rowSpan={5} area={'footer'}>
                         <Flex>
-                        <Card>
-                          <CardBody>
-                           <Editable textAlign='center' defaultValue='메모' fontSize='2xl' isPreviewFocusable={false}>
-                             <EditablePreview />
-                             {/* Here is the custom input */}
-                             <Input as={EditableInput} />
-                             <EditableControls />
-                           </Editable>
-                            </CardBody>
-                        </Card>
+                          <NoteWithButton note={note}/>
                         </Flex>
                   </GridItem>
                 </Grid>
