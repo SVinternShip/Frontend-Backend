@@ -62,9 +62,7 @@ function DrawRow(props) {
     const ct_result_id = currentData[0];
     const fileName = currentData[1];
 
-    const prediction = currentData[2];
-    const date = currentData[3].split("T")[0];
-    const time = currentData[3].split("T")[1];
+    const dateAndTime=currentData[3];
 
     list.push(
       <ResultProjectRow
@@ -73,6 +71,7 @@ function DrawRow(props) {
         data={props}
         fileName={fileName}
         index={i}
+        dateAndTime={dateAndTime}
       />
     );
   }
@@ -115,7 +114,7 @@ function DrawCurrentImgInfo(props) {
     <CtImageInfo
       prediction={patientInfoRow[2]}
       //fileName={patientInfoRow[1]}
-      studyDate={patientInfoRow[3]}
+      // studyDate={patientInfoRow[3]}
     />
   );
 }
@@ -293,6 +292,22 @@ export default function Result(props) {
                         borderBottomColor="#56577A"
                       >
                         FILENAME
+                      </Th>
+                      <Th
+                        ps="0px"
+                        color="gray.400"
+                        fontFamily="Plus Jakarta Display"
+                        borderBottomColor="#56577A"
+                      >
+                        촬영 날짜(DATE)
+                      </Th>
+                                            <Th
+                        ps="0px"
+                        color="gray.400"
+                        fontFamily="Plus Jakarta Display"
+                        borderBottomColor="#56577A"
+                      >
+                        촬영 시각(TIME)
                       </Th>
                     </Tr>
                   </Thead>
