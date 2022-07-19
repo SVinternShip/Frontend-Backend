@@ -348,154 +348,69 @@ const lime_images = []
       const mainPanel = React.useRef();
 
       return (
-          // <ChakraProvider theme={theme} resetCss={false}>
-          //     <Sidebar
-          //         routes={dashRoutes}
-          //         logoText={"YOUR PERSONAL ASSISTANT"}
-          //         display='none'
-          //         sidebarVariant={sidebarVariant}
-          //         {...rest}
-          //     />
-          //     <MainPanel ref={mainPanel}
-          //                w={{
-          //                    base: "100%",
-          //                    xl: "calc(100% - 275px)",
-          //                }}>
-          //         <Portal>
-          //             <AdminNavbar
-          //                 onOpen={onOpen}
-          //                 logoText={"YOUR PERSONAL ASSISTANT"}
-          //                 brandText={'Patient Result'} //제목 들어갈 부분
-          //                 secondary={false}
-          //                 fixed={fixed}
-          //                 {...rest}
-          //             />
-          //         </Portal>
-        <PanelContent>
             <PanelContainer>
-                <Grid templateColumns='repeat(5, 1fr)' mb={10}>
-                  <GridItem colSpan={2} h='15' rowSpan={5}>
+            <PanelContainer>
+                {/*<Grid templateColumns='repeat(5, 1fr)' mb={10}>*/}
+              <Grid templateAreas={`"header header" "nav main" "nav footer"`}
+                    gridTemplateRows={'50px 1fr 30px'}
+                    gridTemplateColumns={'150px 1fr'} h='200px' gap='1' color='blackAlpha.700' fontWeight='bold'>
+                  <GridItem colSpan={2} h='15' rowSpan={5} area={'header'}>
                     <DrawPatientInfo data={patientInfoData}/>
                   </GridItem>
-                  <GridItem colStart={10} colEnd={11} h='15' rowSpan={5}>
+                  <GridItem colStart={10} colEnd={11} h='15' rowSpan={5} area={'main'}>
                     <DrawCurrentImgInfo data={currentClickedImgInfo}/>
                   </GridItem>
-                  <GridItem colSpan={2} h='15' rowSpan={5}>
-                    <DrawImage org={currentClickedOrg} lime={currentClickedLime}/>
-                  </GridItem>
-                </Grid>
+              </Grid>
 
+              <Grid>
+                <GridItem colStart={10} colEnd={11} h='15' rowSpan={5} area={'main'}>
+                  <DrawImage org={currentClickedOrg} lime={currentClickedLime}/>
+                </GridItem>
 
+                  <GridItem colSpan={2} h='15' rowSpan={5} area={'nav'}>
+                     <Card my='22px' overflowX={{ sm: "scroll", xl: "hidden" }} pb='0px'>
+                      <CardHeader p='6px 0px 22px 0px'>
+                        <Flex direction='column'>
+                          <Text fontSize='lg' color='#fff' fontWeight='bold' mb='.5rem'>
+                          CT Result
+                          </Text>
+                        </Flex>
+                      </CardHeader>
+                      <CardBody>
+                        <Table size='sm' variant='simple' color='#fff'>
+                          <Thead>
+                            <Tr my='0.5rem' ps='0px'>
+                              <Th ps='0px' color='gray.400' fontFamily='Plus Jakarta Display' borderBottomColor='#56577A'>
+                              FILENAME
+                              </Th>
+                            </Tr>
+                          </Thead>
+                          <Tbody>
+                            <DrawRow ct_data={ctResultData} changeClickedImg={changeClickedImg}/>
+                          </Tbody>
+                        </Table>
+                      </CardBody>
+                    </Card>
+                </GridItem>
+              {/*  </Grid>*/}
 
-    <Flex direction='column' pt={{ base: "120px", md: "75px" }}>
-      {/* Previous Results Table */}
-      {/* Projects Table */}
-      <Card my='22px' overflowX={{ sm: "scroll", xl: "hidden" }} pb='0px'>
-        <CardHeader p='6px 0px 22px 0px'>
-          <Flex direction='column'>
-            <Text fontSize='lg' color='#fff' fontWeight='bold' mb='.5rem'>
-              CT Result
-            </Text>
-            <Flex align='center'>
-    
-            </Flex>
-          </Flex>
-        </CardHeader>
-        <CardBody>
-          <Table variant='simple' color='#fff'>
-            <Thead>
-              <Tr my='.8rem' ps='0px'>
-                <Th
-                  ps='0px'
-                  color='gray.400'
-                  fontFamily='Plus Jakarta Display'
-                  borderBottomColor='#56577A'>
-                  FILENAME
-                </Th>
-                <Th
-                  color='gray.400'
-                  fontFamily='Plus Jakarta Display'
-                  borderBottomColor='#56577A'>
-                  Prediction
-                </Th>
-                <Th
-                    color='gray.400'
-                    fontFamily='Plus Jakarta Display'
-                    borderBottomColor='#56577A'>
-                  Date
-                </Th>
-                <Th
-                  color='gray.400'
-                  fontFamily='Plus Jakarta Display'
-                  borderBottomColor='#56577A'>
-                  Time
-                </Th>
-                <Th
-                  color='gray.400'
-                  fontFamily='Plus Jakarta Display'
-                  borderBottomColor='#56577A'>
-                  Image
-                </Th>
-                <Th borderBottomColor='#56577A'/>
-              </Tr>
-            </Thead>
-            <Tbody>
-              <DrawRow ct_data={ctResultData} changeClickedImg={changeClickedImg}/>
-
-    
-              {/*<Editable defaultValue='환자 관련 정보를 메모하세요.'>*/}
-              {/*  <EditablePreview></EditablePreview>*/}
-              {/*  <EditableInput></EditableInput>*/}
-    
-              {/*</Editable>*/}
-        {/*      <FormControl>*/}
-        {/*    <FormLabel>*/}
-        {/*        <input placeholder='Memo'>*/}
-        {/*        </input>*/}
-        {/*      <FormHelperText>환자 관련 정보를 메모하세요.</FormHelperText>*/}
-        {/*    </FormLabel>*/}
-        {/*</FormControl>*/}
-        {/*      <Button type='submit'>저장</Button>*/}
-    
-              {/*<ImgInfoRow data={data4}></ImgInfoRow>*/}
-            </Tbody>
-
-          </Table>
-        </CardBody>
-      </Card>
-    </Flex>
+              {/*<Grid>*/}
+                <GridItem colSpan={2} h='15' rowSpan={5} area={'footer'}>
                         <Flex>
                         <Card>
                           <CardBody>
-                           <Editable
-      textAlign='center'
-      defaultValue='환자 정보 메모'
-      fontSize='2xl'
-      isPreviewFocusable={false}>
-      <EditablePreview />
-      {/* Here is the custom input */}
-      <Input as={EditableInput} />
-      <EditableControls />
-    </Editable>
+                           <Editable textAlign='center' defaultValue='메모' fontSize='2xl' isPreviewFocusable={false}>
+                             <EditablePreview />
+                             {/* Here is the custom input */}
+                             <Input as={EditableInput} />
+                             <EditableControls />
+                           </Editable>
                             </CardBody>
                         </Card>
-                          </Flex>
-      </PanelContainer>
-      </PanelContent>
-      //
-          //             <Configurator
-      //                 secondary={false} //
-      //                 isOpen={isOpen}
-      //                 onClose={onClose}
-      //                 isChecked={fixed}
-      //                 onSwitch={(value) => {
-      //                     setFixed(value);
-      //                 }}
-      //                 onOpaque={() => setSidebarVariant("opaque")}
-      //                 onTransparent={() => setSidebarVariant("transparent")}
-      //             />
-      //         </MainPanel>
-      //     </ChakraProvider>
+                        </Flex>
+                  </GridItem>
+                </Grid>
+      </PanelContainer></PanelContainer>
       );
 
   }

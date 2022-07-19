@@ -65,7 +65,7 @@ function DashboardTableRow1(props) {
             changeClickedImg(index)
         }}>
       <Td
-        minWidth={{ sm: "250px" }}
+        minWidth={{ sm: "150px" }}
         ps='0px'
         borderBottomColor='#56577A'
         border={lastItem ? "none" : null}>
@@ -76,7 +76,7 @@ function DashboardTableRow1(props) {
         </Flex>
       </Td>
       <Td
-        minWidth={{ sm: "250px" }}
+        minWidth={{ sm: "15px" }}
         ps='0px'
         borderBottomColor='#56577A'
         // border={lastItem ? "none" : null}
@@ -84,7 +84,6 @@ function DashboardTableRow1(props) {
         <Flex alignItems='center' py='.8rem' minWidth='100%' flexWrap='nowrap'>
           <Text fontSize='sm' color='#fff' minWidth='100%'>
               {prediction}
-            {/*{imgInfoArr[0]}*/}
           </Text>
         </Flex>
       </Td>
@@ -97,7 +96,6 @@ function DashboardTableRow1(props) {
         <Flex alignItems='center' py='.8rem' minWidth='100%' flexWrap='nowrap'>
           <Text fontSize='sm' color='#fff' minWidth='100%'>
               {date}
-            {/*{imgInfoArr[1]}*/}
           </Text>
         </Flex>
       </Td>
@@ -110,17 +108,9 @@ function DashboardTableRow1(props) {
         <Flex alignItems='center' py='.8rem' minWidth='100%' flexWrap='nowrap'>
           <Text fontSize='sm' color='#fff' minWidth='100%'>
               {time}
-            {/*{imgInfoArr[2]}*/}
           </Text>
         </Flex>
       </Td>
-        {/*<Td>*/}
-        {/*    <Text fontSize='sm'>CT</Text>*/}
-        {/*    <Img src={orgImg} />*/}
-        {/*    <Text fontSize='sm'>LIME</Text>*/}
-        {/*    <Img src={limeImg} />*/}
-        {/*</Td>*/}
-            {/*{lime_res}*/}
     </Tr>
   );
 }
