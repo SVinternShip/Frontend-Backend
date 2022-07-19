@@ -36,6 +36,13 @@ def check_file(files):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def dicom_file_upload(request, patient_result_id):
+    '''
+        환자의 DICOM 이미지를 업로드 하는 API
+
+        ___
+        # 내용
+            - id : 환자 결과 고유 아이디
+    '''
     if request.method == 'POST':
         if not check_file(request.FILES.getlist('file')):
             return Response("Only one dcm file should be sent", status=status.HTTP_400_BAD_REQUEST)

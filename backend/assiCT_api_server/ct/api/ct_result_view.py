@@ -23,6 +23,13 @@ bucket = storage_client.bucket(bucket_name)
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_original_result_image(request, id):
+    '''
+        원본 이미지를 받아오는 API
+
+        ___
+        # 내용
+            - id : CT 이미지 아이디
+    '''
     if request.method == 'GET':
         CtResult = get_ct_result_object(id)
         original_file_name = CtResult.ct_img.original_imgUrl
@@ -38,6 +45,13 @@ def get_original_result_image(request, id):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_lime_result_image(request, id):
+    '''
+        라임 이미지를 받아오는 API
+
+        ___
+        # 내용
+            - id : CT 이미지 아이디
+    '''
     if request.method == 'GET':
         CtResult = get_ct_result_object(id)
         lime_file_name = CtResult.ct_img.lime_imgUrl
@@ -94,6 +108,13 @@ def store_predict_result(request):
 
 @permission_classes([IsAuthenticated])
 class CTResultDetail(APIView):
+    '''
+        CT 결과를 나타내는 API
+
+        ___
+        # 내용
+            - id : CT 이미지 아이디
+    '''
 
     def get(self, request, id):
         ct_result = get_ct_result_object(id)

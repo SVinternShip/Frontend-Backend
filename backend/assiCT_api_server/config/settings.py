@@ -20,7 +20,7 @@ from django.conf.global_settings import DATETIME_FORMAT, DATETIME_INPUT_FORMATS
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
-environ.Env.read_env(BASE_DIR / '.env_local')
+environ.Env.read_env(BASE_DIR / '.env_server')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'django.contrib.sites',
     'django_prometheus',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -88,6 +89,16 @@ TEMPLATES = [
         },
     },
 ]
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS' :{
+        'Bearer':{
+            'type':'apiKey',
+            'name':'Authorization',
+            'in':'header'
+        }
+    }
+}
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
