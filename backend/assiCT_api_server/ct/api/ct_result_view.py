@@ -28,7 +28,7 @@ def get_original_result_image(request, id):
 
         ___
         # 내용
-            - id : CT 이미지 아이디
+            - id : CT Result Key value
     '''
     if request.method == 'GET':
         CtResult = get_ct_result_object(id)
@@ -50,7 +50,7 @@ def get_lime_result_image(request, id):
 
         ___
         # 내용
-            - id : CT 이미지 아이디
+            - id : CT Result Key value
     '''
     if request.method == 'GET':
         CtResult = get_ct_result_object(id)
@@ -108,20 +108,27 @@ def store_predict_result(request):
 
 @permission_classes([IsAuthenticated])
 class CTResultDetail(APIView):
-    '''
-        CT 결과를 나타내는 API
-
-        ___
-        # 내용
-            - id : CT 이미지 아이디
-    '''
 
     def get(self, request, id):
+        '''
+            하나의 CT Result에 대한 GET 요청
+
+            ___
+            # 내용
+                - id : CT Result Key value
+        '''
         ct_result = get_ct_result_object(id)
         serializer = CtResultSerializer(ct_result)
         return Response(serializer.data)
 
     def put(self, request, id):
+        '''
+            하나의 CT Result에 대한 PUT 요청
+
+            ___
+            # 내용
+                - id : CT Result Key value
+        '''
         ct_result = get_ct_result_object(id)
         serializer = CtResultSerializer(ct_result, data=request.data)
         if serializer.is_valid():
@@ -130,6 +137,13 @@ class CTResultDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id):
+        '''
+            하나의 CT Result에 대한 Delete 요청
+
+            ___
+            # 내용
+                - id : CT Result Key value
+        '''
         ct_result = get_ct_result_object(id)
         ct_result.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

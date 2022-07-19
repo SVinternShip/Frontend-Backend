@@ -37,11 +37,11 @@ def check_file(files):
 @permission_classes([IsAuthenticated])
 def dicom_file_upload(request, patient_result_id):
     '''
-        환자의 DICOM 이미지를 업로드 하는 API
+        환자의 DICOM 파일 업로드 하는 API
 
         ___
         # 내용
-            - id : 환자 결과 고유 아이디
+            - id : Patient Result Key value
     '''
     if request.method == 'POST':
         if not check_file(request.FILES.getlist('file')):

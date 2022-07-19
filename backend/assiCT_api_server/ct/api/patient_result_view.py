@@ -16,7 +16,7 @@ class PatientResultList(APIView):
 
     def get(self, request):
         '''
-            환자들 결과 리스트를 조회하는 API
+            현재 로그인한 Doctor의 모든 환자들 결과 리스트를 조회하는 API
 
             ___
             # 내용
@@ -31,7 +31,7 @@ class PatientResultList(APIView):
 
     def post(self, request):
         '''
-            환자들 결과 리스트를 갱신하는 API
+            현재 로그인한 Docter에게 Patient Result 객체 생성
 
             ___
             # 내용
@@ -58,11 +58,11 @@ class PatientResultDetail(APIView):
 
     def get(self, request, patient_result_id):
         '''
-            해당 id 의 환자 결과를 조회하는 API
+            해당 key의 Patient Result GET API
 
             ___
             # 내용
-                - 파라미터 : 환자 id
+                - 파라미터 : Patient Result Key value
         '''
         patient_result = self.get_object(patient_result_id)
         serializer = PatientResultSerializer(patient_result)
@@ -70,11 +70,11 @@ class PatientResultDetail(APIView):
 
     def put(self, request, patient_result_id):
         '''
-            해당 id 의 환자 결과를 입력하는 API
+            해당 key의 Patient Result PUT API
 
             ___
             # 내용
-                - 파라미터 : 환자 id
+                - 파라미터 : Patient Result Key value
         '''
         patient_result = self.get_object(patient_result_id)
         serializer = PatientResultSerializer(patient_result, data=request.data)
@@ -85,11 +85,11 @@ class PatientResultDetail(APIView):
 
     def delete(self, request, patient_result_id):
         '''
-            해당 id 의 환자 결과를 삭제하는 API
+            해당 key의 Patient Result DELETE API
 
             ___
             # 내용
-                - 파라미터 : 환자 id
+                - 파라미터 : Patient Result Key value
         '''
         patient_result = self.get_object(patient_result_id)
         patient_result.delete()
