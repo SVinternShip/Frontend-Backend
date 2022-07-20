@@ -134,7 +134,7 @@ function DrawImage(props) {
 const ct_images = [];
 const org_images = [];
 const lime_images = [];
-let note = "";
+let parVar = 0
 export default function Result(props) {
   // 1. 이름(patientName), 날짜(createdDate) 상태 저장 (=> array가 아니라서 문제 발생!
   const [patientInfoData, setPatientInfoData] = useState([]);
@@ -162,7 +162,7 @@ export default function Result(props) {
     //현재 url: http://localhost:3000/home/tables/{patient_result_id}
     let para = document.location.pathname.split("/");
     //{patient_result_id}의 값을 parVar에 저장
-    const parVar = para[3];
+    parVar = para[3];
 
     const token = "JWT " + localStorage.getItem("token");
     const fetchData = async () => {
@@ -176,8 +176,7 @@ export default function Result(props) {
         }
       );
       var patientArr;
-      patientArr = [result.data.patientName, result.data.createdDate];
-      note = result.data.note;
+      patientArr = [result.data.patientName, result.data.createdDate, result.data.note];
       setPatientInfoData(patientArr);
 
       var i;
@@ -327,7 +326,7 @@ export default function Result(props) {
           </Box>
         </WrapItem>
       </Wrap>
-      <NoteWithButton note={note} />
+      <NoteWithButton note={patientInfoData[2]} patient_result_id={parVar} />
     </Box>
   );
 }
