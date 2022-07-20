@@ -113,8 +113,8 @@ function DrawCurrentImgInfo(props) {
   return (
     <CtImageInfo
       prediction={patientInfoRow[2]}
-      //fileName={patientInfoRow[1]}
-      // studyDate={patientInfoRow[3]}
+      fileName={patientInfoRow[1]}
+      studyDate={patientInfoRow[3]}
     />
   );
 }
@@ -256,62 +256,60 @@ export default function Result(props) {
 
   return (
     <Box>
-      <Wrap justifyContent={{base:'center', md:''}}>
+      <Wrap justify={{base:'center'}} pl={{base:"0", lg:"40px"}} pr={{base:"0", lg:"40px"}}>
         <WrapItem>
-          <Box minWidth={"350px"}>
+          <Box minWidth={{sm:"350px", lg:"600px"}}>
             <DrawPatientInfo data={patientInfoData} />
           </Box>
         </WrapItem>
-        <Spacer display={{base: 'none', md:'block'}} />
+        <Spacer display={{base: 'none', lg:'block'}} />
         <WrapItem>
-          <Box alignItems="stretch" minWidth={"350px"}>
+          <Box alignItems="stretch" minWidth={{sm:"350px", lg:"534px"}}>
             <DrawCurrentImgInfo data={currentClickedImgInfo} />
           </Box>
         </WrapItem>
       </Wrap>
 
-      <Wrap>
+      <Wrap justify={{base:'center'}} mt={{sm:"3", lg:"0"}} pl={{base:"0", lg:"40px"}} pr={{base:"0", lg:"40px"}}>
         <WrapItem>
-          <Box maxWidth={"600px"}>
-            <Card my="22px" overflowX={{ sm: "scroll", xl: "hidden" }} pb="0px">
+          <Box maxWidth={"600px"} minWidth={{lg:"600px"}}>
+            <Card my={{base:"0px", md:"27px"}} pb="0px" overflowX={'auto'}>
               <CardHeader p="6px 0px 22px 0px">
-                <Flex direction="column">
                   <Text fontSize="lg" color="#fff" fontWeight="bold" mb=".5rem">
                     CT Result
                   </Text>
-                </Flex>
               </CardHeader>
-              <CardBody maxHeight={"450px"}>
+              <CardBody maxHeight={"450px"} >
                 <Table variant="simple" color="#fff">
-                  <Thead>
+                  <Thead position={"sticky"} top={0} bg={"#241451"}>
                     <Tr my="0.5rem" ps="0px">
                       <Th
                         ps="0px"
                         color="gray.400"
+                        fontSize={"md"}
                         fontFamily="Plus Jakarta Display"
-                        borderBottomColor="#56577A"
                       >
                         FILENAME
                       </Th>
                       <Th
                         ps="0px"
                         color="gray.400"
+                        fontSize={"md"}
                         fontFamily="Plus Jakarta Display"
-                        borderBottomColor="#56577A"
                       >
                         촬영 날짜(DATE)
                       </Th>
                       <Th
                         ps="0px"
                         color="gray.400"
+                        fontSize={"md"}
                         fontFamily="Plus Jakarta Display"
-                        borderBottomColor="#56577A"
                       >
                         촬영 시각(TIME)
                       </Th>
                     </Tr>
                   </Thead>
-                  <Tbody>
+                  <Tbody >
                     <DrawRow
                       ct_data={ctResultData}
                       changeClickedImg={changeClickedImg}
@@ -322,15 +320,14 @@ export default function Result(props) {
             </Card>
           </Box>
         </WrapItem>
-        <Spacer />
+        <Spacer display={{base: 'none', lg:'block'}} />
         <WrapItem>
           <Box>
             <DrawImage org={currentClickedOrg} lime={currentClickedLime} />
           </Box>
         </WrapItem>
       </Wrap>
-
-      {/*<NoteWithButton note={note} />*/}
+      <NoteWithButton note={note} />
     </Box>
   );
 }

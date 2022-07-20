@@ -43,18 +43,9 @@ function PatientInfo(props) {
           lineHeight="tight"
           noOfLines={1}
         >
-          환자명 : {patientName}
+          환자명 : {patientName} / 날짜 : {createdDate}  {createdTime}
         </Box>
       </CardBody>
-      <Box
-        mt="1"
-        color="#fff"
-        fontWeight="bold"
-        lineHeight="tight"
-        noOfLines={1}
-      >
-        날짜 : {createdDate} / {createdTime}
-      </Box>
     </Card>
   );
 }

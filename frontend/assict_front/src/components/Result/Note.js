@@ -20,8 +20,8 @@ function NoteWithButton(props) {
     let currentNote = note
 
     return(
-        <Flex>
-            <Box borderWidth='1px' borderRadius='lg'>
+        <Flex pl={{base:"0", lg:"40px"}} pr={{base:"0", lg:"40px"}}>
+            <Box borderWidth='1px' borderRadius='lg' maxWidth={{md:"600px"}} minH={{sm:"60px", md:"150px"}} flex={{sm:"auto"}}>
                 <Editable color='#fff' placeholder={"Write your note"} defaultValue={currentNote} onSubmit={(nextValue)=>{
                     currentNote = nextValue
                     console.log(currentNote)
@@ -30,8 +30,8 @@ function NoteWithButton(props) {
                     <EditableInput/>
                 </Editable>
             </Box>
-            <Spacer />
-            <Box>
+            <Spacer display={{base: 'none', lg:'block'}} />
+            <Box alignSelf={{base:"center"}}>
                 <Button colorScheme='teal' variant='outline' onClick={event=>saveNote(event, currentNote)}>
                     Save
                 </Button>

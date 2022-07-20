@@ -40,7 +40,6 @@ function DashboardTableRow1(props) {
             changeClickedImg(index)
         }}>
       <Td
-        minWidth={{ sm: "150px" }}
         ps='0px'
         borderBottomColor='#56577A'
         border={lastItem ? "none" : null}>
@@ -51,7 +50,6 @@ function DashboardTableRow1(props) {
         </Flex>
       </Td>
       <Td
-        minWidth={{ sm: "250px" }}
         ps='0px'
         borderBottomColor='#56577A'
         // border={lastItem ? "none" : null}
@@ -63,7 +61,6 @@ function DashboardTableRow1(props) {
         </Flex>
       </Td>
         <Td
-        minWidth={{ sm: "250px" }}
         ps='0px'
         borderBottomColor='#56577A'
         // border={lastItem ? "none" : null}

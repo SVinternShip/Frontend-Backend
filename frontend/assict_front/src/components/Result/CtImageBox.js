@@ -39,7 +39,7 @@ function CtImageBox(props) {
           <Box>
           <Text textAlign={"center"} fontSize="lg" color="white">Original</Text>
         <Image
-            minWidth={"500px"}
+            minWidth={{lg:"535px"}}
           onClick={() => {
             setMode("lime");
           }}
@@ -52,7 +52,7 @@ function CtImageBox(props) {
           <Box>
           <Text textAlign={"center"} fontSize="lg" color="white">LIME</Text>
         <Image
-            minWidth={"500px"}
+            minWidth={{lg:"535px"}}
           onClick={() => {
             setMode("original");
           }}
