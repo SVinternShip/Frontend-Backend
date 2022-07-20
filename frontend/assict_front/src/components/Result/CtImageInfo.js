@@ -11,6 +11,7 @@ import {
     useColorModeValue, Badge, Img, FormControl, FormLabel,
 } from "@chakra-ui/react";
 
+//Q: null값일때는 고려 안 하는 건가?
 function get_prediction_result(prediction){
     if (prediction === true){
         return(
@@ -47,11 +48,11 @@ function CtImageInfo(props) {
           <Box display="flex" alignItems="baseline">
             {get_prediction_result(prediction)}
           </Box>
-          <Box display="flex" mt="2" alignItems="center">
-            <Box as="span" color="#fff" fontWeight="bold" fontSize="sm">
-              촬영 날짜 : {studyDate}
-            </Box>
-          </Box>
+          {/*<Box display="flex" mt="2" alignItems="center">*/}
+          {/*  <Box as="span" color="#fff" fontWeight="bold" fontSize="sm">*/}
+          {/*    촬영 날짜 : {studyDate}*/}
+          {/*  </Box>*/}
+          {/*</Box>*/}
         </Box>
       </Box>
     );
