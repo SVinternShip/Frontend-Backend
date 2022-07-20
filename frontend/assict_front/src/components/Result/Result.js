@@ -167,7 +167,7 @@ export default function Result(props) {
     const token = "JWT " + localStorage.getItem("token");
     const fetchData = async () => {
       const result = await axios.get(
-        "http://localhost:8000/api/ct/patientResult/" + parVar,
+        "/api/ct/patientResult/" + parVar,
         {
           headers: {
             Authorization: token,
@@ -198,7 +198,7 @@ export default function Result(props) {
         let ct_id = result.data.ct_results[i].id;
         const getCtImgs = async () => {
           const original_res = await axios.get(
-            "http://localhost:8000/api/ct/ctResult/" + ct_id + "/original",
+            "/api/ct/ctResult/" + ct_id + "/original",
             {
               // responseType: 'arraybuffer',
               responseType: "blob", //blob으로 받기
@@ -209,7 +209,7 @@ export default function Result(props) {
           );
 
           const lime_res = await axios.get(
-            "http://localhost:8000/api/ct/ctResult/" + ct_id + "/lime",
+            "/api/ct/ctResult/" + ct_id + "/lime",
             {
               responseType: "blob",
               headers: {
