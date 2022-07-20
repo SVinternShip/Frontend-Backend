@@ -1,6 +1,7 @@
 from django.views import View
-from django.http import Http404
-from rest_framework.decorators import permission_classes
+from django.http import Http404, JsonResponse
+from rest_framework.decorators import permission_classes, api_view
+from rest_framework.parsers import JSONParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -9,8 +10,16 @@ from ..models.patientResult import PatientResult
 from ..serializer.serializer import PatientResultSerializer
 from django.contrib.auth import get_user_model
 
-
 Doctor = get_user_model()
+
+
+def get_object(id):
+    try:
+        return PatientResult.objects.get(pk=id)
+    except PatientResult.DoesNotExist:
+        raise Http404
+
+
 @permission_classes([IsAuthenticated])
 class PatientResultList(APIView):
 
@@ -50,12 +59,6 @@ class PatientResultList(APIView):
 @permission_classes([IsAuthenticated])
 class PatientResultDetail(APIView):
 
-    def get_object(self, id):
-        try:
-            return PatientResult.objects.get(pk=id)
-        except PatientResult.DoesNotExist:
-            raise Http404
-
     def get(self, request, patient_result_id):
         '''
             해당 key의 Patient Result GET API
@@ -64,7 +67,7 @@ class PatientResultDetail(APIView):
             # 내용
                 - 파라미터 : Patient Result Key value
         '''
-        patient_result = self.get_object(patient_result_id)
+        patient_result = get_object(patient_result_id)
         serializer = PatientResultSerializer(patient_result)
         return Response(serializer.data)
 
@@ -76,7 +79,7 @@ class PatientResultDetail(APIView):
             # 내용
                 - 파라미터 : Patient Result Key value
         '''
-        patient_result = self.get_object(patient_result_id)
+        patient_result = get_object(patient_result_id)
         serializer = PatientResultSerializer(patient_result, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -91,6 +94,27 @@ class PatientResultDetail(APIView):
             # 내용
                 - 파라미터 : Patient Result Key value
         '''
-        patient_result = self.get_object(patient_result_id)
+        patient_result = get_object(patient_result_id)
         patient_result.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def save_note(request, patient_result_id):
+    '''
+        Patient Result의 Note 변경
+
+        ___
+        # 내용
+            - id : Patient Result Key value
+    '''
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        patient_result = get_object(patient_result_id)
+        patient_result.note = data["note"]
+        patient_result.save()
+        return JsonResponse({
+            "note": patient_result.note,
+            "id": patient_result.id
+        })
