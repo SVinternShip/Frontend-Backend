@@ -37,7 +37,7 @@ function CtImageBox(props) {
     } else if (imgMode === "original") {
       return (
           <Box>
-          <Text alignItems="center"fontSize="sm" color="white">CT</Text>
+          <Text textAlign={"center"} fontSize="lg" color="white">Original</Text>
         <Image
             minWidth={"500px"}
           onClick={() => {
@@ -50,7 +50,7 @@ function CtImageBox(props) {
     } else if (imgMode === "lime") {
       return (
           <Box>
-          <Text fontSize="sm" color="white">LIME</Text>
+          <Text textAlign={"center"} fontSize="lg" color="white">LIME</Text>
         <Image
             minWidth={"500px"}
           onClick={() => {

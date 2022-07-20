@@ -62,7 +62,7 @@ function DrawRow(props) {
     const ct_result_id = currentData[0];
     const fileName = currentData[1];
 
-    const dateAndTime=currentData[3];
+    const dateAndTime = currentData[3];
 
     list.push(
       <ResultProjectRow
@@ -256,13 +256,13 @@ export default function Result(props) {
 
   return (
     <Box>
-      <Wrap>
+      <Wrap justifyContent={{base:'center', md:''}}>
         <WrapItem>
           <Box minWidth={"350px"}>
             <DrawPatientInfo data={patientInfoData} />
           </Box>
         </WrapItem>
-        <Spacer />
+        <Spacer display={{base: 'none', md:'block'}} />
         <WrapItem>
           <Box alignItems="stretch" minWidth={"350px"}>
             <DrawCurrentImgInfo data={currentClickedImgInfo} />
@@ -282,7 +282,7 @@ export default function Result(props) {
                 </Flex>
               </CardHeader>
               <CardBody maxHeight={"450px"}>
-                <Table  variant="simple" color="#fff">
+                <Table variant="simple" color="#fff">
                   <Thead>
                     <Tr my="0.5rem" ps="0px">
                       <Th
@@ -301,7 +301,7 @@ export default function Result(props) {
                       >
                         촬영 날짜(DATE)
                       </Th>
-                                            <Th
+                      <Th
                         ps="0px"
                         color="gray.400"
                         fontFamily="Plus Jakarta Display"
@@ -322,15 +322,13 @@ export default function Result(props) {
             </Card>
           </Box>
         </WrapItem>
-        <Spacer/>
+        <Spacer />
         <WrapItem>
           <Box>
             <DrawImage org={currentClickedOrg} lime={currentClickedLime} />
           </Box>
         </WrapItem>
       </Wrap>
-
-
 
       {/*<NoteWithButton note={note} />*/}
     </Box>
