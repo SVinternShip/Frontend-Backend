@@ -29,16 +29,18 @@ function CtImageBox(props) {
     if (original_image === null || lime_image === null) {
       return (
         <Box>
-          <Text textAlign={"center"} fontSize="lg" color="white">
+          <Text textAlign={"center"} fontSize="lg" color="white" pr={{lg: "80px"}}>
             Loading...
           </Text>
-          <Spinner
-            size={"xl"}
+            <Box alignItems="stretch"  pt={{lg:"100px", sm:"30px"}} pb={{sm: "30px"}} pr={{lg: "80px"}}>
+          <Spinner minWidth={{ lg: "350px", sm: "200px"}}
+             minHeight={{ lg: "350px", sm: "200px"}}
             thickness="4px"
             speed="0.65s"
             emptyColor="gray.200"
             color="blue.500"
           />
+            </Box>
         </Box>
       );
     } else if (original_image === undefined || lime_image === undefined) {
