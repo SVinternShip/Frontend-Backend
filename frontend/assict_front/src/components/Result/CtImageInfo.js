@@ -33,7 +33,7 @@ function get_prediction_result(prediction) {
   return (
     <Box
       borderColor="red.700"
-      color="red.400"
+      color="red"
       fontWeight="bold"
       letterSpacing="wide"
       fontSize="xl"

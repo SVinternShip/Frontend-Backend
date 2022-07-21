@@ -24,7 +24,7 @@ import {
 
 
 function DashboardTableRow1(props) {
-    let { dateAndTime, data, ct_result_id, fileName, index, changeClickedImg } = props;
+    let { dateAndTime, ct_result_id,predict, fileName, index, changeClickedImg } = props;
   const { patient_result_id, name, status, progression, lastItem } = props;
   const textColor = useColorModeValue("gray.700", "white");
   const colorStatus = useColorModeValue("white", "gray.400");
@@ -32,9 +32,19 @@ function DashboardTableRow1(props) {
     let date=dateAndTime.split("T")[0];
     let time=dateAndTime.split("T")[1];
 
+    const colorChange = (value) => {
+        let color
+        if (value === true){
+            color = null
+        } else {
+            color = "red.400"
+        }
+        return color
+    }
 
   return (
-    <Tr onClick={event=>{
+    <Tr bg={colorChange(predict)}
+        fontWeight="bold" onClick={event=>{
             // event.preventDefault();
             event.preventDefault()
             changeClickedImg(index)

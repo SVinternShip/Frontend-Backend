@@ -23,7 +23,7 @@ import CardBody from "../Card/CardBody";
 import Card from "../Card/Card";
 
 function PatientInfo(props) {
-  const { patientName, createdDate, createdTime } = props;
+  const { patientName, createdDate, createdTime, totalCtNum, hemoNum } = props;
 
   return (
     <Card>
@@ -36,14 +36,21 @@ function PatientInfo(props) {
         </Flex>
       </CardHeader>
       <CardBody>
-        <Box
-          mt="1"
-          color="#fff"
-          fontWeight="bold"
-          lineHeight="tight"
-          noOfLines={1}
-        >
-          환자명 : {patientName} / 날짜 : {createdDate}  {createdTime}
+        <Box>
+          <Text
+            mt="1"
+            color="#fff"
+            fontWeight="bold"
+            lineHeight="tight"
+          >
+            환자명 : {patientName} / 날짜 : {createdDate} {createdTime}
+          </Text>
+          <Flex mt="1" color="#fff" fontWeight="bold">
+            <Text color="red"> {hemoNum} </Text>
+            <Text>  /{totalCtNum} ( </Text>
+            <Text color="red"> 출혈 의심 </Text>
+            <Text> /전체)</Text>
+          </Flex>
         </Box>
       </CardBody>
     </Card>
