@@ -132,13 +132,12 @@ function DrawImage(props) {
   );
 }
 
-  let org_images = [];
-  let lime_images = [];
-  let ctResultData = [];
-  let parVar = 0;
+let org_images = [];
+let lime_images = [];
+let ctResultData = [];
+let parVar = 0;
 
 export default function Result(props) {
-
   // 1. 이름(patientName), 날짜(createdDate) 상태 저장 (=> array가 아니라서 문제 발생!
   const [patientInfoData, setPatientInfoData] = useState([]);
 
@@ -151,7 +150,7 @@ export default function Result(props) {
   const [currentClickedImgInfo, setcurrentClickedImgInfo] = useState([null]);
 
   const changeClickedImg = (value) => {
-    console.log("Current Clicked : " +value)
+    console.log("Current Clicked : " + value);
     console.log(org_images[value]);
     console.log(lime_images[value]);
 
@@ -162,10 +161,6 @@ export default function Result(props) {
   };
 
   useEffect(() => {
-
-    org_images = [];
-    lime_images = [];
-    ctResultData = [];
 
     //현재 url: http://localhost:3000/home/tables/{patient_result_id}
     let para = document.location.pathname.split("/");
@@ -180,8 +175,7 @@ export default function Result(props) {
           //header에 jwt 토큰 포함시킴(unauthorized 오류 방지)
         },
       });
-      var patientArr;
-      patientArr = [
+      let patientArr = [
         result.data.patientName,
         result.data.createdDate,
         result.data.note,
@@ -191,19 +185,16 @@ export default function Result(props) {
       var i;
 
       //출력 형태: [ct_result.id, ct_result_filename, prediction(정상/출혈), studydate]
-      var predArr = [];
-      for (i = 0; i < Object.keys(result.data.ct_results).length; i++) {
-        predArr[i] = result.data.ct_results[i].prediction;
-      }
 
       for (i = 0; i < Object.keys(result.data.ct_results).length; i++) {
+        let ct_id = result.data.ct_results[i].id;
         ctResultData.push([
           result.data.ct_results[i].id,
           result.data.ct_results[i].fileName,
-          predArr[i],
+          result.data.ct_results[i].prediction,
           result.data.ct_results[i].studyDate,
-        ])
-        let ct_id = result.data.ct_results[i].id;
+        ]);
+
         const getCtImgs = async (i) => {
           const original_res = await axios.get(
             "/api/ct/ctResult/" + ct_id + "/original",
@@ -229,19 +220,23 @@ export default function Result(props) {
           const OrgObjectURL = URL.createObjectURL(original_res.data);
           const LimeObjectURL = URL.createObjectURL(lime_res.data);
 
-          const orgImage = OrgObjectURL;
-          const limeImage = LimeObjectURL;
-          org_images.push(orgImage);
-          lime_images.push(limeImage);
+          org_images.push(OrgObjectURL);
+          lime_images.push(LimeObjectURL);
 
-          if(i===0){
-            changeClickedImg(i)
+          if (i === 0) {
+            changeClickedImg(i);
           }
         };
-        // getCtImgs(i);
+        getCtImgs(i);
       }
     };
     fetchData();
+
+    return () => {
+      org_images = [];
+      lime_images = [];
+      ctResultData = [];
+    };
   }, []);
 
   const {

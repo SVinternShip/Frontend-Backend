@@ -95,7 +95,7 @@ export default function HeaderLinks(props) {
             )
           }>
           <Text onClick={()=>SignOut()}
-                display={{ sm: "none", md: "flex" }}>Sign Out</Text>
+                display={"flex"}>Sign Out</Text>
         </Button>
       {/*</NavLink>*/}
       <SidebarResponsive
