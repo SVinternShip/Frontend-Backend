@@ -132,11 +132,13 @@ function DrawImage(props) {
   );
 }
 
-const org_images = [];
-const lime_images = [];
-const ctResultData = []
-let parVar = 0;
+  let org_images = [];
+  let lime_images = [];
+  let ctResultData = [];
+  let parVar = 0;
+
 export default function Result(props) {
+
   // 1. 이름(patientName), 날짜(createdDate) 상태 저장 (=> array가 아니라서 문제 발생!
   const [patientInfoData, setPatientInfoData] = useState([]);
 
@@ -160,6 +162,11 @@ export default function Result(props) {
   };
 
   useEffect(() => {
+
+    org_images = [];
+    lime_images = [];
+    ctResultData = [];
+
     //현재 url: http://localhost:3000/home/tables/{patient_result_id}
     let para = document.location.pathname.split("/");
     //{patient_result_id}의 값을 parVar에 저장
