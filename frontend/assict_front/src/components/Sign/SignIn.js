@@ -48,7 +48,7 @@ export default function SignIn() {
   const toast = useToast()
   const navigate = useNavigate();
   function checkToken(){
-    if (localStorage.getItem('token') !== null) //token값이 존재하면 로그인이 되었다고 판단
+    if (window.localStorage.getItem('token') !== null) //token값이 존재하면 로그인이 되었다고 판단
     {
       console.log("@@@@")
       navigate("/home/tables");
@@ -66,8 +66,8 @@ export default function SignIn() {
             password: password
           },
       );
-      localStorage.clear();
-      localStorage.setItem('token', response.data.token); //response로 받은 data중에 token값
+      window.localStorage.clear();
+      window.localStorage.setItem('token', response.data.token); //response로 받은 data중에 token값
       checkToken()
 
     } catch (error) {

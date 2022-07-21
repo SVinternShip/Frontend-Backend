@@ -172,7 +172,7 @@ export default function Result(props) {
     //{patient_result_id}의 값을 parVar에 저장
     parVar = para[3];
 
-    const token = "JWT " + localStorage.getItem("token");
+    const token = "JWT " + window.localStorage.getItem("token");
     const fetchData = async () => {
       const result = await axios.get("/api/ct/patientResult/" + parVar, {
         headers: {

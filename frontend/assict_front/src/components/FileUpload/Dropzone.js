@@ -41,7 +41,7 @@ function Dropzone(props) {
       alert("Selected file zero")
       return
     }
-    const token = 'JWT ' + localStorage.getItem('token')
+    const token = 'JWT ' + window.localStorage.getItem('token')
     console.log(token)
     let config = {
       "method": 'post',
