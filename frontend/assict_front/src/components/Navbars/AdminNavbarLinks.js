@@ -24,20 +24,24 @@ import { ProfileIcon, SettingsIcon } from "../Icons/Icons";
 import { ItemContent } from "../Menu/ItemContent";
 import { SidebarResponsive } from "../Sidebar/Sidebar";
 import PropTypes from "prop-types";
-import React from "react";
+import React, {useEffect} from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import routes from "../../routes.js";
 
+function SignOut(){
+    window.localStorage.clear();
+    console.log(window.localStorage.getItem('token'))
+    console.log('clicked')
+
+    if (window.localStorage.getItem('token') == null){
+           window.location.replace("/home/signin")
+    } }
+
 export default function HeaderLinks(props) {
+
+
   const { variant, children, fixed, secondary, onOpen, ...rest } = props;
-  const navigate = useNavigate();
-  function SignOut(){
-    localStorage.clear();
-    if (localStorage.getItem('token') == null) //token값이 존재하지 않으면 로그아웃이 되었다고 판단
-    {
-      navigate('/signin');
-    }
-  }
+
 
   // Chakra Color Mode
   let inputBg = "#0F1535";
@@ -69,7 +73,7 @@ export default function HeaderLinks(props) {
 
 
       </InputGroup>
-      <NavLink to='/home/signin'>
+      {/*<NavLink>*/}
         <Button
           ms='0px'
           px='0px'
@@ -90,10 +94,10 @@ export default function HeaderLinks(props) {
               ""
             )
           }>
-          <Text onClick={()=>SignOut}
+          <Text onClick={()=>SignOut()}
                 display={{ sm: "none", md: "flex" }}>Sign Out</Text>
         </Button>
-      </NavLink>
+      {/*</NavLink>*/}
       <SidebarResponsive
         iconColor='gray.500'
         logoText={props.logoText}

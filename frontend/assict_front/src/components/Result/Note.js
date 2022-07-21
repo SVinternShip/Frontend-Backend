@@ -27,7 +27,7 @@ function NoteWithButton(props) {
   async function saveNote(event, note, patient_result_id) {
     event.preventDefault();
     //응답 성공
-    const token = "JWT " + localStorage.getItem("token");
+    const token = "JWT " + window.localStorage.getItem("token");
     let config = {
       method: "post",
       url: "/api/ct/patientResult/"+patient_result_id+"/note",

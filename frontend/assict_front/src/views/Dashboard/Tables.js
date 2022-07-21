@@ -90,7 +90,7 @@ function Tables() {
   const [data, setData] = useState({ hits: [] });
 
   useEffect(() => {
-    const token = 'JWT ' + localStorage.getItem('token')
+    const token = 'JWT ' + window.localStorage.getItem('token')
     const fetchData = async () => {
       const result = await axios.get("/api/ct/patientResult", {
         "headers": {

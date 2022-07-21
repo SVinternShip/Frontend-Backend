@@ -7,7 +7,7 @@ import ResultPage from "./views/pages/ResultPage";
 
 function RequireAuth({ children }) {
     let authed = false
-    const token = localStorage.getItem('token')
+    const token = window.localStorage.getItem('token')
     if (token !== null) //token값이 존재하면 로그인이 되었다고 판단
     {
         authed = true
