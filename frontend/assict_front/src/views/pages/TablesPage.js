@@ -1,14 +1,10 @@
 //새로 만든 페이지!
 
-import { ChakraProvider, Portal, useDisclosure } from "@chakra-ui/react";
+import { ChakraProvider, Portal} from "@chakra-ui/react";
 import Configurator from "../../components/Configurator/Configurator";
-import Footer from "../../components/Footer/Footer.js";
-// Layout components
 import AdminNavbar from "../../components/Navbars/AdminNavbar.js";
 import Sidebar from "../../components/Sidebar/Sidebar.js";
 import React, { useState } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
-import routes from "../../routes.js";
 // Custom Chakra theme
 import theme from "../../theme/themeAdmin.js";
 // Custom components
@@ -16,7 +12,6 @@ import MainPanel from "../../components/Layout/MainPanel";
 import PanelContainer from "../../components/Layout/PanelContainer";
 import PanelContent from "../../components/Layout/PanelContent";
 import Tables from "../Dashboard/Tables";
-import {StatsIcon} from "../../components/Icons/Icons";
 
 
 import dashRoutes from "../../routes.js";

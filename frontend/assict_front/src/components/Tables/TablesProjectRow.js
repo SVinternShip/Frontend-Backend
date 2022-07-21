@@ -15,7 +15,6 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-
 import React from "react";
 import {
     Tr,
@@ -40,7 +39,6 @@ function DashboardTableRow(props) {
   return (
     <Tr onClick={event=>{
         event.preventDefault();
-        console.log(patient_result_id)
         // 여기서 다른 주소로 redirect
         navigate(`/home/tables/${patient_result_id}`)
     }}>

@@ -98,7 +98,7 @@ function Sidebar(props) {
               }}
               py='12px'
               borderRadius='15px'
-              _hover='none'
+              _hover={{}}
               w='100%'
               _active={{
                 bg: "inherit",
@@ -123,9 +123,7 @@ function Sidebar(props) {
                   </IconBox>
                 )}
                 <Text color={activeColor} my='auto' fontSize='sm'>
-                  {document.documentElement.dir === "rtl"
-                    ? prop.rtlName
-                    : prop.name}
+                  {prop.name}
                 </Text>
               </Flex>
             </Button>
@@ -147,7 +145,7 @@ function Sidebar(props) {
                 xl: "16px",
               }}
               borderRadius='15px'
-              _hover='none'
+              _hover={{}}
               w='100%'
               _active={{
                 bg: "inherit",
@@ -172,9 +170,7 @@ function Sidebar(props) {
                   </IconBox>
                 )}
                 <Text color={inactiveColor} my='auto' fontSize='sm'>
-                  {document.documentElement.dir === "rtl"
-                    ? prop.rtlName
-                    : prop.name}
+                  {prop.name}
                 </Text>
               </Flex>
             </Button>
@@ -317,7 +313,7 @@ export function SidebarResponsive(props) {
               }}
               py='12px'
               borderRadius='15px'
-              _hover='none'
+              _hover={{}}
               w='100%'
               _active={{
                 bg: "inherit",
@@ -365,7 +361,7 @@ export function SidebarResponsive(props) {
                 xl: "16px",
               }}
               borderRadius='15px'
-              _hover='none'
+              _hover={{}}
               w='100%'
               _active={{
                 bg: "inherit",

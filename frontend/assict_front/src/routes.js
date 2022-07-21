@@ -16,19 +16,12 @@
 
 */
 
-// import
 import Tables from "./views/Dashboard/Tables.js";
-//import Profile from "views/Dashboard/Profile.js";
-import SignIn from "./components/Sign/SignIn.js";
-import SignUp from "./components/Sign/SignUp.js";
 
 import {
-  HomeIcon,
   StatsIcon,
   DocumentIcon,
-  RocketIcon,
-  SupportIcon,
-    GlobeIcon,
+
 } from "./components/Icons/Icons";
 import FileUpload from "./components/FileUpload/FileUpload";
 

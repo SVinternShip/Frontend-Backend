@@ -131,17 +131,16 @@ function DrawImage(props) {
   );
 }
 
-const ct_images = [];
 const org_images = [];
 const lime_images = [];
-let parVar = 0
+const ctResultData = []
+let parVar = 0;
 export default function Result(props) {
   // 1. 이름(patientName), 날짜(createdDate) 상태 저장 (=> array가 아니라서 문제 발생!
   const [patientInfoData, setPatientInfoData] = useState([]);
 
   // 수정 전: ct_results_id, fileName, 이미지 정보(prediction, studyDate)를 각각 배열의 형태로 상태 저장 (2차원 배열)
   // 수정 후 출력 방식: [ [ct_results_id, fileName, prediction, studyDate], [ct_results_id, fileName, prediction, studyDate], ... ]
-  const [ctResultData, setCtResultData] = useState([]);
 
   const [currentClickedOrg, setcurrentClickedOrg] = useState(null);
   const [currentClickedLime, setcurrentClickedLime] = useState(null);
@@ -149,6 +148,7 @@ export default function Result(props) {
   const [currentClickedImgInfo, setcurrentClickedImgInfo] = useState([null]);
 
   const changeClickedImg = (value) => {
+    console.log("Current Clicked : " +value)
     console.log(org_images[value]);
     console.log(lime_images[value]);
 
@@ -166,21 +166,21 @@ export default function Result(props) {
 
     const token = "JWT " + localStorage.getItem("token");
     const fetchData = async () => {
-      const result = await axios.get(
-        "/api/ct/patientResult/" + parVar,
-        {
-          headers: {
-            Authorization: token,
-            //header에 jwt 토큰 포함시킴(unauthorized 오류 방지)
-          },
-        }
-      );
+      const result = await axios.get("/api/ct/patientResult/" + parVar, {
+        headers: {
+          Authorization: token,
+          //header에 jwt 토큰 포함시킴(unauthorized 오류 방지)
+        },
+      });
       var patientArr;
-      patientArr = [result.data.patientName, result.data.createdDate, result.data.note];
+      patientArr = [
+        result.data.patientName,
+        result.data.createdDate,
+        result.data.note,
+      ];
       setPatientInfoData(patientArr);
 
       var i;
-      var arr = [];
 
       //출력 형태: [ct_result.id, ct_result_filename, prediction(정상/출혈), studydate]
       var predArr = [];
@@ -189,14 +189,14 @@ export default function Result(props) {
       }
 
       for (i = 0; i < Object.keys(result.data.ct_results).length; i++) {
-        arr[i] = [
+        ctResultData.push([
           result.data.ct_results[i].id,
           result.data.ct_results[i].fileName,
           predArr[i],
           result.data.ct_results[i].studyDate,
-        ];
+        ])
         let ct_id = result.data.ct_results[i].id;
-        const getCtImgs = async () => {
+        const getCtImgs = async (i) => {
           const original_res = await axios.get(
             "/api/ct/ctResult/" + ct_id + "/original",
             {
@@ -226,15 +226,12 @@ export default function Result(props) {
           org_images.push(orgImage);
           lime_images.push(limeImage);
 
-          const newImage = {
-            original_img: OrgObjectURL,
-            lime_img: LimeObjectURL,
-          };
-          ct_images.push(newImage);
+          if(i===0){
+            changeClickedImg(i)
+          }
         };
-        getCtImgs();
+        getCtImgs(i);
       }
-      setCtResultData(arr);
     };
     fetchData();
   }, []);
@@ -255,30 +252,39 @@ export default function Result(props) {
 
   return (
     <Box>
-      <Wrap justify={{base:'center'}} pl={{base:"0", lg:"40px"}} pr={{base:"0", lg:"40px"}}>
+      <Wrap
+        justify={{ base: "center" }}
+        pl={{ base: "0", lg: "40px" }}
+        pr={{ base: "0", lg: "40px" }}
+      >
         <WrapItem>
-          <Box minWidth={{sm:"350px", lg:"600px"}}>
+          <Box minWidth={{ sm: "350px", lg: "600px" }}>
             <DrawPatientInfo data={patientInfoData} />
           </Box>
         </WrapItem>
-        <Spacer display={{base: 'none', lg:'block'}} />
+        <Spacer display={{ base: "none", lg: "block" }} />
         <WrapItem>
-          <Box alignItems="stretch" minWidth={{sm:"350px", lg:"534px"}}>
+          <Box alignItems="stretch" minWidth={{ sm: "350px", lg: "534px" }}>
             <DrawCurrentImgInfo data={currentClickedImgInfo} />
           </Box>
         </WrapItem>
       </Wrap>
 
-      <Wrap justify={{base:'center'}} mt={{sm:"3", lg:"0"}} pl={{base:"0", lg:"40px"}} pr={{base:"0", lg:"40px"}}>
+      <Wrap
+        justify={{ base: "center" }}
+        mt={{ sm: "3", lg: "0" }}
+        pl={{ base: "0", lg: "40px" }}
+        pr={{ base: "0", lg: "40px" }}
+      >
         <WrapItem>
-          <Box maxWidth={"600px"} minWidth={{lg:"600px"}}>
-            <Card my={{base:"0px", md:"27px"}} pb="0px" overflowX={'auto'}>
+          <Box maxWidth={"600px"} minWidth={{ lg: "600px" }}>
+            <Card my={{ base: "0px", md: "27px" }} pb="0px" overflowX={"auto"}>
               <CardHeader p="6px 0px 22px 0px">
-                  <Text fontSize="lg" color="#fff" fontWeight="bold" mb=".5rem">
-                    CT Result
-                  </Text>
+                <Text fontSize="lg" color="#fff" fontWeight="bold" mb=".5rem">
+                  CT Result
+                </Text>
               </CardHeader>
-              <CardBody maxHeight={"450px"} >
+              <CardBody maxHeight={"450px"}>
                 <Table variant="simple" color="#fff">
                   <Thead position={"sticky"} top={0} bg={"#241451"}>
                     <Tr my="0.5rem" ps="0px">
@@ -308,7 +314,7 @@ export default function Result(props) {
                       </Th>
                     </Tr>
                   </Thead>
-                  <Tbody >
+                  <Tbody>
                     <DrawRow
                       ct_data={ctResultData}
                       changeClickedImg={changeClickedImg}
@@ -319,7 +325,7 @@ export default function Result(props) {
             </Card>
           </Box>
         </WrapItem>
-        <Spacer display={{base: 'none', lg:'block'}} />
+        <Spacer display={{ base: "none", lg: "block" }} />
         <WrapItem>
           <Box>
             <DrawImage org={currentClickedOrg} lime={currentClickedLime} />

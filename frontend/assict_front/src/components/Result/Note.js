@@ -30,7 +30,7 @@ function NoteWithButton(props) {
     const token = "JWT " + localStorage.getItem("token");
     let config = {
       method: "post",
-      url: "http://127.0.0.1:8000/api/ct/patientResult/"+patient_result_id+"/note",
+      url: "/api/ct/patientResult/"+patient_result_id+"/note",
       data: {
         note: note,
       },

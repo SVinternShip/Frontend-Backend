@@ -17,18 +17,18 @@
 */
 
 import React from "react";
-import ReactDOM from 'react-dom';
-import {HashRouter, Route, Switch, Redirect, BrowserRouter} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(
+import { createRoot } from "react-dom/client";
+const container = document.getElementById("root");
+const root = createRoot(container);
+root.render(
     <BrowserRouter>
         <App />
-    </BrowserRouter>,
-    rootElement
+    </BrowserRouter>
 );
 
 reportWebVitals();

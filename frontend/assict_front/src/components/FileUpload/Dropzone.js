@@ -74,7 +74,7 @@ function Dropzone(props) {
 
     <div className="container">
 
-      <div {...getRootProps({className: 'dropzone'})} verticalAlign="middle">
+      <div {...getRootProps({className: 'dropzone'})}>
         <input {...getInputProps()} />
         <Card overflowX={{ xl: "hidden" }} my='20px' pb='100px' align="center" display="flex" verticalAlign="middle">
           <Box  align="center" display="flex" alignContent="center" verticalAlign="middle" pt={{ base: "100px", md: "13%" }}>

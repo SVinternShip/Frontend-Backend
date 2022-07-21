@@ -73,6 +73,7 @@ function DrawTableRow(props){
     const date = currentData['createdDate'].split('T')[0]
     const time = currentData['createdDate'].split('T')[1].split('.')[0]
     list.push(<TablesProjectRow
+        key={currentData['id']}
         patient_result_id={currentData['id']}
         name={patientName}
         status={status}
