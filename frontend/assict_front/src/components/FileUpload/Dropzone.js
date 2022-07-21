@@ -1,5 +1,6 @@
 import React, {UseState} from 'react';
 import {useDropzone} from 'react-dropzone';
+import { useNavigate } from 'react-router-dom';
 import {Text, Button, Grid, GridItem , Box} from "@chakra-ui/react";
 import Card from "../Card/Card";
 import {Separator} from "../Separator/Separator";
@@ -10,7 +11,7 @@ function upLoadDcm(file,token, patient_result_id){
   data.append('file', file);
   let config = {
     "method": 'post',
-    "url": 'http://127.0.0.1:8000/api/ct/fileUpload/'+patient_result_id,
+    "url": '/api/ct/fileUpload/'+patient_result_id,
     "headers": {
       'Authorization': token,
       'Content-Type': 'multipart/form-data'
@@ -26,35 +27,6 @@ function upLoadDcm(file,token, patient_result_id){
       });
 }
 
-async function onFileUpload(event, current_files) {
-  event.preventDefault();
-  if (current_files.length < 1){
-    alert("Selected file zero")
-    return
-  }
-  const token = 'JWT ' + localStorage.getItem('token')
-  console.log(token)
-  let config = {
-    "method": 'post',
-    "url": 'http://127.0.0.1:8000/api/ct/patientResult',
-    "headers": {
-      'Authorization': token
-    }
-  };
-
-  try{
-    const response = await axios(config)
-    console.log(response)
-    let patient_result_id = response.data['id']
-    for(let i=0; i<current_files.length;i++){
-      upLoadDcm(current_files[i], token, patient_result_id)
-    }
-  }catch (err) {
-    
-  }
-  window.location.replace('http://localhost:3000/home/tables');
-}
-
 
 
 function Dropzone(props) {
@@ -62,6 +34,35 @@ function Dropzone(props) {
     noClick: false,
     noKeyboard: true
   });
+  const navigate = useNavigate();
+  async function onFileUpload(event, current_files) {
+    event.preventDefault();
+    if (current_files.length < 1){
+      alert("Selected file zero")
+      return
+    }
+    const token = 'JWT ' + localStorage.getItem('token')
+    console.log(token)
+    let config = {
+      "method": 'post',
+      "url": '/api/ct/patientResult',
+      "headers": {
+        'Authorization': token
+      }
+    };
+
+    try{
+      const response = await axios(config)
+      console.log(response)
+      let patient_result_id = response.data['id']
+      for(let i=0; i<current_files.length;i++){
+        upLoadDcm(current_files[i], token, patient_result_id)
+      }
+    }catch (err) {
+
+    }
+    navigate("/home/tables")
+  }
 
   const files = acceptedFiles.map(file => (
     <li key={file.path}>

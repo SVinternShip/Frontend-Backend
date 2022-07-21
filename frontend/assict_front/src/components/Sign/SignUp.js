@@ -17,7 +17,7 @@
 */
 
 import React, {useState} from "react";
-
+import { useNavigate } from 'react-router-dom';
 // Chakra imports
 import {
   Box,
@@ -49,7 +49,7 @@ import axios from "axios";
 export default function SignUp() {
 
   const toast = useToast()
-
+  const navigate = useNavigate();
   async function signUp(hospital, username, last_name, first_name, password) {
     try {
       //응답 성공
@@ -75,7 +75,7 @@ export default function SignUp() {
       return
     }
     //회원가입 완료 후 signin 페이지로 redirect
-    window.location.replace('http://localhost:3000/home/signin');
+    navigate("/signin")
   }
 
   const titleColor = "white";

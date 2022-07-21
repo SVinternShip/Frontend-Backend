@@ -25,20 +25,19 @@ import { ItemContent } from "../Menu/ItemContent";
 import { SidebarResponsive } from "../Sidebar/Sidebar";
 import PropTypes from "prop-types";
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import routes from "../../routes.js";
-
-function SignOut(){
-  localStorage.clear();
-    if (localStorage.getItem('token') == null) //token값이 존재하지 않으면 로그아웃이 되었다고 판단
-  {
-    window.location.replace('http://localhost:3000/home/signin'); //SignIn 페이지로 redirect 
-    //사실 if문 생략하고 바로 replace해도 됨
-  }
-}
 
 export default function HeaderLinks(props) {
   const { variant, children, fixed, secondary, onOpen, ...rest } = props;
+  const navigate = useNavigate();
+  function SignOut(){
+    localStorage.clear();
+    if (localStorage.getItem('token') == null) //token값이 존재하지 않으면 로그아웃이 되었다고 판단
+    {
+      navigate('/signin');
+    }
+  }
 
   // Chakra Color Mode
   let inputBg = "#0F1535";

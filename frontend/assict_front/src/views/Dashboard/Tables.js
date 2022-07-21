@@ -92,7 +92,7 @@ function Tables() {
   useEffect(() => {
     const token = 'JWT ' + localStorage.getItem('token')
     const fetchData = async () => {
-      const result = await axios.get("http://127.0.0.1:8000/api/ct/patientResult", {
+      const result = await axios.get("/api/ct/patientResult", {
         "headers": {
           "Authorization": token
         }

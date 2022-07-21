@@ -34,6 +34,7 @@ import {
 
 // Assets
 import signInImage from "../../assets/img/signInImage.png";
+import { useNavigate } from 'react-router-dom';
 
 // Custom Components
 import AuthFooter from "../Footer/AuthFooter";
@@ -42,16 +43,18 @@ import GradientBorder from "../GradientBorder/GradientBorder";
 
 import axios from "axios";
 
-function checkToken(){
-  if (localStorage.getItem('token') !== null) //token값이 존재하면 로그인이 되었다고 판단
-  {
-    console.log("@@@@")
-    window.location.replace('http://localhost:3000/home/tables'); //로그인이 되면 tables 페이지로 redirect
-  }
-}
 
 export default function SignIn() {
   const toast = useToast()
+  const navigate = useNavigate();
+  function checkToken(){
+    if (localStorage.getItem('token') !== null) //token값이 존재하면 로그인이 되었다고 판단
+    {
+      console.log("@@@@")
+      navigate("/home/tables");
+    }
+  }
+
   checkToken()
   async function LogIn(username, password) {
     try {
