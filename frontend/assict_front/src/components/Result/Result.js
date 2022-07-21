@@ -63,6 +63,7 @@ function DrawRow(props) {
     const fileName = currentData[1];
 
     const dateAndTime = currentData[3];
+    // console.log(fileName)
 
     list.push(
       <ResultProjectRow
@@ -230,7 +231,7 @@ export default function Result(props) {
             changeClickedImg(i)
           }
         };
-        getCtImgs(i);
+        // getCtImgs(i);
       }
     };
     fetchData();
