@@ -20,7 +20,8 @@ class CtResultSerializer(serializers.ModelSerializer):
     def create(self, validated_data, original_url, lime_url):
         patient_id = validated_data.pop('patient_result')[0]
         prediction = validated_data.pop('prediction')[0]
-        patientName = validated_data.pop('patientName')[0]
+        patientName = validated_data.pop('patientName')
+        patientName = ''.join(patientName)
         fileName = validated_data.pop('fileName')[0]
         studyDate = validated_data.pop('studyDate')[0]
         ct_img = CtImage.objects.create(original_imgUrl=original_url, lime_imgUrl=lime_url)
