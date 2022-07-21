@@ -61,15 +61,14 @@ function DrawRow(props) {
     let currentData = tableRowData[i];
     const ct_result_id = currentData[0];
     const fileName = currentData[1];
-
+    const predict = currentData[2]
     const dateAndTime = currentData[3];
-    // console.log(fileName)
 
     list.push(
       <ResultProjectRow
         changeClickedImg={props.changeClickedImg}
         ct_result_id={ct_result_id}
-        data={props}
+        predict={predict}
         fileName={fileName}
         index={i}
         dateAndTime={dateAndTime}
@@ -83,6 +82,7 @@ function DrawRow(props) {
 // patientName, createdDate(data)를 props로 받는 함수 (patientResult json)
 function DrawPatientInfo(props) {
   const patientInfoRow = props.data;
+  const hemoNum = props.hemoNum;
   if (patientInfoRow.length === 0) {
     return (
       <PatientInfoRow
@@ -96,20 +96,20 @@ function DrawPatientInfo(props) {
   const createdDateTime = patientInfoRow[1].split("T");
   const createdDate = createdDateTime[0];
   const createdTime = createdDateTime[1].split(".")[0];
-
+  const totalCtNum = patientInfoRow[3]
   return (
     <PatientInfoRow
       patientName={patientName}
       createdDate={createdDate}
       createdTime={createdTime}
+      totalCtNum={totalCtNum}
+      hemoNum={hemoNum}
     />
   );
 }
 
 function DrawCurrentImgInfo(props) {
   const patientInfoRow = props.data;
-
-  console.log(patientInfoRow);
 
   return (
     <CtImageInfo
@@ -140,7 +140,8 @@ let parVar = 0;
 export default function Result(props) {
   // 1. 이름(patientName), 날짜(createdDate) 상태 저장 (=> array가 아니라서 문제 발생!
   const [patientInfoData, setPatientInfoData] = useState([]);
-
+  const totalCtNum = React.useRef(0)
+  const hemoNum = React.useRef(0)
   // 수정 전: ct_results_id, fileName, 이미지 정보(prediction, studyDate)를 각각 배열의 형태로 상태 저장 (2차원 배열)
   // 수정 후 출력 방식: [ [ct_results_id, fileName, prediction, studyDate], [ct_results_id, fileName, prediction, studyDate], ... ]
 
@@ -150,10 +151,7 @@ export default function Result(props) {
   const [currentClickedImgInfo, setcurrentClickedImgInfo] = useState([null]);
 
   const changeClickedImg = (value) => {
-    console.log("Current Clicked : " + value);
-    console.log(org_images[value]);
-    console.log(lime_images[value]);
-
+    console.log(org_images.length, lime_images.length)
     setcurrentClickedOrg(org_images[value]);
     setcurrentClickedLime(lime_images[value]);
 
@@ -161,7 +159,6 @@ export default function Result(props) {
   };
 
   useEffect(() => {
-
     //현재 url: http://localhost:3000/home/tables/{patient_result_id}
     let para = document.location.pathname.split("/");
     //{patient_result_id}의 값을 parVar에 저장
@@ -175,25 +172,37 @@ export default function Result(props) {
           //header에 jwt 토큰 포함시킴(unauthorized 오류 방지)
         },
       });
-      let patientArr = [
+
+      const ct_data_num = Object.keys(result.data.ct_results).length;
+
+      org_images = new Array(ct_data_num).fill(null);
+      lime_images = new Array(ct_data_num).fill(null);
+
+      const patientArr = [
         result.data.patientName,
         result.data.createdDate,
         result.data.note,
+        ct_data_num,
       ];
       setPatientInfoData(patientArr);
 
-      var i;
+      let i;
 
       //출력 형태: [ct_result.id, ct_result_filename, prediction(정상/출혈), studydate]
 
-      for (i = 0; i < Object.keys(result.data.ct_results).length; i++) {
-        let ct_id = result.data.ct_results[i].id;
+      for (i = 0; i < ct_data_num; i++) {
+        const ct_id = result.data.ct_results[i].id;
+        const predict_result = result.data.ct_results[i].prediction;
         ctResultData.push([
-          result.data.ct_results[i].id,
+          ct_id,
           result.data.ct_results[i].fileName,
-          result.data.ct_results[i].prediction,
+          predict_result,
           result.data.ct_results[i].studyDate,
         ]);
+
+        if (predict_result === false) {
+          hemoNum.current = hemoNum.current + 1;
+        }
 
         const getCtImgs = async (i) => {
           const original_res = await axios.get(
@@ -217,11 +226,12 @@ export default function Result(props) {
             }
           );
           //이미지 출력용 setState
+          console.log("CALL AXIOS");
           const OrgObjectURL = URL.createObjectURL(original_res.data);
           const LimeObjectURL = URL.createObjectURL(lime_res.data);
 
-          org_images.push(OrgObjectURL);
-          lime_images.push(LimeObjectURL);
+          org_images[i] = OrgObjectURL;
+          lime_images[i] = LimeObjectURL;
 
           if (i === 0) {
             changeClickedImg(i);
@@ -229,7 +239,7 @@ export default function Result(props) {
         };
         getCtImgs(i);
       }
-    };
+    };;
     fetchData();
 
     return () => {
@@ -262,7 +272,7 @@ export default function Result(props) {
       >
         <WrapItem>
           <Box minWidth={{ sm: "350px", lg: "600px" }}>
-            <DrawPatientInfo data={patientInfoData} />
+            <DrawPatientInfo data={patientInfoData} hemoNum={hemoNum.current} />
           </Box>
         </WrapItem>
         <Spacer display={{ base: "none", lg: "block" }} />
