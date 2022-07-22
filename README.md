@@ -9,6 +9,8 @@ frontend &amp; api-server
     https를 실행하기 위해서 먼저 ssl 인증을 받아야 한다.
     경로 적어주고,
     init-lensencrypt.sh 에서 너의 도메인을 입력하라.
+![image](https://user-images.githubusercontent.com/53938323/180370292-8915ef02-16bf-490a-b995-07582c8a186d.png)
+
     docker compose 를 하면 Data folder 가 생성되고 자동으로 ssl 인증서가 발급된다.
   
     경로 적어주고 nginx.conf 에 들어가서, 마찬가지로 너의 도메인을 입력하라.
