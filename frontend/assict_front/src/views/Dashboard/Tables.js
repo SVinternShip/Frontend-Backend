@@ -92,7 +92,7 @@ function Tables() {
   useEffect(() => {
     const token = 'JWT ' + window.localStorage.getItem('token')
     const fetchData = async () => {
-      const result = await axios.get("/api/ct/patientResult", {
+      const result = await axios.get("/api/ct/patientResult/order/createdDate", {
         "headers": {
           "Authorization": token
         }

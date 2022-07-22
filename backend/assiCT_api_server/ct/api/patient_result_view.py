@@ -19,6 +19,12 @@ def get_object(id):
     except PatientResult.DoesNotExist:
         raise Http404
 
+def order_by_createdDate(user_id):
+    try:
+        return PatientResult.objects.filter(user_id=user_id).order_by('-createdDate')
+    except PatientResult.DoesNotExist:
+        raise Http404
+
 
 @permission_classes([IsAuthenticated])
 class PatientResultList(APIView):
@@ -118,3 +124,22 @@ def save_note(request, patient_result_id):
             "note": patient_result.note,
             "id": patient_result.id
         })
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def order_createdDate(request):
+    '''
+        현재 로그인한 사용자의 Patient Result를 생성 시간 순서로 정렬
+
+        ___
+       # 내용
+            - 파라미터 : 없음
+    '''
+    if request.method == 'GET':
+        try:
+            user_id = request.user.id
+            patient_result_list = order_by_createdDate(user_id)
+            serializer = PatientResultSerializer(patient_result_list, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
