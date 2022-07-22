@@ -7,8 +7,8 @@ frontend &amp; api-server
 ### *HTTPS 를 위한 SSL 인증서 발급*
 
     You must first obtain ssl authentication to run https.
-    Write down the route
-    Enter your domain at init-lensencrypt.sh
+    
+    Frontend-Backend/ssl-certification/init-letsencrypt.sh << Enter your domain at init-lensencrypt.sh
     
 ![image](https://user-images.githubusercontent.com/53938323/180370292-8915ef02-16bf-490a-b995-07582c8a186d.png)
 
