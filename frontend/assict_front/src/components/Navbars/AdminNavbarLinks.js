@@ -34,7 +34,7 @@ function SignOut(){
     console.log('clicked')
 
     if (window.localStorage.getItem('token') == null){
-           window.location.replace("/home/signin")
+           window.location.replace("/signin")
     } }
 
 export default function HeaderLinks(props) {

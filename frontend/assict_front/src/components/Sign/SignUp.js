@@ -359,7 +359,7 @@ export default function SignUp() {
                     as='span'
                     ms='5px'
                     as={ReachLink}
-                    href='/home/signin'
+                    href='/signin'
                     fontWeight='bold'>
                     Sign In
                   </Link>
