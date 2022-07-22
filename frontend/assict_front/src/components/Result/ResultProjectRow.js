@@ -37,7 +37,7 @@ function DashboardTableRow1(props) {
         if (value === true){
             color = null
         } else {
-            color = "red.400"
+            color = "#ff00009c"
         }
         return color
     }

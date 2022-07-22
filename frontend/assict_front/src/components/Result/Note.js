@@ -17,22 +17,36 @@ import {
   EditablePreview,
   EditableInput,
   Editable,
+  Textarea,
 } from "@chakra-ui/react";
 import axios from "axios";
 
 function NoteWithButton(props) {
   const toast = useToast();
   const { note, patient_result_id } = props;
-  let currentNote = note;
-  async function saveNote(event, note, patient_result_id) {
+
+  let [inputNote, setInputNote] = React.useState("");
+  useEffect(() => {
+    console.log("Note")
+    console.log(note)
+
+    setInputNote(note);
+  }, [note]);
+  let handleInputChange = (e) => {
+    let inputValue = e.target.value;
+    console.log(inputValue);
+    setInputNote(inputValue);
+  };
+
+  async function saveNote(event, patient_result_id) {
     event.preventDefault();
     //응답 성공
     const token = "JWT " + window.localStorage.getItem("token");
     let config = {
       method: "post",
-      url: "/api/ct/patientResult/"+patient_result_id+"/note",
+      url: "/api/ct/patientResult/" + patient_result_id + "/note",
       data: {
-        note: note,
+        note: inputNote,
       },
       headers: {
         Authorization: token,
@@ -60,24 +74,24 @@ function NoteWithButton(props) {
         minH={{ sm: "60px", md: "150px" }}
         flex={{ sm: "auto" }}
       >
-        <Editable
+        <Textarea
+          borderWidth="1px"
+          borderRadius="lg"
+          maxWidth={{ md: "600px" }}
+          minH={{ sm: "60px", md: "150px" }}
+          flex={{ sm: "auto" }}
           color="#fff"
-          placeholder={currentNote}
-          defaultValue={currentNote}
-          onSubmit={(nextValue) => {
-            currentNote = nextValue;
-          }}
-        >
-          <EditablePreview />
-          <EditableInput />
-        </Editable>
+          value={inputNote}
+          onChange={handleInputChange}
+          placeholder={inputNote}
+        />
       </Box>
       <Spacer display={{ base: "none", lg: "block" }} />
       <Box alignSelf={{ base: "center" }}>
         <Button
           colorScheme="teal"
           variant="outline"
-          onClick={(event) => saveNote(event, currentNote, patient_result_id)}
+          onClick={(event) => saveNote(event, patient_result_id)}
         >
           Save
         </Button>
