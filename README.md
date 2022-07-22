@@ -19,25 +19,25 @@ frontend &amp; api-server
   
 ### *2개의 DB 선언* 
 
-  그리고 2개의 DB 가 선언되어야 한다. 
+  And two DBs should be declared.
   1. Postgres SQL DataBase
   2. Google Storage
   
 #### Postgres DB 
 
-    경로적어주고 .env_server 파일에 DB NAME 부터 DB PORT 까지 자신의 환경에 맞게 설정하라.
+    경로적어주고 Set DB NAME to DB PORT to your environment in the .env_server file.
     
     대충 DB 코드들 
     
 #### Google Storage
 
-    gc_connect.json 파일 발급받아서 같은 이름으로 저장하라.
+    Get the gc_connect.json file and save it with the same name
     
     
 #### Alert Manager
 
-    config.yml 에서 receivers email 정보랑 auth password 를 수정하라.
-    참고로. auth password 는 google application password 로, 자신의 설정에 맞게 설정하길 바란다.
+    Modify the recipient email information and auth password in config.yml.
+    For your information. The auth password is a Google application password, which you want to set according to your settings.
     
     
    
@@ -46,12 +46,13 @@ frontend &amp; api-server
 
 #### Target domain 수정하기
 
-    경로 적어주고, setupProxy.js 파일에서 target 에 너의 도메인으로 수정하면 된다.
+    경로 적어주고,
+    In the setupProxy.js file, modify target to your domain.
     
     
 ### *피날레*
 
-마지막으로 최상위 폴더로 가서 터미널에 아래 명령어를 입력하라.
+Finally, go to the top-level folder and type the command below in the terminal.
     
     docker-compose up --build -d
 
