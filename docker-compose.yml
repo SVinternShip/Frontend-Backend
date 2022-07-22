@@ -7,6 +7,8 @@ services:
       context: backend/assiCT_api_server
     ports:
       - "8000:8000"
+    volumes:
+      - static:/static
   frontend:
     build:
       context: frontend/assict_front
@@ -22,6 +24,7 @@ services:
       - build_folder:/var/www/frontend
       - ./ssl-certification/data/certbot/conf:/etc/letsencrypt    # nginx컨테이너에 certbot컨테이너 연결
       - ./ssl-certification/data/certbot/www:/var/www/certbot
+      - static:/static
     depends_on:
       - backend
       - frontend
@@ -107,3 +110,5 @@ volumes:
   build_folder: null
   prometheus_data: { }
   grafana-storage: { }
+  static:
+    driver: local
