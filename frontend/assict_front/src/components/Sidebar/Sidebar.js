@@ -9,7 +9,7 @@ import {
   DrawerCloseButton,
   DrawerContent,
   DrawerOverlay,
-  Flex,
+  Flex, Image,
   Link,
   Stack,
   Text,
@@ -24,6 +24,8 @@ import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
 // FUNCTIONS
+
+import logo_purple from '../../assets/img/logo_purple.png'
 
 function Sidebar(props) {
   // to check for active links and opened collapses
@@ -200,7 +202,7 @@ function Sidebar(props) {
         justifyContent='center'
         alignItems='center'
         fontSize='11px'>
-        <SimmmpleLogoWhite w='22px' h='22px' me='10px' mt='2px' />
+        <Image src={logo_purple} w='50px' h='50px'/>
         <Box
           bg='linear-gradient(97.89deg, #FFFFFF 70.67%, rgba(117, 122, 140, 0) 108.55%)'
           bgClip='text'>
