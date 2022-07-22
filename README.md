@@ -27,7 +27,11 @@ frontend &amp; api-server
 
     경로적어주고 Set DB NAME to DB PORT to your environment in the .env_server file.
     
-    대충 DB 코드들 
+    DB_NAME=AssiCT
+    DB_USER=dbmasteruser
+    DB_HOST=ls-be2b7899bb8e4a14b10c9b048a594941c00a2e35.cd0wtijqfgih.ap-northeast-2.rds.amazonaws.com
+    DB_PASSWORD=svproject22
+    DB_PORT=5432
     
 #### Google Storage
 
