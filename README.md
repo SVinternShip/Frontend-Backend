@@ -1,8 +1,5 @@
-## [ 초 안 ]
-
 # Frontend & Backend
 
-frontend &amp; api-server
 
 ### *Issuing SSL Certificates for HTTPS*
 
@@ -14,7 +11,7 @@ frontend &amp; api-server
 
     When docker composes, a data folder is generated and an ssl certificate is automatically issued.
 
-    Write down the path, enter nginx.conf, and enter your domain as well.
+    Enter nginx.conf, and enter your domain as well.
   
   
 ### *Two DB Declarations* 
@@ -50,7 +47,6 @@ frontend &amp; api-server
 
 #### Modify Target domain
 
-    경로 적어주고,
     In the setupProxy.js file, modify target to your domain.
     
     
