@@ -4,7 +4,7 @@
 
 frontend &amp; api-server
 
-### *HTTPS 를 위한 SSL 인증서 발급*
+### *Issuing SSL Certificates for HTTPS*
 
     You must first obtain ssl authentication to run https.
     
@@ -17,7 +17,7 @@ frontend &amp; api-server
     Write down the path, enter nginx.conf, and enter your domain as well.
   
   
-### *2개의 DB 선언* 
+### *Two DB Declarations* 
 
   And two DBs should be declared.
   1. Postgres SQL DataBase
@@ -48,13 +48,13 @@ frontend &amp; api-server
 
 ### *FrontEnd*
 
-#### Target domain 수정하기
+#### Modify Target domain
 
     경로 적어주고,
     In the setupProxy.js file, modify target to your domain.
     
     
-### *피날레*
+### *Finale*
 
 Finally, go to the top-level folder and type the command below in the terminal.
     
