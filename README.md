@@ -25,7 +25,7 @@ frontend &amp; api-server
   
 #### Postgres DB 
 
-    경로적어주고 Set DB NAME to DB PORT to your environment in the .env_server file.
+    Set DB NAME to DB PORT to your environment in the .env_server file.
     
     DB_NAME=AssiCT
     DB_USER=dbmasteruser
