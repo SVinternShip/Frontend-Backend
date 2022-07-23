@@ -33,8 +33,8 @@ import {
 } from "@chakra-ui/react";
 
 // Assets
-import signInImage from "../../assets/img/signInImage.png";
 import { useNavigate } from 'react-router-dom';
+import signInImage from "../../assets/img/signInImage.jpg";
 
 // Custom Components
 import GradientBorder from "../GradientBorder/GradientBorder";
@@ -229,7 +229,6 @@ export default function SignIn() {
           mx={{ base: "auto", lg: "unset" }}
           ms={{ base: "auto", lg: "auto" }}
           mb='80px'>
-          {/*<AuthFooter />*/}
         </Box>
         <Box
           display={{ base: "none", lg: "block" }}

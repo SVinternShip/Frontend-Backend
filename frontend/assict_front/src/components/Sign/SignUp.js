@@ -37,10 +37,8 @@ import {
 import GradientBorder from "../GradientBorder/GradientBorder";
 
 // Assets
-import signUpImage from "../../assets/img/signUpImage.png";
 import axios from "axios";
-// import img from "../../assets/img/new/img.png";
-
+import signUpImage from "../../assets/img/signUpImage.jpg";
 
 
 export default function SignUp() {
