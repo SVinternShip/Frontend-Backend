@@ -37,7 +37,6 @@ import signInImage from "../../assets/img/signInImage.png";
 import { useNavigate } from 'react-router-dom';
 
 // Custom Components
-import AuthFooter from "../Footer/AuthFooter";
 import GradientBorder from "../GradientBorder/GradientBorder";
 
 

@@ -1,22 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
-  Tr,
-  Td,
   Flex,
   Text,
-  Progress,
-  Icon,
-  Button,
   Box,
-  useColorModeValue,
-  Badge,
-  Img,
-  FormControl,
-  FormLabel,
-  Table,
-  Thead,
-  Th,
-  Tbody,
 } from "@chakra-ui/react";
 import CardHeader from "../Card/CardHeader";
 import CardBody from "../Card/CardBody";

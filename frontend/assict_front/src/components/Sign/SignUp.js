@@ -33,16 +33,13 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
-// Icons
-import { FaApple, FaFacebook, FaGoogle } from "react-icons/fa";
 // Custom Components
-import AuthFooter from "../Footer/AuthFooter";
 import GradientBorder from "../GradientBorder/GradientBorder";
 
 // Assets
 import signUpImage from "../../assets/img/signUpImage.png";
 import axios from "axios";
-
+// import img from "../../assets/img/new/img.png";
 
 
 
@@ -373,7 +370,6 @@ export default function SignUp() {
           mx={{ base: "auto", lg: "unset" }}
           ms={{ base: "auto", lg: "auto" }}
           mb='90px'>
-          {/*<AuthFooter />*/}
         </Box>
         <Box
           display={{ base: "none", lg: "block" }}

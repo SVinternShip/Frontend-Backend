@@ -1,21 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
-  Tr,
-  Td,
-  Flex,
-  Text,
-  Progress,
-  Icon,
-  Button,
   Box,
-  useColorModeValue,
-  Badge,
-  Img,
-  FormControl,
-  FormLabel,
 } from "@chakra-ui/react";
 
-//Q: null값일때는 고려 안 하는 건가?
 function get_prediction_result(prediction) {
   if (prediction === true) {
     return (

@@ -22,17 +22,13 @@ import {
     Flex,
     Text,
     Progress,
-    Icon,
-    Button,
     useColorModeValue, Badge,
 } from "@chakra-ui/react";
-import { FaPlayCircle } from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
 
-//// <Icon as={logo} h={"20px"} w={"20px"} me='18px' />
+
 function DashboardTableRow(props) {
   const { patient_result_id, name, status, date,time, progression, lastItem } = props;
-  const textColor = useColorModeValue("gray.700", "white");
   const colorStatus = useColorModeValue("white", "gray.400");
   const navigate=useNavigate();
 

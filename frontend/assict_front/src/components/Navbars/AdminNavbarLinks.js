@@ -1,13 +1,10 @@
 // Chakra Icons
-import { BellIcon, SearchIcon } from "@chakra-ui/icons";
+import { BellIcon } from "@chakra-ui/icons";
 // Chakra Imports
 import {
   Button,
   Flex,
-  IconButton,
-  Input,
   InputGroup,
-  InputLeftElement,
   Menu,
   MenuButton,
   MenuItem,
@@ -19,13 +16,12 @@ import avatar1 from "../../assets/img/avatars/avatar1.png";
 import avatar2 from "../../assets/img/avatars/avatar2.png";
 import avatar3 from "../../assets/img/avatars/avatar3.png";
 // Custom Icons
-import { ProfileIcon, SettingsIcon } from "../Icons/Icons";
+import { ProfileIcon } from "../Icons/Icons";
 // Custom Components
 import { ItemContent } from "../Menu/ItemContent";
 import { SidebarResponsive } from "../Sidebar/Sidebar";
 import PropTypes from "prop-types";
-import React, {useEffect} from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import React from "react";
 import routes from "../../routes.js";
 
 function SignOut(){
@@ -45,15 +41,12 @@ export default function HeaderLinks(props) {
 
   // Chakra Color Mode
   let inputBg = "#0F1535";
-  let mainText = "gray.400";
   let navbarIcon = "white";
-  let searchIcon = "white";
 
   if (secondary) {
     navbarIcon = "white";
-    mainText = "white";
   }
-  const settingsRef = React.useRef();
+
   return (
     <Flex
       pe={{ sm: "0px", md: "16px" }}
@@ -73,7 +66,6 @@ export default function HeaderLinks(props) {
 
 
       </InputGroup>
-      {/*<NavLink>*/}
         <Button
           ms='0px'
           px='0px'
@@ -97,13 +89,11 @@ export default function HeaderLinks(props) {
           <Text onClick={()=>SignOut()}
                 display={"flex"}>Sign Out</Text>
         </Button>
-      {/*</NavLink>*/}
       <SidebarResponsive
         iconColor='gray.500'
         logoText={props.logoText}
         secondary={props.secondary}
         routes={routes}
-        // logo={logo}
         {...rest}
       />
       

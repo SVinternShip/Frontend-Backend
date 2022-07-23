@@ -1,21 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Box, ChakraProvider, Flex, Portal, Text } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Box, ChakraProvider } from "@chakra-ui/react";
 import theme from "../../theme/themeAuth";
-import AuthNavbar from "../../components/Navbars/AuthNavbar";
 import Result from "../../components/Result/Result";
-import { useParams } from "react-router-dom";
-import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import dashRoutes from "../../routes";
-import AdminNavbar from "../../components/Navbars/AdminNavbar";
 import Configurator from "../../components/Configurator/Configurator";
 import MainPanel from "../../components/Layout/MainPanel";
 import PanelContainer from "../../components/Layout/PanelContainer";
 import PanelContent from "../../components/Layout/PanelContent";
-import Card from "../../components/Card/Card";
-import CardHeader from "../../components/Card/CardHeader";
-import CardBody from "../../components/Card/CardBody";
-import Dropzone from "../../components/FileUpload/Dropzone";
 
 function ResultPage(props) {
   const [sidebarVariant, setSidebarVariant] = useState("transparent");
@@ -41,7 +33,7 @@ function ResultPage(props) {
     <ChakraProvider theme={theme} resetCss={false} w="100%">
       <Sidebar
         routes={dashRoutes}
-        logoText={"YOUR PERSONAL ASSISTANT"}
+        logoText={"YOUR PERSONAL ASSICTANT"}
         display="none"
         sidebarVariant={sidebarVariant}
         {...rest}
@@ -53,16 +45,6 @@ function ResultPage(props) {
           xl: "calc(100% - 275px)",
         }}
       >
-        {/*<Portal>*/}
-        {/*  <AdminNavbar*/}
-        {/*    onOpen={onOpen}*/}
-        {/*    logoText={"YOUR PERSONAL ASSISTANT"}*/}
-        {/*    brandText={"Results"} //제목 들어갈 부분*/}
-        {/*    secondary={false}*/}
-        {/*    fixed={fixed}*/}
-        {/*    {...rest}*/}
-        {/*  />*/}
-        {/*</Portal>*/}
         <PanelContent>
           <PanelContainer pt={"16px"}>
             <Box ref={navRef} w="100%">

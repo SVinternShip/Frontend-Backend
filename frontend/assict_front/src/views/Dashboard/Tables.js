@@ -23,7 +23,6 @@ import {
   Flex,
   Table,
   Tbody,
-  Icon,
   Text,
   Th,
   Thead,
@@ -38,13 +37,7 @@ import CardBody from "../../components/Card/CardBody.js";
 import axios from 'axios';
 // Table Components
 import TablesProjectRow from "../../components/Tables/TablesProjectRow";
-import TablesTableRow from "../../components/Tables/TablesTableRow";
 
-// Data
-import { tablesProjectData, tablesTableData } from "../../variables/general";
-
-// Icons
-import { AiFillCheckCircle } from "react-icons/ai";
 
 function DrawTableRow(props){
   const tableRowData = props.data

@@ -18,7 +18,6 @@ import {
 import IconBox from "../../components/Icons/IconBox";
 import { SimmmpleLogoWhite } from "../../components/Icons/Icons";
 import { Separator } from "../../components/Separator/Separator";
-import { SidebarHelp } from "../../components/Sidebar/SidebarHelp";
 import PropTypes from "prop-types";
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";

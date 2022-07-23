@@ -1,54 +1,24 @@
 import React, { useEffect, useState } from "react";
 import {
-  Button,
-  ButtonGroup,
-  ChakraProvider,
-  Editable,
-  EditableInput,
-  EditablePreview,
-  Flex,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  IconButton,
-  Input,
-  Portal,
   Spacer,
   Table,
   Tbody,
   Text,
   Th,
   Thead,
-  Grid,
   Box,
-  GridItem,
   Tr,
-  useEditableControls,
   WrapItem,
   Wrap,
 } from "@chakra-ui/react";
-import theme from "../../theme/themeAdmin";
-import Sidebar from "../Sidebar/Sidebar";
-import dashRoutes from "../../routes";
-import MainPanel from "../Layout/MainPanel";
-import AdminNavbar from "../Navbars/AdminNavbar";
-import PanelContent from "../Layout/PanelContent";
-import PanelContainer from "../Layout/PanelContainer";
-import Configurator from "../Configurator/Configurator";
-// import {useParams} from "react-router-dom";
 import axios from "axios";
 import Card from "../Card/Card";
-import { useStyles } from "@chakra-ui/react";
 import CardBody from "../Card/CardBody";
-import TablesProjectRow from "../Tables/TablesProjectRow";
 import CardHeader from "../Card/CardHeader";
-import { toVarReference } from "@chakra-ui/system";
 import ResultProjectRow from "./ResultProjectRow";
 import CtImageInfo from "./CtImageInfo";
 import NoteWithButton from "./Note";
 import PatientInfoRow from "./PatientInfoRow";
-import { CheckIcon, CloseIcon, EditIcon } from "@chakra-ui/icons";
-import { Separator } from "../Separator/Separator";
 import CtImageBox from "./CtImageBox";
 
 function DrawRow(props) {

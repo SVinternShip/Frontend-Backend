@@ -24,7 +24,6 @@ import {
   BreadcrumbLink,
   Flex,
   Link,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -64,11 +63,6 @@ export default function AdminNavbar(props) {
     }
   if (props.secondary) {
     navbarBackdrop = "blur(42px)";
-    // navbarPosition = "absolute";
-    // mainText = "white";
-    // secondaryText = "white";
-    // secondaryMargin = "22px";
-    // paddingX = "30px";
   }
   const changeNavbar = () => {
     if (window.scrollY > 1) {

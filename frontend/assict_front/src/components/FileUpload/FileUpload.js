@@ -2,26 +2,11 @@ import React, {useState} from "react";
 
 // Chakra imports
 import {
-  Flex,
-  Table,
-  Tbody,
-  Icon,
-  Text,
-  Grid,
-  Th,
-  Thead,
-  Tr,
-  Spacer,
-  SimpleGrid,
   ChakraProvider,
     Portal,
 } from "@chakra-ui/react";
 
-import medusa from "../../assets/img/cardimgfree.png";
 // Custom components
-import Card from "../../components/Card/Card.js";
-import CardHeader from "../../components/Card/CardHeader.js";
-import CardBody from "../../components/Card/CardBody.js";
 import Sidebar from "../../components/Sidebar/Sidebar.js";
 import MainPanel from "../../components/Layout/MainPanel";
 import PanelContainer from "../../components/Layout/PanelContainer";
@@ -43,7 +28,7 @@ function FileUpload(props) {
     <ChakraProvider theme={theme} resetCss={false}>
         <Sidebar
             routes={dashRoutes}
-            logoText={"YOUR PERSONAL ASSISTANT"}
+            logoText={"YOUR PERSONAL ASSICTANT"}
             display='none'
             sidebarVariant={sidebarVariant}
             {...rest}
@@ -56,7 +41,7 @@ function FileUpload(props) {
             <Portal>
               <AdminNavbar
                 onOpen={onOpen}
-                logoText={"YOUR PERSONAL ASSISTANT"}
+                logoText={"YOUR PERSONAL ASSICTANT"}
                 brandText={'File Upload'} //제목 들어갈 부분
                 secondary={false}
                 fixed={fixed}

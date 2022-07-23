@@ -10,24 +10,18 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {
     Tr,
     Td,
     Flex,
     Text,
-    Progress,
-    Icon,
-    Button,
-    useColorModeValue, Badge, Img, FormControl, FormLabel,
 } from "@chakra-ui/react";
 
 
 function DashboardTableRow1(props) {
     let { dateAndTime, ct_result_id,predict, fileName, index, changeClickedImg } = props;
-  const { patient_result_id, name, status, progression, lastItem } = props;
-  const textColor = useColorModeValue("gray.700", "white");
-  const colorStatus = useColorModeValue("white", "gray.400");
+  const { lastItem } = props;
 
     let date=dateAndTime.split("T")[0];
     let time=dateAndTime.split("T")[1];
@@ -45,7 +39,6 @@ function DashboardTableRow1(props) {
   return (
     <Tr bg={colorChange(predict)}
         fontWeight="bold" onClick={event=>{
-            // event.preventDefault();
             event.preventDefault()
             changeClickedImg(index)
         }}>
@@ -62,7 +55,6 @@ function DashboardTableRow1(props) {
       <Td
         ps='0px'
         borderBottomColor='#56577A'
-        // border={lastItem ? "none" : null}
       >
         <Flex alignItems='center' py='.8rem' minWidth='100%' flexWrap='nowrap'>
           <Text fontSize='sm' color='#fff' minWidth='100%'>
@@ -73,7 +65,6 @@ function DashboardTableRow1(props) {
         <Td
         ps='0px'
         borderBottomColor='#56577A'
-        // border={lastItem ? "none" : null}
               >
         <Flex alignItems='center' py='.8rem' minWidth='100%' flexWrap='nowrap'>
           <Text fontSize='sm' color='#fff' minWidth='100%'>

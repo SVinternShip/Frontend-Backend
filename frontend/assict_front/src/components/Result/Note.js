@@ -1,22 +1,10 @@
 import React, { useEffect, useState } from "react";
 import {
-  Tr,
   Spacer,
   Flex,
-  Text,
-  Progress,
-  Icon,
   Button,
   Box,
   useToast,
-  useColorModeValue,
-  Badge,
-  Img,
-  FormControl,
-  FormLabel,
-  EditablePreview,
-  EditableInput,
-  Editable,
   Textarea,
 } from "@chakra-ui/react";
 import axios from "axios";

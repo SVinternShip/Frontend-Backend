@@ -19,24 +19,22 @@
 // Chakra Imports
 import {
   Box,
-  Button,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
   DrawerHeader,
   Flex,
-  Link,
   Switch,
   Text,
   DarkMode,
   LightMode,
 } from "@chakra-ui/react";
-import GitHubButton from "react-github-btn";
+
 import { Separator } from "../Separator/Separator";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import { FaTwitter, FaFacebook } from "react-icons/fa";
+
 
 export default function Configurator(props) {
   const { secondary, isOpen, onClose, fixed, ...rest } = props;
@@ -47,8 +45,6 @@ export default function Configurator(props) {
   if (props.secondary) {
     fixedDisplay = "none";
   }
-  let colorButton = "white";
-  const secondaryButtonColor = "white";
   const settingsRef = React.useRef();
   return (
     <>

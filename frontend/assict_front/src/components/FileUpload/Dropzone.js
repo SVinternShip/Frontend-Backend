@@ -1,4 +1,4 @@
-import React, {UseState} from 'react';
+import React from 'react';
 import {useDropzone} from 'react-dropzone';
 import { useNavigate } from 'react-router-dom';
 import {Text, Button, Grid, GridItem , Box} from "@chakra-ui/react";
@@ -30,7 +30,7 @@ function upLoadDcm(file,token, patient_result_id){
 
 
 function Dropzone(props) {
-  const {getRootProps, getInputProps, open, acceptedFiles} = useDropzone({
+  const {getRootProps, getInputProps, acceptedFiles} = useDropzone({
     noClick: false,
     noKeyboard: true
   });

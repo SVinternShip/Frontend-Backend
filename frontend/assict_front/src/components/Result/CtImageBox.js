@@ -1,27 +1,12 @@
 import React, { useState } from "react";
 import {
-    Tr,
-    Td,
-    Flex,
     Text,
-    Progress,
-    Icon,
-    Button,
-    useColorModeValue,
-    Badge,
-    Img,
     Box,
     Image, Spinner,
 } from "@chakra-ui/react";
-import { FaPlayCircle } from "react-icons/fa";
-import Card from "../Card/Card";
-import CardBody from "../Card/CardBody";
-// import {useNavigate} from "react-router-dom";
 
 function CtImageBox(props) {
   const { original_image, lime_image } = props;
-  const textColor = useColorModeValue("gray.700", "white");
-  const colorStatus = useColorModeValue("white", "gray.400");
 
   const [imgMode, setMode] = useState("lime");
 
