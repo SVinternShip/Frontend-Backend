@@ -15,14 +15,11 @@ function NoteWithButton(props) {
 
   let [inputNote, setInputNote] = React.useState("");
   useEffect(() => {
-    console.log("Note")
-    console.log(note)
 
     setInputNote(note);
   }, [note]);
   let handleInputChange = (e) => {
     let inputValue = e.target.value;
-    console.log(inputValue);
     setInputNote(inputValue);
   };
 

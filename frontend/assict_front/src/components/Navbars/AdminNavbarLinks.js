@@ -26,8 +26,6 @@ import routes from "../../routes.js";
 
 function SignOut(){
     window.localStorage.clear();
-    console.log(window.localStorage.getItem('token'))
-    console.log('clicked')
 
     if (window.localStorage.getItem('token') == null){
            window.location.replace("/signin")

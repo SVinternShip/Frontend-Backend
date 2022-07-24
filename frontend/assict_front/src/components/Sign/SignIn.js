@@ -49,7 +49,6 @@ export default function SignIn() {
   function checkToken(){
     if (window.localStorage.getItem('token') !== null) //token값이 존재하면 로그인이 되었다고 판단
     {
-      console.log("@@@@")
       navigate("/home/tables");
     }
   }

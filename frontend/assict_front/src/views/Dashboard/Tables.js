@@ -84,7 +84,6 @@ function Tables() {
   const toast = useToast()
 
   useEffect(() => {
-    console.log(window.localStorage.getItem('token'))
     const token = 'JWT ' + window.localStorage.getItem('token')
     let endpoint = "wss://assict.r-e.kr/ws/alarm/"
 
@@ -97,7 +96,6 @@ function Tables() {
     };
 
     socket.onmessage = (evt) => {
-      console.log(evt)
       const data = evt.data
       toast({
         title: '분석 완료',
@@ -107,7 +105,6 @@ function Tables() {
         duration: 9000,
         isClosable: true,
       })
-      console.log(data);
     };
 
     const fetchData = async () => {

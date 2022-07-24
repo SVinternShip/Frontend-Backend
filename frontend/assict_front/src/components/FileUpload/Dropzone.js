@@ -20,10 +20,8 @@ function upLoadDcm(file,token, patient_result_id){
   };
   axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
       })
       .catch(function (error) {
-        console.log(error);
       });
 }
 
@@ -42,7 +40,6 @@ function Dropzone(props) {
       return
     }
     const token = 'JWT ' + window.localStorage.getItem('token')
-    console.log(token)
     let config = {
       "method": 'post',
       "url": '/api/ct/patientResult',
@@ -53,7 +50,6 @@ function Dropzone(props) {
 
     try{
       const response = await axios(config)
-      console.log(response)
       let patient_result_id = response.data['id']
       for(let i=0; i<current_files.length;i++){
         upLoadDcm(current_files[i], token, patient_result_id)

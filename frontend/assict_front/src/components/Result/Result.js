@@ -121,7 +121,6 @@ export default function Result(props) {
   const [currentClickedImgInfo, setcurrentClickedImgInfo] = useState([null]);
 
   const changeClickedImg = (value) => {
-    console.log(org_images.length, lime_images.length)
     setcurrentClickedOrg(org_images[value]);
     setcurrentClickedLime(lime_images[value]);
 
@@ -196,7 +195,6 @@ export default function Result(props) {
             }
           );
           //이미지 출력용 setState
-          console.log("CALL AXIOS");
           const OrgObjectURL = URL.createObjectURL(original_res.data);
           const LimeObjectURL = URL.createObjectURL(lime_res.data);
 
