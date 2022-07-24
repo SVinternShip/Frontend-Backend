@@ -1,6 +1,6 @@
 import tempfile
 from datetime import datetime
-
+import environ
 from django.http import Http404, FileResponse
 from django.views.decorators.csrf import csrf_exempt
 from google.cloud import storage
@@ -15,7 +15,8 @@ from ..models.ctResult import CtResult
 from ..models.patientResult import PatientResult
 from ..serializer.serializer import CtResultSerializer
 
-bucket_name = 'sv_internship_image'  # 서비스 계정 생성한 bucket 이름 입력
+env = environ.Env()
+bucket_name = env('BUCKET_NAME')  # 서비스 계정 생성한 bucket 이름 입력
 storage_client = storage.Client()
 bucket = storage_client.bucket(bucket_name)
 
