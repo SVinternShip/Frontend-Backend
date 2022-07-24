@@ -1,6 +1,11 @@
 version: '3'
 
 services:
+  redis:
+    container_name: redis
+    image: redis:alpine
+    ports:
+    - "6379:6379"
   backend:
     container_name: assict_backend
     build:
@@ -8,7 +13,9 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - static:/static
+      - static:/django_static
+    depends_on:
+      - redis
   frontend:
     build:
       context: frontend/assict_front
@@ -24,7 +31,7 @@ services:
       - build_folder:/var/www/frontend
       - ./ssl-certification/data/certbot/conf:/etc/letsencrypt    # nginx컨테이너에 certbot컨테이너 연결
       - ./ssl-certification/data/certbot/www:/var/www/certbot
-      - static:/static
+      - static:/django_static
     depends_on:
       - backend
       - frontend

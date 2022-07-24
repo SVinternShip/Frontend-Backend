@@ -5,10 +5,14 @@ django-environ
 django-prometheus==1.0.15
 google-cloud-storage==2.4.0
 django-cors-headers==3.13.0
+djangorestframework-simplejwt==5.2.0
 djangorestframework-jwt==1.11.0
 django-rest-authtoken==2.1.4
 django-rest-auth==0.9.5
 django-allauth==0.51.0
-gunicorn==20.1.0
 drf-yasg==1.21.3
+channels==3.0.1
+channels-redis==3.4.1
+asgiref==3.5.2
+daphne==3.0.2
 wheel

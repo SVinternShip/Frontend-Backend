@@ -10,13 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from pathlib import Path
-import environ
-import os
 import datetime
+from pathlib import Path
+
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-from django.conf.global_settings import DATETIME_FORMAT, DATETIME_INPUT_FORMATS
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
@@ -37,8 +36,10 @@ ALLOWED_HOSTS = [env('ALLOWED_HOSTS')]
 AUTH_USER_MODEL = 'doctor.Doctor'
 
 INSTALLED_APPS = [
+    'channels',
     'doctor',
     'ct',
+    'alarm',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -100,7 +101,7 @@ SWAGGER_SETTINGS = {
     }
 }
 
-WSGI_APPLICATION = 'config.wsgi.application'
+ASGI_APPLICATION = 'config.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -149,8 +150,8 @@ DATETIME_INPUT_FORMATS = ['%Y-%m-%dT%H:%M:%S']
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = '/static/'
+STATIC_URL = '/django_static/'
+STATIC_ROOT = '/django_static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -181,6 +182,15 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
+}
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [(env('REDIS_SERVER'), env('REDIS_PORT'))],
+        },
+    },
 }
 
 MIDDLEWARE = \

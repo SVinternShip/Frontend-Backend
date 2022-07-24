@@ -27,7 +27,7 @@ import {
   Th,
   Thead,
   Tr,
-  Spinner
+  Spinner, useToast
 } from "@chakra-ui/react";
 
 // Custom components
@@ -81,9 +81,35 @@ function DrawTableRow(props){
 
 function Tables() {
   const [data, setData] = useState({ hits: [] });
+  const toast = useToast()
 
   useEffect(() => {
+    console.log(window.localStorage.getItem('token'))
     const token = 'JWT ' + window.localStorage.getItem('token')
+    let endpoint = "wss://assict.r-e.kr/ws/alarm/"
+
+// Create new WebSocket
+    const socket = new WebSocket(endpoint + "?token=" +window.localStorage.getItem('token'))
+
+
+    socket.onopen = function (event) {
+      console.log("Websocket Connected!")
+    };
+
+    socket.onmessage = (evt) => {
+      console.log(evt)
+      const data = evt.data
+      toast({
+        title: '분석 완료',
+        position: 'top',
+        description: evt.data + " 환자분의 분석이 완료되었습니다.",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      })
+      console.log(data);
+    };
+
     const fetchData = async () => {
       const result = await axios.get("/api/ct/patientResult/order/createdDate", {
         "headers": {
@@ -93,6 +119,10 @@ function Tables() {
       setData(result.data);
     };
     fetchData();
+
+    return () => {
+      socket.close()
+    };
   }, []);
 
   return (

@@ -2,7 +2,9 @@ from rest_framework import serializers
 from ..models.patientResult import PatientResult
 from ..models.ctResult import CtResult
 from ..models.ctImage import *
-
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+channel_layer = get_channel_layer()
 
 class CtImageSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,6 +30,9 @@ class CtResultSerializer(serializers.ModelSerializer):
         patient_result = PatientResult.objects.get(pk=patient_id)
         patient_result.patientName = patientName
         patient_result.increase_complete_dcm()
+        if patient_result.total_dcm <= patient_result.complete_dcm:
+            async_to_sync(channel_layer.group_send)(str(patient_result.user.id), {"type": "chat.message", "text": str(patient_result.patientName)})
+
         ctResult = CtResult.objects.create(ct_img=ct_img, patient_result=patient_result,fileName=fileName,
                                            prediction=prediction, studyDate=studyDate)
 
