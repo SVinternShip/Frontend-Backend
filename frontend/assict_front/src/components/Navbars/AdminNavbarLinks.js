@@ -1,24 +1,14 @@
-// Chakra Icons
-import { BellIcon } from "@chakra-ui/icons";
+
 // Chakra Imports
 import {
   Button,
   Flex,
   InputGroup,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Text,
 } from "@chakra-ui/react";
-// Assets
-import avatar1 from "../../assets/img/avatars/avatar1.png";
-import avatar2 from "../../assets/img/avatars/avatar2.png";
-import avatar3 from "../../assets/img/avatars/avatar3.png";
 // Custom Icons
 import { ProfileIcon } from "../Icons/Icons";
 // Custom Components
-import { ItemContent } from "../Menu/ItemContent";
 import { SidebarResponsive } from "../Sidebar/Sidebar";
 import PropTypes from "prop-types";
 import React from "react";
@@ -94,81 +84,6 @@ export default function HeaderLinks(props) {
         routes={routes}
         {...rest}
       />
-      
-      <Menu>
-        <MenuButton align='center'>
-          <BellIcon color={navbarIcon} mt='-4px' w='18px' h='18px'marginLeft="15px"/>
-        </MenuButton>
-
-        <MenuList
-          border='transparent'
-          backdropFilter='blur(63px)'
-          bg='linear-gradient(127.09deg, rgba(6, 11, 40, 0.94) 19.41%, rgba(10, 14, 35, 0.69) 76.65%)'
-          borderRadius='20px'>
-          <Flex flexDirection='column'>
-            <MenuItem
-              borderRadius='8px'
-              _hover={{
-                bg: "transparent",
-              }}
-              _active={{
-                bg: "transparent",
-              }}
-              _focus={{
-                bg: "transparent",
-              }}
-              mb='10px'>
-              <ItemContent
-                time='13 minutes ago'
-                info='from Alicia'
-                boldInfo='New Message'
-                aName='Alicia'
-                aSrc={avatar1}
-              />
-            </MenuItem>
-            <MenuItem
-              borderRadius='8px'
-              _hover={{
-                bg: "transparent",
-              }}
-              _active={{
-                bg: "transparent",
-              }}
-              _focus={{
-                bg: "transparent",
-              }}
-              _hover={{ bg: "transparent" }}
-              mb='10px'>
-              <ItemContent
-                time='2 days ago'
-                info='by Josh Henry'
-                boldInfo='New Album'
-                aName='Josh Henry'
-                aSrc={avatar2}
-              />
-            </MenuItem>
-            <MenuItem
-              borderRadius='8px'
-              _hover={{
-                bg: "transparent",
-              }}
-              _active={{
-                bg: "transparent",
-              }}
-              _focus={{
-                bg: "transparent",
-              }}>
-              <ItemContent
-                time='3 days ago'
-                info='Payment succesfully completed!'
-                boldInfo=''
-                aName='Kara'
-                aSrc={avatar3}
-              />
-            </MenuItem>
-          </Flex>
-        </MenuList>
-      </Menu>
     </Flex>
   );
 }
