@@ -16,8 +16,6 @@
     Then just run init-lensencrypt.sh with sudo. 
     
     When docker composed, a data folde is generated and an ssl certificate is automatically issued.
-
-    Enter nginx.conf, and enter your domain as well.
   
   
 ### *Two DB Declarations* 
