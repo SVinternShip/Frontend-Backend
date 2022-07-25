@@ -5,7 +5,7 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=assict.r-e.kr
+domains=assict.kro.kr
 rsa_key_size=4096
 data_path="./data/certbot"
 email="xcvdsf8216@gmail.com" # Adding a valid address is strongly recommended
