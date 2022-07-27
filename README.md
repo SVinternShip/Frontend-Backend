@@ -15,6 +15,10 @@
 
 ## 1. Prerequisites
 
+Our service was created through the AI Application Development by Silicon Valley Engineering program organized by Headstart Silicon Valley.
+http://www.learnflagly.com/courses/347/
+
+
 ### *Issuing SSL Certificates for HTTPS*
 
     You must first obtain ssl authentication to run https.
