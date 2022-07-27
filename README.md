@@ -59,4 +59,19 @@
 Finally, go to the top-level folder and type the command below in the terminal.
     
     docker-compose up --build -d
+    
+    
+    
+### *Pages by port*
 
+####prometheus  - (host):9090
+![image](https://user-images.githubusercontent.com/53938323/181163124-12b7092c-5b3c-4793-addd-18baad36bd08.png)
+####grafana - (host):3000
+![image](https://user-images.githubusercontent.com/53938323/181163151-de6c168f-a266-4792-b28b-618a9d5afb6b.png)
+####web - (host)
+![image](https://user-images.githubusercontent.com/53938323/181163082-98fbd1e5-5176-4e93-a55e-b7551aced112.png)
+####swagger - (host)/api/swagger
+![image](https://user-images.githubusercontent.com/53938323/181163058-0baff6e9-f2d9-41b2-b610-68975d097917.png)
+--------------------------------------------------
+####celery - (host):5555
+![image](https://user-images.githubusercontent.com/53938323/181163021-a398b9c9-e742-4b8d-9e33-30521a89fd48.png)
