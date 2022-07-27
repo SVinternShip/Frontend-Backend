@@ -5,7 +5,7 @@
 # Frontend & Backend
 
 ## Index
-- [Lego2me](#lego2me)
+- [SVinternShip](#SVinternShip)
   - [1. Prerequisites](#1-prerequisites)
   - [2. Installation Process](#2-installation-process)
   - [3. Getting Started](#3-getting-started)
