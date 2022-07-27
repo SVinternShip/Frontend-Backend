@@ -153,3 +153,9 @@ Finally, go to the top-level folder and type the command below in the terminal.
 --------------------------------------------------
 #### celery - (host):5555
 ![image](https://user-images.githubusercontent.com/53938323/181163021-a398b9c9-e742-4b8d-9e33-30521a89fd48.png)
+
+## 5. Copyrights / End User Licesnse
+
+This project is not intended for commercial use, please do not use it for commercial purposes.
+
+## 6. Contact Information
