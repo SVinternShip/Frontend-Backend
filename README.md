@@ -25,6 +25,9 @@ $ git clone https://github.com/SVinternShip/Frontend-Backend.git
 $ docker-compose up --build -d
 ```
 
+## 3. Getting Started
+- If you are running in your own server, modify domain.
+
 ### *Issuing SSL Certificates for HTTPS*
 
     You must first obtain ssl authentication to run https.
