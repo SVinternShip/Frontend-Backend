@@ -82,8 +82,63 @@ $ docker-compose up --build -d
 Finally, go to the top-level folder and type the command below in the terminal.
     
     docker-compose up --build -d
-    
-    
+
+
+## 4. File Manifest && API
+```
+├─alertmanager
+│  └─templates
+├─backend
+│  └─assiCT_api_server
+│      ├─alarm
+│      │  └─migrations
+│      ├─config
+│      ├─ct
+│      │  ├─api
+│      │  ├─migrations
+│      │  ├─models
+│      │  └─serializer
+│      └─doctor
+│          ├─migrations
+│          ├─models
+│          └─serializer
+├─frontend
+│  └─assict_front
+│      ├─public
+│      └─src
+│          ├─assets
+│          │  └─img
+│          ├─components
+│          │  ├─Card
+│          │  ├─Configurator
+│          │  ├─FileUpload
+│          │  ├─Footer
+│          │  ├─GradientBorder
+│          │  ├─Icons
+│          │  ├─Layout
+│          │  ├─Navbars
+│          │  ├─Result
+│          │  ├─Separator
+│          │  ├─Sidebar
+│          │  ├─Sign
+│          │  └─Tables
+│          ├─theme
+│          │  ├─additions
+│          │  │  ├─card
+│          │  │  └─layout
+│          │  ├─components
+│          │  └─foundations
+│          └─views
+│              ├─Dashboard
+│              └─pages
+├─grafana
+│  └─provisioning
+│      ├─dashboards
+│      └─datasources
+├─nginx
+├─prometheus
+└─ssl-certification
+```    
     
 ### *Pages by port*
 
