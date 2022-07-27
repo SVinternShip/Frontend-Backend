@@ -21,6 +21,7 @@ services:
       context: frontend/assict_front
     volumes:
       - build_folder:/frontend/build
+    command: npm run build
   nginx:
     container_name: assict_nginx
     build: nginx

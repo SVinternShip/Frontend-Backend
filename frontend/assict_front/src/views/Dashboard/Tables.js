@@ -85,7 +85,7 @@ function Tables() {
 
   useEffect(() => {
     const token = 'JWT ' + window.localStorage.getItem('token')
-    let endpoint = "wss://assict.kro.kr/ws/alarm/"
+    let endpoint = process.env.REACT_APP_SOCKET_HOST
 
 // Create new WebSocket
     const socket = new WebSocket(endpoint + "?token=" +window.localStorage.getItem('token'))
