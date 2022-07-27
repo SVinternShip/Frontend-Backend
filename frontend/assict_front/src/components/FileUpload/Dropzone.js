@@ -42,7 +42,7 @@ function Dropzone(props) {
     const token = 'JWT ' + window.localStorage.getItem('token')
     let config = {
       "method": 'post',
-      "url": '/api/ct/patientResult',
+      "url": '/api/ct/patientResult/total_dcm/'+current_files.length,
       "headers": {
         'Authorization': token
       }
@@ -54,10 +54,11 @@ function Dropzone(props) {
       for(let i=0; i<current_files.length;i++){
         upLoadDcm(current_files[i], token, patient_result_id)
       }
+      navigate("/home/tables")
     }catch (err) {
 
     }
-    navigate("/home/tables")
+
   }
 
   const files = acceptedFiles.map(file => (

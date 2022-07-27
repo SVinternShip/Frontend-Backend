@@ -26,6 +26,25 @@ def order_by_createdDate(user_id):
         raise Http404
 
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def post_patient_result(request, total_dcm_num):
+    '''
+        현재 로그인한 Docter에게 Patient Result 객체 생성
+
+        ___
+        # 내용
+            - 파라미터 : 없음
+    '''
+    try:
+        user = Doctor.objects.get(id=request.user.id)
+        patientResult = PatientResult(user=user, total_dcm=total_dcm_num)
+        patientResult.save()
+        serializer = PatientResultSerializer(patientResult)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    except Doctor.DoesNotExist:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
 @permission_classes([IsAuthenticated])
 class PatientResultList(APIView):
 
@@ -43,24 +62,6 @@ class PatientResultList(APIView):
             return Response(serializer.data)
         except PatientResult.DoesNotExist:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-
-    def post(self, request):
-        '''
-            현재 로그인한 Docter에게 Patient Result 객체 생성
-
-            ___
-            # 내용
-                - 파라미터 : 없음
-        '''
-        try:
-            user = Doctor.objects.get(id=request.user.id)
-            patientResult = PatientResult(user=user)
-            patientResult.save()
-            serializer = PatientResultSerializer(patientResult)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        except Doctor.DoesNotExist:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-
 
 @permission_classes([IsAuthenticated])
 class PatientResultDetail(APIView):

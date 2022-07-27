@@ -1,4 +1,5 @@
 import environ
+from asgiref.sync import sync_to_async
 from django.http import Http404, JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
@@ -17,15 +18,7 @@ def make_dicom_request(files, patient_result_id):
         response = requests.request("POST", "http://"+ml_server_host+"/ct/storeResult", data=payload, files=files)
     except Exception as e:
         raise Exception
-    response = response.json()
-    return response
 
-
-def get_object(id):
-    try:
-        return PatientResult.objects.get(pk=id)
-    except PatientResult.DoesNotExist:
-        raise Http404
 
 def check_file(files):
     if len(files) > 1 or files[0].name.split('.')[-1] != 'dcm':
@@ -47,9 +40,7 @@ def dicom_file_upload(request, patient_result_id):
         if not check_file(request.FILES.getlist('file')):
             return Response("Only one dcm file should be sent", status=status.HTTP_400_BAD_REQUEST)
         try:
-            response = make_dicom_request(request.FILES, patient_result_id)
-            patient_result = get_object(patient_result_id)
-            patient_result.increase_total_dcm()
+            sync_to_async(make_dicom_request(request.FILES, patient_result_id), thread_sensitive=True)
         except Exception as e:
             return Response("Cannot connect to ML server", status=status.HTTP_404_NOT_FOUND)
-    return JsonResponse(response)
+    return Response("File Uploaded", status=status.HTTP_201_CREATED)
