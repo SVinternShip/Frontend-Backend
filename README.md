@@ -21,7 +21,7 @@ http://www.learnflagly.com/courses/347/
 ## 2. Installation Process
 
 ```
-$ git clone https://github.com/sung1san3/Lego2me
+$ git clone https://github.com/SVinternShip/Frontend-Backend.git
 $ docker-compose up --build -d
 ```
 
