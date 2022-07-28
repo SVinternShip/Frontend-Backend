@@ -8,3 +8,5 @@ COPY . .
 RUN yarn global add npm@8.11.0
 
 RUN npm install
+
+RUN ["npm", "run", "build"]
