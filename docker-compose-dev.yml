@@ -2,7 +2,7 @@ version: '3'
 
 services:
   redis:
-    container_name: redis
+    container_name: assict_redis
     image: redis:alpine
     ports:
     - "6379:6379"
@@ -12,41 +12,25 @@ services:
       context: backend/assiCT_api_server
     ports:
       - "8000:8000"
-    volumes:
-      - static:/django_static
+    environment:
+      - DB_HOST=host.docker.internal
+      - REDIS_SERVER=redis
     depends_on:
       - redis
   frontend:
+    container_name: assict_frontend
     build:
       context: frontend/assict_front
-    volumes:
-      - build_folder:/frontend/build
-  nginx:
-    container_name: assict_nginx
-    build: nginx
     ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - build_folder:/var/www/frontend
-      - ./ssl-certification/data/certbot/conf:/etc/letsencrypt    # nginx컨테이너에 certbot컨테이너 연결
-      - ./ssl-certification/data/certbot/www:/var/www/certbot
-      - static:/django_static
+      - "3000:3000"
+    environment:
+      - REACT_APP_SOCKET_HOST=ws://localhost:8000/ws/alarm/
+      - REACT_APP_API_HOST=http://backend:8000/
+    command: npm run start
     depends_on:
       - backend
-      - frontend
-    command : "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-  certbot: # certbot 컨테이너 추가
-    image: certbot/certbot
-    restart: unless-stopped
-    container_name: certbot
-    volumes:
-      - ./ssl-certification/data/certbot/conf:/etc/letsencrypt    # nginx컨테이너에 certbot컨테이너 연결
-      - ./ssl-certification/data/certbot/www:/var/www/certbot
-    depends_on:
-      - nginx
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 volumes:
-  build_folder: null
   static:
+    driver: local
+  db_data:
     driver: local
