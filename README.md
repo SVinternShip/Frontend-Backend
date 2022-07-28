@@ -18,15 +18,64 @@
 Our service was created through the AI Application Development by Silicon Valley Engineering program organized by Headstart Silicon Valley.
 http://www.learnflagly.com/courses/347/
 
+### *DATABASE*
+
+We didn't support any database on Dockerfile.
+So, if you want to test this project you need to declare 2 DB first.
+
+1. Google Cloud Storage Bucket
+2. Postgresql
+
+On *Google Cloud Storage Bucket*, you need access key json file. 
+
+On *Postgresql*, you need Host address, User name/password, Database name. 
+
+### *Two DB Declarations* 
+  
+#### Postgres DB & Bucket Name
+
+    Set DB NAME to DB PORT to your environment in the .env_server, .env_local file.
+    
+    DB_NAME=AssiCT
+    DB_USER=dbmasteruser
+    DB_HOST=ls-be2b7899bb8e4a14b10c9b048a594941c00a2e35.cd0wtijqfgih.ap-northeast-2.rds.amazonaws.com
+    DB_PASSWORD=svproject22
+    DB_PORT=5432
+    BUCKET_NAME=#Google storage Bucket Name
+    
+#### Google Storage
+
+    Get the gc_connect.json file and save it with the same name
+    
+    
 ## 2. Installation Process
 
 ```
 $ git clone https://github.com/SVinternShip/Frontend-Backend.git
-$ docker-compose up --build -d
 ```
 
 ## 3. Getting Started
 - If you are running in your own server, modify domain.
+
+### *Running Local for DEV*
+(Optional) After setting DB properly, you need to declare ML server. 
+If you wont, file upload and predict service may not work.
+
+    Set ML_SERVER to your environment in the .env_local file.
+    
+    ML_SERVER=15.164.65.34:5000
+  
+  
+Then, build docker-compose-dev.yml
+```
+$ docker-compose -f docker-compose-dev.yml up --build -d
+```
+
+
+Running on Local environment only for check Django & React.
+
+That means Nginx, Grafana, Promethus.. may not working.
+
 
 ### *Issuing SSL Certificates for HTTPS*
 
@@ -38,28 +87,7 @@ $ docker-compose up --build -d
 
     Then just run init-lensencrypt.sh with sudo. 
     
-    When docker composed, a data folde is generated and an ssl certificate is automatically issued.
-  
-  
-### *Two DB Declarations* 
-
-  And two DBs should be declared.
-  1. Postgres SQL DataBase
-  2. Google Storage
-  
-#### Postgres DB 
-
-    Set DB NAME to DB PORT to your environment in the .env_server file.
-    
-    DB_NAME=AssiCT
-    DB_USER=dbmasteruser
-    DB_HOST=ls-be2b7899bb8e4a14b10c9b048a594941c00a2e35.cd0wtijqfgih.ap-northeast-2.rds.amazonaws.com
-    DB_PASSWORD=svproject22
-    DB_PORT=5432
-    
-#### Google Storage
-
-    Get the gc_connect.json file and save it with the same name
+    When docker composed, a data folder is generated and an ssl certificate is automatically issued.
     
     
 #### Alert Manager
@@ -67,17 +95,15 @@ $ docker-compose up --build -d
     Modify the recipient email information and auth password in config.yml.
     For your information. The auth password is a Google application password, which you want to set according to your settings.
     
-    
-   
 
 ### *FrontEnd*
 
 #### Modify Target domain
 
-    In the setupProxy.js file, modify target to your domain.
+    In the .env.production file, modify target to your domain.
     
     
-### *Finale*
+### *Final*
 
 Finally, go to the top-level folder and type the command below in the terminal.
     
